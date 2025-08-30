@@ -1,0 +1,12 @@
+# Virtual environments for python
+env
+venv
+.env
+.venv
+
+# Data of Daya Bay model
+data
+
+# Binary data
+__pycache__
+*.pyc
