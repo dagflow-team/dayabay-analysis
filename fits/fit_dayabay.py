@@ -31,8 +31,6 @@ if TYPE_CHECKING:
     from dag_modelling.parameters import Parameter
 
 
-set_level(INFO1)
-
 DATA_INDICES = {"model": 0, "loaded": 1}
 
 
@@ -54,6 +52,7 @@ def main(args: Namespace) -> None:
     # to Asimov (output 0) or Real data (output 1).
     storage = model.storage
     storage["nodes.data.proxy"].switch_input(DATA_INDICES[args.data])
+
     parameters_free = storage("parameters.free")
     parameters_constrained = storage("parameters.constrained")
     statistic = storage("outputs.statistic")

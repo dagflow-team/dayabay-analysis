@@ -2,6 +2,7 @@
 
 import numpy as np
 from dag_modelling.core import NodeStorage
+from dgm_fit.minimizer_base import MinimizerBase
 from dag_modelling.parameters import Parameter
 from numpy.typing import NDArray
 from yaml import add_representer
@@ -81,3 +82,30 @@ def convert_numpy_to_lists(src: dict[str, NDArray | dict]) -> None:
             src[key] = value.tolist()
         elif isinstance(value, dict):
             convert_numpy_to_lists(value)
+
+
+def do_fit(minimizer: MinimizerBase, model, is_iterative: bool = False) -> dict:
+    """Do fit procedure obtain iterative statistics.
+
+    Parameters
+    ----------
+    minimizer : MinimizerBase
+        Minimization object.
+    model : model_dayabay_v0x
+        Object of model.
+    is_iterative : bool
+        Minimizable function is iterative statistics or not.
+
+    Returns
+    -------
+    dict
+        Fit result.
+    """
+    fit = minimizer.fit()
+    if is_iterative:
+        for _ in range(4):
+            model.next_sample(mc_parameters=False, mc_statistics=False)
+            fit = minimizer.fit()
+            if not fit["success"]:
+                break
+    return fit
