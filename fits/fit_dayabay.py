@@ -25,7 +25,7 @@ from dgm_dayabay_dev.models import available_models, load_model
 from dgm_fit.iminuit_minimizer import IMinuitMinimizer
 from yaml import dump as yaml_dump
 
-from lib import convert_numpy_to_lists, do_fit, filter_fit, update_dict_parameters
+from fits import convert_numpy_to_lists, do_fit, filter_fit, update_dict_parameters
 
 if TYPE_CHECKING:
     from dag_modelling.parameters import Parameter

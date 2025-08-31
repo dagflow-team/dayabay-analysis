@@ -15,7 +15,7 @@ to install the Daya Bay model.
 ## List of files
 
 - `fits/fit_dayabay.py`: fit of the Daya Bay model with chosen parameters and chi-squared function;
-- `lib/__init__.py`: contains useful functions for fitting and etc.;
+- `fits/__init__.py`: contains useful functions for fitting;
 - `requirements.txt`: contains list of libraries to be installed;
 - `pyproject.toml`: configuration file for linters `black` and `isort`;
 - `.gitignore`: configuration file for ignoring patterns by `git` utility;
