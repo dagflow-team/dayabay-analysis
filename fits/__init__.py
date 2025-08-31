@@ -25,7 +25,7 @@ def update_dict_parameters(
     dict_parameters : dict[str, Parameter]
         Dictionary of parameters.
     groups : list[str]
-        List of groups of parameters to be added to dict_parameters.
+        List of groups of parameters or parameters to be added to dict_parameters.
     model_parameters : NodeStorage
         Storage of model parameters.
 
@@ -34,12 +34,15 @@ def update_dict_parameters(
     None
     """
     for group in groups:
-        dict_parameters.update(
-            {
-                f"{group}.{path}": parameter
-                for path, parameter in model_parameters[group].walkjoineditems()
-            }
-        )
+        if isinstance(model_parameters[group], Parameter):
+            dict_parameters[group] = model_parameters[group]
+        else:
+            dict_parameters.update(
+                {
+                    f"{group}.{path}": parameter
+                    for path, parameter in model_parameters[group].walkjoineditems()
+                }
+            )
 
 
 def filter_fit(src: dict, keys_to_filter: list[str]) -> None:
