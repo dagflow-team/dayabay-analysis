@@ -7,7 +7,7 @@ Example of call
 
 .. code-block:: shell
 
-    ./scripts/fit_dayabay_model.py --version v0e \
+    ./fits/fit_dayabay.py --version v0e \
       --mo "{dataset: b, monte_carlo_mode: poisson, seed: 1}" \
       --chi2 full.pull.chi2p \
       --free-parameters oscprob neutrino_per_fission_factor \
