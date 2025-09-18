@@ -10,3 +10,4 @@ data
 # Binary data
 __pycache__
 *.pyc
+.envrc
