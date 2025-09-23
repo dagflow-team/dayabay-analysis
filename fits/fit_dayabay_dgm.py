@@ -10,8 +10,8 @@ Example of call
     ./fits/fit_dayabay.py --version v0e \
       --mo "{dataset: b, monte_carlo_mode: poisson, seed: 1}" \
       --chi2 full.pull.chi2p \
-      --free-parameters oscprob neutrino_per_fission_factor \
-      --constrained-parameters oscprob detector reactor bkg reactor_anue \
+      --free-parameters survival_probability neutrino_per_fission_factor \
+      --constrained-parameters survival_probability detector reactor background reactor_anue \
       --constrain-osc-parameters \
       --output fit-result.yaml
 """
@@ -21,7 +21,7 @@ from typing import TYPE_CHECKING
 
 from dag_modelling.tools.logger import DEBUG as INFO4
 from dag_modelling.tools.logger import INFO1, INFO2, INFO3, set_level
-from dgm_dayabay_dev.models import available_models, load_model
+from dayabay_model_official import model_dayabay
 from dgm_fit.iminuit_minimizer import IMinuitMinimizer
 from yaml import dump as yaml_dump
 
@@ -41,12 +41,7 @@ def main(args: Namespace) -> None:
         set_level(globals()[f"INFO{args.verbose}"])
 
     # Initialize model
-    model = load_model(
-        args.version,
-        source_type=args.source_type,
-        model_options=args.model_options,
-        parameter_values=args.par,
-    )
+    model = model_dayabay()
 
     # Initialize helpful variables and switch output of model
     # to Asimov (output 0) or Real data (output 1).
@@ -124,12 +119,6 @@ if __name__ == "__main__":
     parser.add_argument("-v", "--verbose", default=0, action="count", help="verbosity level")
 
     model = parser.add_argument_group("model", "model related options")
-    model.add_argument(
-        "--version",
-        default="v0",
-        choices=available_models(),
-        help="model version",
-    )
     model.add_argument(
         "-s",
         "--source-type",
