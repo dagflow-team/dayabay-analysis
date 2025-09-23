@@ -15,8 +15,7 @@ tests:
     - git lfs install --skip-repo
     - pip install --upgrade wheel setuptools pip
     - pip install cython
-    - pip install -e ".[test]"
-    - ipython kernel install --name "python3" --user
+    - pip install -r requirements.txt
     - git clone --depth=1 https://gitlab-ci-token:${CI_JOB_TOKEN}@git.jinr.ru/dag-computing/dayabay-data-all.git
     - ln -s dayabay-data-all/${TEST_DATA_NAME}/hdf5 data
     - coverage run --source=. -m pytest
