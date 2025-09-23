@@ -1,6 +1,4 @@
-MODEL_VERSION=v0e
-DATASET=b
-
+#!/bin/bash
 
 echo "Simple statistic only fit with Pearson's chi-squared function"
 echo "Asimov data (dataset ${DATASET})"

@@ -1,2 +1,4 @@
 dayabay-model-official
 iminuit
+coverage
+pytest
