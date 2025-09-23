@@ -15,11 +15,12 @@ def dump_json(data):
 def dump_yaml(data):
     pass
 
+
 def main(args) -> None:
     model = model_dayabay()
     storage = model.storage
 
-    if args.free_spec:
+    if args.free_spectrum_shape:
         free_parameters = {
             "free." + par.name: par
             for par in filter(
@@ -35,7 +36,7 @@ def main(args) -> None:
                 storage["parameters.free"].walkvalues(),
             )
         }
-    if args.use_hm_unc:
+    if args.use_hubber_mueller_spectral_uncertainties:
         constrained_parameters = {
             "constrained." + par.name: par for par in storage["parameters.constrained"].walkvalues()
         }
@@ -68,13 +69,38 @@ def main(args) -> None:
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("--free-spec", action="store_true", help="Minimize spectrum shape")
     parser.add_argument(
-        "--use-hm-unc",
+        "--free-spectrum-shape", action="store_true", help="Minimize spectrum shape"
+    )
+    parser.add_argument(
+        "--use-hubber-mueller-spectral-uncertainties",
         action="store_true",
         help="Add Hubber-Mueller uncertainties to fit parameters",
     )
-    parser.add_argument("--statistic", default="full.pull.chi2cnp", help="Choose statistic for fit")
+    parser.add_argument(
+        "--statistic",
+        default="full.pull.chi2cnp",
+        choices=[
+            "stat.chi2p_iterative",
+            "stat.chi2n",
+            "stat.chi2p",
+            "stat.chi2cnp",
+            "stat.chi2p_unbiased",
+            "stat.chi2poisson",
+            "full.covmat.chi2p_iterative",
+            "full.covmat.chi2n",
+            "full.covmat.chi2p",
+            "full.covmat.chi2p_unbiased",
+            "full.covmat.chi2cnp",
+            "full.covmat.chi2cnp_alt",
+            "full.pull.chi2p_iterative",
+            "full.pull.chi2p",
+            "full.pull.chi2cnp",
+            "full.pull.chi2p_unbiased",
+            "full.pull.chi2poisson",
+        ],
+        help="Choose statistic for fit",
+    )
     args = parser.parse_args()
 
     main(args)

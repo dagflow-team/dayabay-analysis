@@ -34,7 +34,7 @@ echo "Simple statistic+all systematic fit with Neyman's chi-squared function"
 echo "Observed data (dataset ${DATASET})"
 echo 'Minimization parameters:'
 echo 'Free: $\Delta m^2_{32}$, $sin^2 2\theta_{13}$ and $\xi_i, i = \overline{0, 18}$'
-echo 'where last parametrs are parameters of antineutrino spectra shape'
+echo 'where last parameters are parameters of antineutrino spectra shape'
 echo 'All constrained parameters are used in covariance matrix'
 
 ./fits/fit_dayabay_dgm.py \
@@ -49,7 +49,7 @@ echo "Simple statistic fit with Pearson's unbiased chi-squared function"
 echo "Monte-Carlo data based on Asimov data (dataset ${DATASET})"
 echo 'Minimization parameters:'
 echo 'Free: $\Delta m^2_{32}$, $sin^2 2\theta_{13}$ and $\xi_i, i = \overline{0, 18}$'
-echo 'where last parametrs are parameters of antineutrino spectra shape'
+echo 'where last parameters are parameters of antineutrino spectra shape'
 echo 'All constrained parameters are used in covariance matrix'
 
 ./fits/fit_dayabay_dgm.py \
