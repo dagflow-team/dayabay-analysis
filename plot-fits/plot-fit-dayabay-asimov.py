@@ -17,8 +17,6 @@ if TYPE_CHECKING:
 
     from numpy.typing import NDArray
 
-DATA_INDICES = {"model": 0, "loaded": 1}
-
 
 plt.rcParams.update(
     {
