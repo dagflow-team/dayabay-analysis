@@ -11,25 +11,25 @@ echo 'Minimization parameters: $\Delta m^2_{32}$ and $sin^2 2\theta_{13}$'
   --output fit-stat-chi2p-free_survival_probability.yaml
 
 
-# echo "Simple statistic+reactor systematic fit with Pearson's chi-squared function"
-# echo "Asimov data (dataset ${DATASET})"
-# echo 'Minimization parameters:'
-# echo 'Free: $\Delta m^2_{32}$ and $sin^2 2\theta_{13}$'
-# echo 'Constrained:'
-# echo '- energy resolution: $\sigma_{a}$, $\sigma_{b}$, and $\sigma_{c}$ (3 parameters)'
-# echo '- LSNL: $\zeta^{i}_{\mathrm{LSNL}}$ (4 parameters)'
-# echo '- IAV scaling: $\eta^{\mathrm{AD}}_{\mathrm{IAV}}$ (8 parameters)'
-# echo '- Detector efficiency: $\epsilon^{\mathrm{AD}}$ (8 parameters)'
-# echo '- Detector energy scale:  $\eta^{\mathrm{AD}}$ (8 parameters)'
-#
-# ./fits/fit_dayabay_dgm.py \
-#   --mo "{dataset: ${DATASET}}" \
-#   --chi2 full.pull.chi2p \
-#   --free-parameters survival_probability \
-#   --constrained-parameters detector \
-#   --output fit-syst-chi2p-free_survival_probability-constrained_detector.yaml
-#
-#
+echo "Simple statistic+reactor systematic fit with Pearson's chi-squared function"
+echo "Asimov data (dataset ${DATASET})"
+echo 'Minimization parameters:'
+echo 'Free: $\Delta m^2_{32}$ and $sin^2 2\theta_{13}$'
+echo 'Constrained:'
+echo '- energy resolution: $\sigma_{a}$, $\sigma_{b}$, and $\sigma_{c}$ (3 parameters)'
+echo '- LSNL: $\zeta^{i}_{\mathrm{LSNL}}$ (4 parameters)'
+echo '- IAV scaling: $\eta^{\mathrm{AD}}_{\mathrm{IAV}}$ (8 parameters)'
+echo '- Detector efficiency: $\epsilon^{\mathrm{AD}}$ (8 parameters)'
+echo '- Detector energy scale:  $\eta^{\mathrm{AD}}$ (8 parameters)'
+
+./fits/fit_dayabay_dgm.py \
+  --mo "{dataset: ${DATASET}}" \
+  --chi2 full.pull.chi2p \
+  --free-parameters survival_probability \
+  --constrained-parameters detector \
+  --output fit-syst-chi2p-free_survival_probability-constrained_detector.yaml
+
+
 # echo "Simple statistic+all systematic fit with Neyman's chi-squared function"
 # echo "Observed data (dataset ${DATASET})"
 # echo 'Minimization parameters:'
