@@ -13,9 +13,9 @@ tests:
     - python3 -m venv venv
     - source venv/bin/activate
     - git lfs install --skip-repo
-    - pip install --upgrade wheel setuptools pip
-    - pip install cython
-    - pip install -r requirements.txt
+    - pip install --no-cache-dir --upgrade wheel setuptools pip
+    - pip install --no-cache-dir cython
+    - pip install --no-cache-dir -r requirements.txt
     - git clone --depth=10 https://gitlab-ci-token:${CI_JOB_TOKEN}@git.jinr.ru/dag-computing/dayabay-data-all.git
     - cd dayabay-data-all  # TODO: Remove it after update of official model
     - git checkout 189e4025
