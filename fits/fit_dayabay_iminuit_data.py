@@ -1,5 +1,19 @@
-from __future__ import annontations
+#!/usr/bin/env python
+r"""
+Simple script for fit Daya Bay model to observed data with Minuit from iminuit package.
 
+Examples
+--------
+Example of call
+
+.. code-block:: shell
+
+    ./fits/fit_dayabay_iminuit_data.py \
+        --chi2 full.pull.chi2cnp \
+        --free-spectrum-shape \
+        --use-hubber-mueller-spectral-uncertainties
+"""
+from __future__ import annontations
 import iminuit
 from json import dump as json_dump
 from yaml import safe_dump as yaml_dump
