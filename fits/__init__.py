@@ -94,7 +94,7 @@ def do_fit(minimizer: MinimizerBase, model, is_iterative: bool = False) -> dict:
     ----------
     minimizer : MinimizerBase
         Minimization object.
-    model : model_dayabay_v0x
+    model : model_dayabay
         Object of model.
     is_iterative : bool
         Minimizable function is iterative statistics or not.

@@ -7,11 +7,10 @@ Example of call
 
 .. code-block:: shell
 
-    ./fits/fit_dayabay.py --version v0e \
-      --mo "{dataset: b, monte_carlo_mode: poisson, seed: 1}" \
-      --chi2 full.pull.chi2p \
-      --free-parameters oscprob neutrino_per_fission_factor \
-      --constrained-parameters oscprob detector reactor bkg reactor_anue \
+    ./fits/fit_dayabay_dgm.py \
+      --statistic full.pull.chi2p \
+      --free-parameters survival_probability neutrino_per_fission_factor \
+      --constrained-parameters survival_probability detector reactor background reactor_anue \
       --constrain-osc-parameters \
       --output fit-result.yaml
 """
@@ -21,7 +20,7 @@ from typing import TYPE_CHECKING
 
 from dag_modelling.tools.logger import DEBUG as INFO4
 from dag_modelling.tools.logger import INFO1, INFO2, INFO3, set_level
-from dgm_dayabay_dev.models import available_models, load_model
+from dayabay_model_official import model_dayabay
 from dgm_fit.iminuit_minimizer import IMinuitMinimizer
 from yaml import dump as yaml_dump
 
@@ -41,10 +40,11 @@ def main(args: Namespace) -> None:
         set_level(globals()[f"INFO{args.verbose}"])
 
     # Initialize model
-    model = load_model(
-        args.version,
-        source_type=args.source_type,
-        model_options=args.model_options,
+    model = model_dayabay(
+        path_data=args.path_data,
+        seed=args.seed,
+        monte_carlo_mode=args.monte_carlo_mode,
+        concatenation_mode=args.concatenation_mode,
         parameter_values=args.par,
     )
 
@@ -58,19 +58,19 @@ def main(args: Namespace) -> None:
     statistic = storage("outputs.statistic")
 
     # Choose statistic for minimization
-    chi2 = statistic[f"{args.chi2}"]
+    chi2 = statistic[f"{args.statistic}"]
     # Fill variable `minimization_parameters` free and constrained parameters,
     # if they are given
     minimization_parameters: dict[str, Parameter] = {}
     update_dict_parameters(minimization_parameters, args.free_parameters, parameters_free)
-    if "covmat" not in args.chi2:
+    if "covmat" not in args.statistic:
         update_dict_parameters(
             minimization_parameters,
             args.constrained_parameters,
             parameters_constrained,
         )
     elif args.constrained_parameters:
-        raise Exception(f"Statistic {args.chi2} can not be used with constrained parameters")
+        raise Exception(f"Statistic {args.statistic} can not be used with constrained parameters")
 
     # Sometimes fit is unstable. And constraining of free parameters
     # might improve robustness of fit
@@ -125,18 +125,9 @@ if __name__ == "__main__":
 
     model = parser.add_argument_group("model", "model related options")
     model.add_argument(
-        "--version",
-        default="v0",
-        choices=available_models(),
-        help="model version",
-    )
-    model.add_argument(
-        "-s",
-        "--source-type",
-        "--source",
-        choices=("tsv", "hdf5", "root", "npz"),
-        default="hdf5",
-        help="data source type",
+        "--path-data",
+        default=None,
+        help="Path to data",
     )
     model.add_argument(
         "--par",
@@ -145,7 +136,25 @@ if __name__ == "__main__":
         default=[],
         help="set parameter value",
     )
-    model.add_argument("--model-options", "--mo", default={}, help="model options as yaml dict")
+    model.add_argument(
+        "--monte-carlo-mode",
+        "--mc",
+        default="asimov",
+        choices=["asimov", "normal-stats", "poisson"],
+        help="Choose Monte-Carlo option",
+    )
+    model.add_argument(
+        "--seed",
+        default=0,
+        type=int,
+        help="Choose seed for random generation, important in case of `monte_carlo_mode` != `asimov`",
+    )
+    model.add_argument(
+        "--concatenation-mode",
+        default="detector_period",
+        choices=["detector", "detector_period"],
+        help="Choose type of concatenation for final observation: by detector or by detector and period",
+    )
 
     fit_options = parser.add_argument_group("fit", "Set fit procedure")
     fit_options.add_argument(
@@ -167,7 +176,7 @@ if __name__ == "__main__":
         help="choose parameters for Minos profiling",
     )
     fit_options.add_argument(
-        "--chi2",
+        "--statistic",
         default="stat.chi2p",
         choices=[
             "stat.chi2p_iterative",

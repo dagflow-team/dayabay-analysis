@@ -1,1 +1,4 @@
-dgm-dayabay-dev
+dayabay-model-official
+iminuit
+coverage
+pytest
