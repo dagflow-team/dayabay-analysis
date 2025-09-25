@@ -8,7 +8,7 @@ Example of call
 .. code-block:: shell
 
     ./fits/fit_dayabay_dgm.py \
-      --chi2 full.pull.chi2p \
+      --statistic full.pull.chi2p \
       --free-parameters survival_probability neutrino_per_fission_factor \
       --constrained-parameters survival_probability detector reactor background reactor_anue \
       --constrain-osc-parameters \
@@ -41,7 +41,7 @@ def main(args: Namespace) -> None:
 
     # Initialize model
     model = model_dayabay(
-        source_type=args.source_type,
+        path_data=args.path_data,
         seed=args.seed,
         monte_carlo_mode=args.monte_carlo_mode,
         concatenation_mode=args.concatenation_mode,
@@ -58,19 +58,19 @@ def main(args: Namespace) -> None:
     statistic = storage("outputs.statistic")
 
     # Choose statistic for minimization
-    chi2 = statistic[f"{args.chi2}"]
+    chi2 = statistic[f"{args.statistic}"]
     # Fill variable `minimization_parameters` free and constrained parameters,
     # if they are given
     minimization_parameters: dict[str, Parameter] = {}
     update_dict_parameters(minimization_parameters, args.free_parameters, parameters_free)
-    if "covmat" not in args.chi2:
+    if "covmat" not in args.statistic:
         update_dict_parameters(
             minimization_parameters,
             args.constrained_parameters,
             parameters_constrained,
         )
     elif args.constrained_parameters:
-        raise Exception(f"Statistic {args.chi2} can not be used with constrained parameters")
+        raise Exception(f"Statistic {args.statistic} can not be used with constrained parameters")
 
     # Sometimes fit is unstable. And constraining of free parameters
     # might improve robustness of fit
@@ -125,12 +125,9 @@ if __name__ == "__main__":
 
     model = parser.add_argument_group("model", "model related options")
     model.add_argument(
-        "-s",
-        "--source-type",
-        "--source",
-        choices=("tsv", "hdf5", "root", "npz"),
-        default="default:hdf5",
-        help="data source type",
+        "--path-data",
+        default=None,
+        help="Path to data",
     )
     model.add_argument(
         "--par",
@@ -179,7 +176,7 @@ if __name__ == "__main__":
         help="choose parameters for Minos profiling",
     )
     fit_options.add_argument(
-        "--chi2",
+        "--statistic",
         default="stat.chi2p",
         choices=[
             "stat.chi2p_iterative",

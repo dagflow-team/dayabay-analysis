@@ -9,11 +9,11 @@ Example of call
 .. code-block:: shell
 
     ./fits/fit_dayabay_iminuit_asimov.py \
-        --chi2 full.pull.chi2cnp \
+        --statistic full.pull.chi2cnp \
         --free-spectrum-shape \
         --use-hubber-mueller-spectral-uncertainties
 """
-from __future__ import annontations
+from __future__ import annotations
 import iminuit
 from json import dump as json_dump
 from yaml import safe_dump as yaml_dump
@@ -54,7 +54,7 @@ _save_data: dict[str, Callable] = {
 
 def main(args) -> None:
     # Load Daya Bay model
-    model = model_dayabay(source_type=args.source_type, concatenation_mode=args.concatenation_mode)
+    model = model_dayabay(path_data=args.path_data, concatenation_mode=args.concatenation_mode)
     storage = model.storage
 
     # Switch output for data from observed data to Asimov data
@@ -128,12 +128,9 @@ def main(args) -> None:
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument(
-        "-s",
-        "--source-type",
-        "--source",
-        choices=("tsv", "hdf5", "root", "npz"),
-        default="default:hdf5",
-        help="data source type",
+        "--path-data",
+        default=None,
+        help="Path to data",
     )
     parser.add_argument(
         "--concatenation-mode",

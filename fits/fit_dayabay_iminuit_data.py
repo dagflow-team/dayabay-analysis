@@ -9,11 +9,11 @@ Example of call
 .. code-block:: shell
 
     ./fits/fit_dayabay_iminuit_data.py \
-        --chi2 full.pull.chi2cnp \
+        --statistic full.pull.chi2cnp \
         --free-spectrum-shape \
         --use-hubber-mueller-spectral-uncertainties
 """
-from __future__ import annontations
+from __future__ import annotations
 import iminuit
 from json import dump as json_dump
 from yaml import safe_dump as yaml_dump
@@ -122,6 +122,17 @@ def main(args) -> None:
 
 if __name__ == "__main__":
     parser = ArgumentParser()
+    parser.add_argument(
+        "--path-data",
+        default=None,
+        help="Path to data",
+    )
+    parser.add_argument(
+        "--concatenation-mode",
+        default="detector_period",
+        choices=["detector", "detector_period"],
+        help="Choose type of concatenation for final observation: by detector or by detector and period",
+    )
     parser.add_argument(
         "--free-spectrum-shape", action="store_true", help="Minimize spectrum shape"
     )
