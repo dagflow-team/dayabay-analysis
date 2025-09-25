@@ -11,7 +11,8 @@ echo "Simple statistic+all systematic fit with Neyman's chi-squared function\n" 
 
 ./fits/fit_dayabay_iminuit_asimov.py \
     --chi2 full.covmat.chi2n \
-    --free-spectrum-shape
+    --free-spectrum-shape \
+    --output fit-syst-chi2n-free_spectrum_shape-constrained_covmat_all.json
 
 
 echo "Simple statistic+all systematic fit with Pearson's chi-squared function\n" \
@@ -28,4 +29,5 @@ echo "Simple statistic+all systematic fit with Pearson's chi-squared function\n"
 ./fits/fit_dayabay_iminuit_asimov.py \
     --source-type root \
     --concatenation-mode detector \
-    --chi2 full.pull.chi2p
+    --chi2 full.pull.chi2p \
+    --output fit-syst-chi2p-free_spectrum_shape-constrained_pull_all.yaml

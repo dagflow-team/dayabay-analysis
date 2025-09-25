@@ -31,7 +31,7 @@ echo "Simple statistic+reactor systematic fit with Pearson's chi-squared functio
      --concatenation-mode detector \
      --free-parameters survival_probability \
      --constrained-parameters detector \
-     --output fit-syst-chi2p-free_survival_probability-constrained_detector.yaml
+     --output fit-syst-chi2p-free_survival_probability-constrained_detector.json
 
 
 echo "Simple statistic+all systematic fit with Neyman's chi-squared function\n" \
@@ -47,7 +47,7 @@ echo "Simple statistic+all systematic fit with Neyman's chi-squared function\n" 
     --data loaded \
     --chi2 full.covmat.chi2n \
     --free-parameters survival_probability neutrino_per_fission_factor \
-    --output fit-syst-chi2p-free_survival_probability_neutrino_per_fission_factor-constrained_all.yaml
+    --output fit-syst-chi2n-free_survival_probability_neutrino_per_fission_factor-constrained_covmat_all.pickle
 
 
 echo "Simple statistic fit with Pearson's unbiased chi-squared function\n" \

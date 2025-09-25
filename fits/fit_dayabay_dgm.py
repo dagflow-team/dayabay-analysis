@@ -149,6 +149,7 @@ if __name__ == "__main__":
     model.add_argument(
         "--seed",
         default=0,
+        type=int,
         help="Choose seed for random generation, important in case of `monte_carlo_mode` != `asimov`",
     )
     model.add_argument(
