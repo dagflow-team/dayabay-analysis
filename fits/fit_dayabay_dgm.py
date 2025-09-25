@@ -40,7 +40,13 @@ def main(args: Namespace) -> None:
         set_level(globals()[f"INFO{args.verbose}"])
 
     # Initialize model
-    model = model_dayabay()
+    model = model_dayabay(
+        source_type=args.source_type,
+        seed=args.seed,
+        monte_carlo_mode=args.monte_carlo_mode,
+        concatenation_mode=args.concatenation_mode,
+        parameter_values=args.par,
+    )
 
     # Initialize helpful variables and switch output of model
     # to Asimov (output 0) or Real data (output 1).
@@ -133,7 +139,24 @@ if __name__ == "__main__":
         default=[],
         help="set parameter value",
     )
-    model.add_argument("--model-options", "--mo", default={}, help="model options as yaml dict")
+    model.add_argument(
+        "--mc",
+        "--monte-carlo-mode",
+        default="asimov",
+        choices=["asimov", "normal-stats", "poisson"],
+        help="Choose Monte-Carlo option",
+    )
+    model.add_argument(
+        "--seed",
+        default=0,
+        help="Choose seed for random generation, important in case of `monte_carlo_mode` != `asimov`",
+    )
+    model.add_argument(
+        "--concatenation-mode",
+        default="detector_period",
+        choices=["detector", "detector_period"],
+        help="Choose type of concatenation for final observation: by detector or by detector and period",
+    )
 
     fit_options = parser.add_argument_group("fit", "Set fit procedure")
     fit_options.add_argument(
