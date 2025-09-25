@@ -10,7 +10,7 @@ Contains several examples of running fit procedure within framework tools.
 
 It starts fit to Asimov data with statistical only Pearson's chi-sqaured.
 
-Model will load data in `hdf5`-format (default option).
+Data will be loaded from `./data/`. Don't forget to create it before running.
 
 As free parameters are chosen `$\Delta m^2_{32}$` and `$\sin^2 2\theta_{13}$`.
 
@@ -22,7 +22,7 @@ Output of the fit procedure will be dumped in `yaml`-format.
 
 It starts fit to Asimov data with Pearson's chi-sqaured that treats pull terms.
 
-Model will load data in `npz`-format.
+Data will be loaded from `./data-npz/`. Don't forget to create it before running.
 
 As free parameters are chosen parameters from `survival_probability` namespace. This namespace contains `$\Delta m^2_{32}$` and `$\sin^2 2\theta_{13}$`.
 
@@ -36,7 +36,7 @@ Output of the fit procedure will be dumped in `json`-format.
 
 It starts fit to observed data with Neyman's chi-sqaured that includes covariance matrix.
 
-Model will load data in `hdf5`-format (default option).
+Data will be loaded from `./data/`. Don't forget to create it before running.
 
 As free parameters are chosen parameters from `survival_probability` and `neutrino_per_fission_factor` namespace. The last namespace contains 19 parameters to variate shape of the antineutrino flux.
 
@@ -51,7 +51,7 @@ Output of the fit procedure will be dumped in `pickle`-format.
 
 It starts fit to Monte-Carlo ata with statistical only unbiased Pearson's chi-sqaured. Monte-Carlo includes variation of bin observations via Poisson distribution `$\mathrm{Poisson}(N)$`, where `$N$` is number of events in the bin.
 
-Model will load data in `tsv`-format.
+Data will be loaded from `./data-tsv/`. Don't forget to create it before running.
 
 As free parameters are chosen from `survival_probability` and `neutrino_per_fission_factor` namespace.
 
@@ -68,7 +68,7 @@ Contains several examples of running fit procedure on Asimov data within `iminui
 
 It starts fit to Asimov data with Neyman's chi-sqaured that includes covariance matrix.
 
-Model will load data in `hdf5`-format (default option).
+Data will be loaded from `./data-hdf5/`. Don't forget to create it before running.
 
 Option `--free-spectrum-shape` includes parameters from the namespace `neutrino_per_fission_factor` as free parameters.
 
@@ -82,7 +82,7 @@ Output of the fit procedure will be dumped in `json`-format.
 
 It starts fit to Asimov data with Neyman's chi-sqaured that includes covariance matrix.
 
-Model will load data in `root`-format.
+Data will be loaded from `./data-root/`. Don't forget to create it before running.
 
 All nuisance parameters are treated as pull terms.
 
@@ -98,7 +98,7 @@ Contains several examples of running fit procedure on observed data within `imin
 
 It starts fit to observed data with Neyman's chi-sqaured that includes covariance matrix.
 
-Model will load data in `hdf5`-format (default option).
+Data will be loaded from `./data/`. Don't forget to create it before running.
 
 Option `--free-spectrum-shape` includes parameters from the namespace `neutrino_per_fission_factor` as free parameters.
 
@@ -112,7 +112,7 @@ Output of the fit procedure will be dumped in `json`-format.
 
 It starts fit to observed data with Neyman's chi-sqaured that includes covariance matrix.
 
-Model will load data in `npz`-format.
+Data will be loaded from `./data-npz/`. Don't forget to create it before running.
 
 All nuisance parameters are treated as pull terms.
 

@@ -269,7 +269,7 @@ def main(opts: Namespace) -> None:
         set_verbosity(opts.verbose)
 
     model = model_dayabay(
-        source_type=opts.source_type,
+        path_data=opts.path_data,
         parameter_values=opts.par,
     )
 
@@ -342,12 +342,9 @@ if __name__ == "__main__":
 
     model = parser.add_argument_group("model", "model related options")
     model.add_argument(
-        "-s",
-        "--source-type",
-        "--source",
-        choices=("tsv", "hdf5", "root", "npz"),
-        default="default:hdf5",
-        help="Data source type",
+        "--path-data",
+        default=None,
+        help="Path to data",
     )
     model.add_argument(
         "--concatenation-mode",

@@ -7,7 +7,7 @@ Script contains procedure of calculation covariance matrix via Monte-Carlo model
 ### Script options
 
 - `-v`, `--verbose`: verbosity level;
-- `-s`, `--source-type`, `--source`: type of data to be loaded in model. Supports: `tsv`, `hdf5`, `root`, `npz`. Default: `hdf5`. **Warning**: make sure that your `data/` contains chosen `--source-type`;
+- `--path-data`: path to model data. Default: model will look for data in `./data/` directory;
 - `--concatenation-mode`: possible way to concatenate final observation. Supports: `detector`, `detector_period`. Default: `detector_period`;
 - `--par`: pair of parameter name and value. Could be used several times to set several parameters in chosen values;
 - `--systematic-parameters-groups`, `--cov`: type of Monte-Carlo mode. Supports: `all`, `survival_probability`, `detector`, `reactor`, `background`, `reactor_antineutrino`. You may modify this option to path specific parameters:

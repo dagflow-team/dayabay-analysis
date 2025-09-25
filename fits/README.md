@@ -11,7 +11,7 @@ Script provides fit procedure within framework.
 It has several options:
 
 - `-v`, `--verbose`: verbosity level;
-- `-s`, `--source-type`, `--source`: type of data to be loaded in model. Supports: `tsv`, `hdf5`, `root`, `npz`. Default: `hdf5`. **Warning**: make sure that your `data/` contains chosen `--source-type`;
+- `--path-data`: path to model data. Default: model will look for data in `./data/` directory;
 - `--par`: pair of parameter name and value. Could be used several times to set several parameters in chosen values;
 - `--monte-carlo-mode`: type of Monte-Carlo mode. Supports: `asimov`, `normal-stats`, `poisson`. Default: `asimov`. Possible parameters mean:
   - `asimov`: do not do any Monte-Carlo procedure. Just observation under assumption of average parameters;
@@ -45,7 +45,7 @@ Script provides fit procedure to Asimov data within iminuit package.
 
 It has several options:
 
-- `-s`, `--source-type`, `--source`: type of data to be loaded in model. Supports: `tsv`, `hdf5`, `root`, `npz`. Default: `hdf5`. **Warning**: make sure that your `data/` contains chosen `--source-type`;
+- `--path-data`: path to model data. Default: model will look for data in `./data/` directory;
 - `--concatenation-mode`: possible way to concatenate final observation. Supports: `detector`, `detector_period`. Default: `detector_period`;
 - `--statistic`: type of chi-squared statistic to be minimized. Supports: `stat.chi2p_iterative`, `stat.chi2n`, `stat.chi2p`, `stat.chi2cnp`, `stat.chi2p_unbiased`, `stat.chi2poisson`, `full.covmat.chi2p_iterative`, `full.covmat.chi2n`, `full.covmat.chi2p`, `full.covmat.chi2p_unbiased`, `full.covmat.chi2cnp`, `full.covmat.chi2cnp_alt`, `full.pull.chi2p_iterative`, `full.pull.chi2p`, `full.pull.chi2cnp`, `full.pull.chi2p_unbiased`, `full.pull.chi2poisson`. Default: `stat.chi2p`. Quick note about naming:
   - `stat`: referes to chi-squared function that **do not** include pull-terms on constrained parameters;
@@ -69,7 +69,7 @@ Script provides fit procedure to observed data within iminuit package.
 
 It has several options:
 
-- `-s`, `--source-type`, `--source`: type of data to be loaded in model. Supports: `tsv`, `hdf5`, `root`, `npz`. Default: `hdf5`. **Warning**: make sure that your `data/` contains chosen `--source-type`;
+- `--path-data`: path to model data. Default: model will look for data in `./data/` directory;
 - `--concatenation-mode`: possible way to concatenate final observation. Supports: `detector`, `detector_period`. Default: `detector_period`;
 - `--statistic`: type of chi-squared statistic to be minimized. Supports: `stat.chi2p_iterative`, `stat.chi2n`, `stat.chi2p`, `stat.chi2cnp`, `stat.chi2p_unbiased`, `stat.chi2poisson`, `full.covmat.chi2p_iterative`, `full.covmat.chi2n`, `full.covmat.chi2p`, `full.covmat.chi2p_unbiased`, `full.covmat.chi2cnp`, `full.covmat.chi2cnp_alt`, `full.pull.chi2p_iterative`, `full.pull.chi2p`, `full.pull.chi2cnp`, `full.pull.chi2p_unbiased`, `full.pull.chi2poisson`. Default: `stat.chi2p`. Quick note about naming:
   - `stat`: referes to chi-squared function that **do not** include pull-terms on constrained parameters;
@@ -93,7 +93,7 @@ Script provides fit procedure to Monte-Carlo data within iminuit package.
 
 It has several options:
 
-- `-s`, `--source-type`, `--source`: type of data to be loaded in model. Supports: `tsv`, `hdf5`, `root`, `npz`. Default: `hdf5`. **Warning**: make sure that your `data/` contains chosen `--source-type`;
+- `--path-data`: path to model data. Default: model will look for data in `./data/` directory;
 - `--concatenation-mode`: possible way to concatenate final observation. Supports: `detector`, `detector_period`. Default: `detector_period`;
 - `--monte-carlo-mode`: type of Monte-Carlo mode. Supports: `asimov`, `normal-stats`, `poisson`. Default: `poisson`. Possible parameters mean:
   - `normal-stats`: do Monte-Carlo of constrained parameters within Normal distribution `$\mathcal{N}(0, 1)$`. After that new new values will be pushed to model and statistical variation to every bin observation is applied;
