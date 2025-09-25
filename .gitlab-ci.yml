@@ -15,11 +15,11 @@ tests:
     - pip install --no-cache-dir cython
     - pip install --no-cache-dir -r requirements.txt
     - git clone --depth=1 https://gitlab-ci-token:${CI_JOB_TOKEN}@git.jinr.ru/dagflow-team/dayabay-data-official
-    - ln -s dayabay-data-all/hdf5 data
-    - ln -s dayabay-data-all/hdf5 data-hdf5
-    - ln -s dayabay-data-all/root data-root
-    - ln -s dayabay-data-all/tsv data-tsv
-    - ln -s dayabay-data-all/npz data-npz
+    - ln -s dayabay-data-official/hdf5 data
+    - ln -s dayabay-data-official/hdf5 data-hdf5
+    - ln -s dayabay-data-official/root data-root
+    - ln -s dayabay-data-official/tsv data-tsv
+    - ln -s dayabay-data-official/npz data-npz
     - PYTHONPATH=$PWD coverage run --source=. -m pytest
     - coverage report
     - coverage xml

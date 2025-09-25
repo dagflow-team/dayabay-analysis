@@ -14,7 +14,7 @@ printf "%s\n" \
     --output fit-stat-chi2p-free_survival_probability.yaml
 
 
-printf "%s" \
+printf "%s\n" \
      "Simple statistic+reactor systematic fit with Pearson's chi-squared function" \
      "Data type: root" \
      "WARNING: make sure that you have data-root/ directory" \
