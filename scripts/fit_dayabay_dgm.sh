@@ -16,8 +16,8 @@ printf "%s\n" \
 
 printf "%s\n" \
      "Simple statistic+reactor systematic fit with Pearson's chi-squared function" \
-     "Data type: root" \
-     "WARNING: make sure that you have data-root/ directory" \
+     "Data type: npz" \
+     "WARNING: make sure that you have data-npz/ directory" \
      "Asimov data" \
      "Final observation concatenated by detector" \
      "Minimization parameters:" \
@@ -30,7 +30,7 @@ printf "%s\n" \
      '- Detector energy scale:  $\eta^{\mathrm{AD}}$ (8 parameters)'
 
 ./fits/fit_dayabay_dgm.py \
-     --path-data data-root \
+     --path-data data-npz \
      --statistic full.pull.chi2p \
      --concatenation-mode detector \
      --free-parameters survival_probability \
