@@ -35,7 +35,7 @@ printf "%s\n" \
      --concatenation-mode detector \
      --free-parameters survival_probability \
      --constrained-parameters detector \
-     --output fit-syst-chi2p-free_survival_probability-constrained_detector.json
+     --output fit-syst-chi2p-free_survival_probability-constrained_detector.yaml
 
 
 printf "%s\n" \
@@ -53,7 +53,7 @@ printf "%s\n" \
     --data loaded \
     --statistic full.covmat.chi2n \
     --free-parameters survival_probability neutrino_per_fission_factor \
-    --output fit-syst-chi2n-free_survival_probability_neutrino_per_fission_factor-constrained_covmat_all.pickle
+    --output fit-syst-chi2n-free_survival_probability_neutrino_per_fission_factor-constrained_covmat_all.yaml
 
 
 printf "%s\n" \
