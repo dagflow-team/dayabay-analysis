@@ -54,7 +54,9 @@ _save_data: dict[str, Callable] = {
 
 def main(args) -> None:
     # Load Daya Bay model
-    model = model_dayabay()
+    model = model_dayabay(
+        source_type=args.source_type,
+        concatenation_mode=args.concatenation_mode)
     storage = model.storage
 
     # Switch output for data from observed data to Asimov data
@@ -127,6 +129,20 @@ def main(args) -> None:
 
 if __name__ == "__main__":
     parser = ArgumentParser()
+    parser.add_argument(
+        "-s",
+        "--source-type",
+        "--source",
+        choices=("tsv", "hdf5", "root", "npz"),
+        default="default:hdf5",
+        help="data source type",
+    )
+    parser.add_argument(
+        "--concatenation-mode",
+        default="detector_period",
+        choices=["detector", "detector_period"],
+        help="Choose type of concatenation for final observation: by detector or by detector and period",
+    )
     parser.add_argument(
         "--free-spectrum-shape", action="store_true", help="Minimize spectrum shape"
     )
