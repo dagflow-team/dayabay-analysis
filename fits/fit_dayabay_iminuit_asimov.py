@@ -54,9 +54,7 @@ _save_data: dict[str, Callable] = {
 
 def main(args) -> None:
     # Load Daya Bay model
-    model = model_dayabay(
-        source_type=args.source_type,
-        concatenation_mode=args.concatenation_mode)
+    model = model_dayabay(source_type=args.source_type, concatenation_mode=args.concatenation_mode)
     storage = model.storage
 
     # Switch output for data from observed data to Asimov data

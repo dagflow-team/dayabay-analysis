@@ -95,7 +95,7 @@ It has several options:
 
 - `-s`, `--source-type`, `--source`: type of data to be loaded in model. Supports: `tsv`, `hdf5`, `root`, `npz`. Default: `hdf5`. **Warning**: make sure that your `data/` contains chosen `--source-type`;
 - `--concatenation-mode`: possible way to concatenate final observation. Supports: `detector`, `detector_period`. Default: `detector_period`;
-- `--monte-carlo-mode`: type of Monte-Carlo mode. Supports: `asimov`, `normal-stats`, `poisson`. Default: `asimov`. Possible parameters mean:
+- `--monte-carlo-mode`: type of Monte-Carlo mode. Supports: `asimov`, `normal-stats`, `poisson`. Default: `poisson`. Possible parameters mean:
   - `normal-stats`: do Monte-Carlo of constrained parameters within Normal distribution `$\mathcal{N}(0, 1)$`. After that new new values will be pushed to model and statistical variation to every bin observation is applied;
   - `poisson`: do Monte-Carlo variation of each bin observation via Poisson distribution `$\mathrm{Poisson}(N)$`, where `$N$` number of events in the bin.
 - `--seed`: option to fix pseudo-sequance of random values. Default: 0. Useful for Monte-Carlo modeling;
