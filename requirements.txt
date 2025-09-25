@@ -1,4 +1,4 @@
-git+https://git.jinr.ru/dagflow-team/dayabay-model-official.git
+dayabay-model-official
 iminuit
 coverage
 pytest
