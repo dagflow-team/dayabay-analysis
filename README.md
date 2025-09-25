@@ -6,7 +6,7 @@ Just run:
 ```bash
 pip install -r requirements.txt
 ```
-to install the Daya Bay model.
+to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-official).
 
 ## List of files
 
