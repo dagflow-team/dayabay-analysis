@@ -15,7 +15,9 @@ Example of call
 """
 from __future__ import annotations
 from argparse import Namespace
+import h5py
 import numpy as np
+import pandas as pd
 from matplotlib import pyplot as plt
 from dag_modelling.tools.logger import set_verbosity
 from dayabay_model_official import model_dayabay
@@ -23,6 +25,7 @@ from dag_modelling.parameters import Parameter
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from typing import Callable
     from numpy.typing import NDArray
     from dag_modelling.core import NodeStorage
     from dag_modelling.core.output import Output
@@ -35,6 +38,31 @@ SYSTEMATIC_UNCERTAINTIES_GROUPS = {
     "reactor",
     "background",
     "reactor_antineutrino",
+}
+
+
+def save_csv(data: NDarray, filename: str) -> None:
+    pd.DataFrame(data).to_csv(filename, index=False)
+
+
+def save_dat(data: NDarray, filename: str) -> None:
+    np.savetxt(filename, data)
+
+
+def save_npz(data: NDarray, filename: str) -> None:
+    np.savez(filename, covariance_matrix=data)
+
+
+def save_hdf5(data: NDarray, filename: str) -> None:
+    with h5py.File(filename, "w") as f:
+        f.create_dataset("covariance_matrix", data=data)
+
+
+_save_data: dict[str, Callable] = {
+    "csv": save_csv,
+    "dat": save_dat,
+    "npz": save_npz,
+    "hdf5": save_hdf5,
 }
 
 
@@ -301,6 +329,10 @@ def main(opts: Namespace) -> None:
 
     plt.show()
 
+    if args.output:
+        *filename, ext = args.output.split(".")
+        _save_data[ext](covariance_absolute, args.output)
+
 
 if __name__ == "__main__":
     from argparse import ArgumentParser
@@ -316,6 +348,12 @@ if __name__ == "__main__":
         choices=("tsv", "hdf5", "root", "npz"),
         default="default:hdf5",
         help="Data source type",
+    )
+    model.add_argument(
+        "--concatenation-mode",
+        default="detector_period",
+        choices=["detector", "detector_period"],
+        help="Choose type of concatenation for final observation: by detector or by detector and period",
     )
     model.add_argument("--par", nargs=2, action="append", default=[], help="Set parameter value")
 
@@ -348,6 +386,11 @@ if __name__ == "__main__":
         "--num",
         default=1000,
         help="Choose number of samples",
+    )
+    parser.add_argument(
+        "--output",
+        type=str,
+        help="Path to save covariance matrix",
     )
     args = parser.parse_args()
 
