@@ -6,16 +6,18 @@ Just run:
 ```bash
 pip install -r requirements.txt
 ```
-or
-```bash
-pip install dgm-dayabay-dev
-```
 to install the Daya Bay model.
 
 ## List of files
 
-- `fits/fit_dayabay.py`: fit of the Daya Bay model with chosen parameters and chi-squared function;
+- `fits/README.md`: short description of fit scripts;
 - `fits/__init__.py`: contains useful functions for fitting;
+- `fits/fit_dayabay_dgm.py`: much flexible example of fit of Daya Bay model based on dag-modeling framework;
+- `fits/fit_dayabay_iminuit_asimov.py`: fit of the Daya Bay model Asimov data with chosen chi-squared based on `iminuit` package;
+- `fits/fit_dayabay_iminuit_data.py`: fit of the Daya Bay model observed data with chosen chi-squared based on `iminuit` package;
+- `fits/fit_dayabay_iminuit_monte_carlo.py`: fit of the Daya Bay model Monte-Carlo data with chosen chi-squared based on `iminuit` package;
+- `plots/README.md`: short description of plot scripts;
+- `plots/plot_dayabay_fit_spectra_asimov.md`: script for plotting Daya Bay spectra;
 - `requirements.txt`: contains list of libraries to be installed;
 - `pyproject.toml`: configuration file for linters `black` and `isort`;
 - `.gitignore`: configuration file for ignoring patterns by `git` utility;
