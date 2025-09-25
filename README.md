@@ -22,3 +22,27 @@ to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-o
 - `pyproject.toml`: configuration file for linters `black` and `isort`;
 - `.gitignore`: configuration file for ignoring patterns by `git` utility;
 - `.envrc`: controls environment variables within `direnv` utility.
+
+## Minimal working examples
+
+Fit script:
+
+```bash
+./fits/fit_dayabay_iminuit_asimov.py \
+    --statistic full.covmat.chi2n \
+    --free-spectrum-shape
+```
+
+Plot script:
+
+```bash
+./plots/plot_dayabay_fit_spectra_asimov.py \
+    --input examples/fit-result-stat-example.yaml \
+    --show
+```
+or
+```
+./plots/plot_fit_2d.py \
+    --input examples/fit-result-stat-example.yaml \
+    --show
+```
