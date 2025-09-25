@@ -17,6 +17,7 @@ tests:
     - pip install --no-cache-dir cython
     - pip install --no-cache-dir -r requirements.txt
     - git clone --depth=1 https://gitlab-ci-token:${CI_JOB_TOKEN}@git.jinr.ru/dag-computing/dayabay-data-all.git
+    - ln -s dayabay-data-all/${TEST_DATA_NAME}/hdf5 data
     - ln -s dayabay-data-all/${TEST_DATA_NAME}/hdf5 data-hdf5
     - ln -s dayabay-data-all/${TEST_DATA_NAME}/root data-root
     - ln -s dayabay-data-all/${TEST_DATA_NAME}/tsv data-tsv

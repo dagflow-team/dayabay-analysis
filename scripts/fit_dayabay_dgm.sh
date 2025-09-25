@@ -67,7 +67,7 @@ printf "%s\n" \
      "where last parameters are parameters of antineutrino spectra shape" \
      "All constrained parameters are used in covariance matrix"
 
-ipython3 --pdb -- ./fits/fit_dayabay_dgm.py \
+./fits/fit_dayabay_dgm.py \
     --path-data data-tsv \
     --monte-carlo-mode poisson --seed 1 \
     --concatenation-mode detector \
