@@ -117,6 +117,7 @@ def main(args: Namespace) -> None:
         with open(f"{args.output}", "w") as f:
             yaml_dump(fit, f)
     pprint(fit)
+    o
 
 
 if __name__ == "__main__":

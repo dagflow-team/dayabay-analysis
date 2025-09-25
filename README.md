@@ -6,7 +6,7 @@ Just run:
 ```bash
 pip install -r requirements.txt
 ```
-to install the Daya Bay model.
+to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-official).
 
 ## List of files
 
@@ -22,3 +22,29 @@ to install the Daya Bay model.
 - `pyproject.toml`: configuration file for linters `black` and `isort`;
 - `.gitignore`: configuration file for ignoring patterns by `git` utility;
 - `.envrc`: controls environment variables within `direnv` utility.
+
+## Minimal working examples
+
+1. Clone this repo `git clone https://github.com/dagflow-team/dayabay-analysis` and change your directory to the cloned repo `cd dayabay-analysis`
+2. Install required packages: `pip install -r requirements`
+3. Clone the repository with Daya Bay data `git clone https://github.com/dagflow-team/dayabay-data-official`
+4. Create soft links `ln -s dayabay-data-official/hdf5 data`
+5. Try to run examples above:
+  - Fit script:
+```bash
+./fits/fit_dayabay_iminuit_asimov.py \
+    --statistic full.covmat.chi2n \
+    --free-spectrum-shape
+```
+- Plot script:
+```bash
+./plots/plot_dayabay_fit_spectra_asimov.py \
+    --input examples/fit-result-stat-example.yaml \
+    --show
+```
+or
+```bash
+./plots/plot_fit_2d.py \
+    --input examples/fit-result-stat-example.yaml \
+    --show
+```
