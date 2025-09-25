@@ -56,7 +56,7 @@ def get_obs(
 
 
 def main(args: Namespace) -> None:
-    with open(args.input_fit, "r") as f:
+    with open(args.input, "r") as f:
         fit = yaml_load(f)
 
     if not fit["success"]:
@@ -121,12 +121,6 @@ if __name__ == "__main__":
     parser = ArgumentParser()
 
     model = parser.add_argument_group("model", "model related options")
-    model.add_argument(
-        "--data",
-        default="model",
-        choices=DATA_INDICES.keys(),
-        help="Choose data for plotting as observed",
-    )
 
     comparison = parser.add_argument_group("comparison", "Comparison options")
     comparison.add_argument(
@@ -136,7 +130,7 @@ if __name__ == "__main__":
         help="Choose concatenation mode for plotting observation",
     )
     comparison.add_argument(
-        "--input-fit",
+        "--input",
         help="Path to file which load as expected",
     )
 
