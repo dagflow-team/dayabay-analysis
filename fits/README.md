@@ -1,3 +1,8 @@
+# Fit scripts
+
+Each script contain possible ways to fit Daya Bay model to Asimov/observed/Monte-Carlo data.
+
+All custom functions are located in each fily to simplify of dependencies.
 
 ## fit_dayabay_dgm.py
 
@@ -58,7 +63,6 @@ It has several options:
 - `--use-hubber-mueller-spectral-uncertainties`: add parameters of Huber-Mueller uncertainties for each isotope. **Warning**: it contains 900+ parameters, so fit procedure will take a long time;
 - `--output`: option to save fit result. Supports: `json`, `yaml`, `pickle`.
 
-
 ## fit_dayabay_iminuit_data.py
 
 Script provides fit procedure to observed data within iminuit package.
@@ -67,6 +71,34 @@ It has several options:
 
 - `-s`, `--source-type`, `--source`: type of data to be loaded in model. Supports: `tsv`, `hdf5`, `root`, `npz`. Default: `hdf5`. **Warning**: make sure that your `data/` contains chosen `--source-type`;
 - `--concatenation-mode`: possible way to concatenate final observation. Supports: `detector`, `detector_period`. Default: `detector_period`;
+- `--chi2`: type of chi-squared statistic to be minimized. Supports: `stat.chi2p_iterative`, `stat.chi2n`, `stat.chi2p`, `stat.chi2cnp`, `stat.chi2p_unbiased`, `stat.chi2poisson`, `full.covmat.chi2p_iterative`, `full.covmat.chi2n`, `full.covmat.chi2p`, `full.covmat.chi2p_unbiased`, `full.covmat.chi2cnp`, `full.covmat.chi2cnp_alt`, `full.pull.chi2p_iterative`, `full.pull.chi2p`, `full.pull.chi2cnp`, `full.pull.chi2p_unbiased`, `full.pull.chi2poisson`. Default: `stat.chi2p`. Quick note about naming:
+  - `stat`: referes to chi-squared function that **do not** include pull-terms on constrained parameters;
+  - `full.pull`: referes to chi-squared function that include pull-terms on constrained parameters;
+  - `full.covmat`: referes to chi-squared function that include constrained parameters via covariance matrix approach;
+  - `chi2n`: Neyman's definition of chi-squared function;
+  - `chi2p`: Pearson's definition of chi-squared function;
+  - `chi2cnp`: combined Neyman-Pearson's definition of chi-squared function;
+  - `chi2p_unbiased`: Pearson's definition of chi-squared function with addition logarithm of #FIXME;
+  - `chi2poisson`: chi-squared function based on Poisson distribution;
+  - `full.covmat.chi2p_iterative`: Pearson's chi-squared function with covariance matrix. Statistical errors are frozen. Could be used in iterative fit procedure;
+  - `full.covmat.chi2cnp`: combined Neyman-Pearson's chi-squared as sum of Neyman's chi-squared with covariance matrix and Pearson's chi-squared with covariance matrix;
+  - `full.covmat.chi2cnp_alt`: combined Neyman-Pearson's chi-squared from [the paper](https://arxiv.org/pdf/1903.07185) (formula 18);
+- `--free-spectrum-shape`: add parameters of anineutrino spectrum shape variation as free parameters. Otherwise, the scale parameter on IBD part of observation will be used (`$N^{\rm global}$` - global normalization);
+- `--use-hubber-mueller-spectral-uncertainties`: add parameters of Huber-Mueller uncertainties for each isotope. **Warning**: it contains 900+ parameters, so fit procedure will take a long time;
+- `--output`: option to save fit result. Supports: `json`, `yaml`, `pickle`.
+
+## fit_dayabay_iminuit_monte_carlo.py
+
+Script provides fit procedure to Monte-Carlo data within iminuit package.
+
+It has several options:
+
+- `-s`, `--source-type`, `--source`: type of data to be loaded in model. Supports: `tsv`, `hdf5`, `root`, `npz`. Default: `hdf5`. **Warning**: make sure that your `data/` contains chosen `--source-type`;
+- `--concatenation-mode`: possible way to concatenate final observation. Supports: `detector`, `detector_period`. Default: `detector_period`;
+- `--monte-carlo-mode`: type of Monte-Carlo mode. Supports: `asimov`, `normal-stats`, `poisson`. Default: `asimov`. Possible parameters mean:
+  - `normal-stats`: do Monte-Carlo of constrained parameters within Normal distribution `$\mathcal{N}(0, 1)$`. After that new new values will be pushed to model and statistical variation to every bin observation is applied;
+  - `poisson`: do Monte-Carlo variation of each bin observation via Poisson distribution `$\mathrm{Poisson}(N)$`, where `$N$` number of events in the bin.
+- `--seed`: option to fix pseudo-sequance of random values. Default: 0. Useful for Monte-Carlo modeling;
 - `--chi2`: type of chi-squared statistic to be minimized. Supports: `stat.chi2p_iterative`, `stat.chi2n`, `stat.chi2p`, `stat.chi2cnp`, `stat.chi2p_unbiased`, `stat.chi2poisson`, `full.covmat.chi2p_iterative`, `full.covmat.chi2n`, `full.covmat.chi2p`, `full.covmat.chi2p_unbiased`, `full.covmat.chi2cnp`, `full.covmat.chi2cnp_alt`, `full.pull.chi2p_iterative`, `full.pull.chi2p`, `full.pull.chi2cnp`, `full.pull.chi2p_unbiased`, `full.pull.chi2poisson`. Default: `stat.chi2p`. Quick note about naming:
   - `stat`: referes to chi-squared function that **do not** include pull-terms on constrained parameters;
   - `full.pull`: referes to chi-squared function that include pull-terms on constrained parameters;
