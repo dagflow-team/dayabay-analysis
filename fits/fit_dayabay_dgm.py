@@ -140,8 +140,8 @@ if __name__ == "__main__":
         help="set parameter value",
     )
     model.add_argument(
-        "--mc",
         "--monte-carlo-mode",
+        "--mc",
         default="asimov",
         choices=["asimov", "normal-stats", "poisson"],
         help="Choose Monte-Carlo option",

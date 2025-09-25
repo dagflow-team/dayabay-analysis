@@ -1,19 +1,23 @@
 #!/bin/bash
 
 echo "Simple statistic+all systematic fit with Neyman's chi-squared function\n" \
+     "Source type: hdf5 (default)\n" \
      "Observed data\n" \
+     "Final observation concatenated by detector and period\n" \
      "Minimization parameters:\n" \
      'Free: $\Delta m^2_{32}$, $sin^2 2\theta_{13}$ and $\xi_i, i = \overline{0, 18}$' "\n" \
      "where last parametrs are parameters of antineutrino spectra shape\n" \
      "All constrained parameters are used in covariance matrix"
 
 ./fits/fit_dayabay_iminuit.py \
-  --chi2 full.covmat.chi2n \
-  --free-spectrum-shape
+    --chi2 full.covmat.chi2n \
+    --free-spectrum-shape
 
 
 echo "Simple statistic+all systematic fit with Pearson's chi-squared function\n" \
+     "Source type: npz\n" \
      "Observed data\n" \
+     "Final observation concatenated by detector\n" \
      "Minimization parameters:\n" \
      'Free: $\Delta m^2_{32}$, $sin^2 2\theta_{13}$ and $N^{\rm global}$' "\n" \
      "where the last parameter scales observed IBD spectrum in each detector\n" \
@@ -22,4 +26,6 @@ echo "Simple statistic+all systematic fit with Pearson's chi-squared function\n"
      "Uncertainties for spectral parameters are not included"
 
 ./fits/fit_dayabay_iminuit.py \
-  --chi2 full.pull.chi2p
+    --source-type npz \
+    --concatenation-mode detector \
+    --chi2 full.pull.chi2p
