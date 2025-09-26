@@ -1,11 +1,23 @@
 """Common classes and functions for scripts."""
 
+from __future__ import annotations
+
+from json import dump as json_dump
+from pickle import dump as pickle_dump
+from typing import TYPE_CHECKING
+
 import numpy as np
-from dag_modelling.core import NodeStorage
-from dgm_fit.minimizer_base import MinimizerBase
-from dag_modelling.parameters import Parameter
-from numpy.typing import NDArray
 from yaml import add_representer
+from yaml import safe_dump as yaml_dump
+from iminuit.minuit import Minuit
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from dag_modelling.core import NodeStorage
+    from dag_modelling.parameters import Parameter
+    from dgm_fit.minimizer_base import MinimizerBase
+    from numpy.typing import NDArray
 
 add_representer(
     np.ndarray,
@@ -112,3 +124,115 @@ def do_fit(minimizer: MinimizerBase, model, is_iterative: bool = False) -> dict:
             if not fit["success"]:
                 break
     return fit
+
+
+def _save_json(data: dict[str, Any], filename: str) -> None:
+    """Save fit data in json-format.
+
+    Parameters
+    ----------
+    data : dict[str, Any]
+        Dictionary that contains lists, and dicts with strings or numbers
+    filename : str
+        Path to save output
+
+    Returns
+    -------
+    None
+    """
+    with open(filename, "w") as f:
+        json_dump(data, f)
+
+
+def _save_pickle(data: dict[str, Any], filename: str) -> None:
+    """Save fit data in pickle-format.
+
+    Parameters
+    ----------
+    data : dict[str, Any]
+        Dictionary that contains lists, and dicts with strings or numbers
+    filename : str
+        Path to save output
+
+    Returns
+    -------
+    None
+    """
+    with open(filename, "wb") as f:
+        pickle_dump(data, f)
+
+
+def _save_yaml(data: dict[str, Any], filename: str) -> None:
+    """Save fit data in yaml-format.
+
+    Parameters
+    ----------
+    data : dict[str, Any]
+        Dictionary that contains lists, and dicts with strings or numbers
+    filename : str
+        Path to save output
+
+    Returns
+    -------
+    None
+    """
+    with open(filename, "w") as f:
+        yaml_dump(data, f)
+
+
+def convert_minuit_to_dict(data: Minuit) -> dict[str, Any]:
+    names = [name for name in data.var2pos.keys()]
+    x = [value for value in data.values]
+    errors = [error for error in data.errors]
+    return dict(
+        # clock=,
+        covariance=data.covariance,
+        # errorsdef=,
+        errorsdict=dict(zip(names, errors)),
+        fun=data.fval,
+        # hess_inv=data.hesse,
+        names=names,
+        # nbins=,
+        # ndof=,
+        nfev=data.nfcn,
+        npars=data.npar,
+        success=data.valid,
+        x=np.array(x),
+        # wall=,
+        xdict=dict(zip(names, x)),
+    )
+
+def filter_save_fit(data: dict[str, Any] | Minuit, filename: str) -> None:
+    """Filter and save fit results.
+
+    It filters fit data from undumpable objects
+    and converts numpy arrays to simple python lists.
+
+    Parameters
+    ----------
+    data : dict[str, Any] | Minuit
+        Minuit object or dictionary that contains result of fit
+    filename : str
+        Path to save output
+
+    Returns
+    -------
+    None
+
+    """
+    if isinstance(data, Minuit):
+        result = convert_minuit_to_dict(data)
+    else:
+        result = data.copy()
+    filter_fit(result, ["summary"])
+    convert_numpy_to_lists(result)
+    *rootparts, ext = filename.split(".")
+    match ext:
+        case "json":
+            _save_json(result, filename)
+        case "yaml":
+            _save_yaml(result, filename)
+        case "pickle":
+            _save_pickle(result, filename)
+        case _:
+            raise RuntimeError(f"Couldn't dump result to `.{ext}`-type")

@@ -1,0 +1,70 @@
+clock: 0.9030383019999135
+covariance:
+- - 3.557493982631649e-05
+  - -3.0501508015769674e-07
+  - -1.2906112319617896e-06
+  - -5.022018174025749e-07
+  - -0.0030379377350604727
+- - -3.0501508015769674e-07
+  - 9.92612602095926e-08
+  - 2.6623606639073422e-08
+  - -4.8656131863878257e-08
+  - 0.0012315969956548265
+- - -1.2906112319617896e-06
+  - 2.6623606639073422e-08
+  - 6.505956272779501e-07
+  - 3.414738044673239e-08
+  - 0.00012838781105752362
+- - -5.022018174025749e-07
+  - -4.8656131863878257e-08
+  - 3.414738044673239e-08
+  - 3.751704435871088e-08
+  - -0.000627442978543994
+- - -0.0030379377350604727
+  - 0.0012315969956548265
+  - 0.00012838781105752362
+  - -0.000627442978543994
+  - 15.502260270298892
+errors:
+- 0.005964473139038895
+- 0.00031505755063098015
+- 0.0008065950826021382
+- 0.0001936931706558362
+- 3.9372909811568273
+errorsdef: 1.0
+errorsdict:
+  detector.global_normalization: 0.0008065950826021382
+  survival_probability.DeltaMSq21: 0.0001936931706558362
+  survival_probability.DeltaMSq32: 0.00031505755063098015
+  survival_probability.SinSq2Theta12: 3.9372909811568273
+  survival_probability.SinSq2Theta13: 0.005964473139038895
+fun: 0.0
+hess_inv: null
+minimizer: iminuit
+names:
+- survival_probability.SinSq2Theta13
+- survival_probability.DeltaMSq32
+- detector.global_normalization
+- survival_probability.DeltaMSq21
+- survival_probability.SinSq2Theta12
+nbins: 546
+ndof: 543
+nfev: 63
+npars: 5
+npars_constrained: 2
+npars_free: 3
+statistic_name: statistic.stat.chi2p
+success: true
+wall: 0.9030418395996094
+x:
+- 0.0856
+- 0.002453
+- 1.0
+- 7.53e-05
+- 0.851
+xdict:
+  detector.global_normalization: 1.0
+  survival_probability.DeltaMSq21: 7.53e-05
+  survival_probability.DeltaMSq32: 0.002453
+  survival_probability.SinSq2Theta12: 0.851
+  survival_probability.SinSq2Theta13: 0.0856
