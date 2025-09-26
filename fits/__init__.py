@@ -7,15 +7,15 @@ from pickle import dump as pickle_dump
 from typing import TYPE_CHECKING
 
 import numpy as np
+from dag_modelling.parameters import Parameter
+from iminuit.minuit import Minuit
 from yaml import add_representer
 from yaml import safe_dump as yaml_dump
-from iminuit.minuit import Minuit
 
 if TYPE_CHECKING:
     from typing import Any
 
     from dag_modelling.core import NodeStorage
-    from dag_modelling.parameters import Parameter
     from dgm_fit.minimizer_base import MinimizerBase
     from numpy.typing import NDArray
 
@@ -201,6 +201,7 @@ def convert_minuit_to_dict(data: Minuit) -> dict[str, Any]:
         # wall=,
         xdict=dict(zip(names, x)),
     )
+
 
 def filter_save_fit(data: dict[str, Any] | Minuit, filename: str) -> None:
     """Filter and save fit results.
