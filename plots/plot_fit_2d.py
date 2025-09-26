@@ -16,7 +16,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 from yaml import safe_load as yaml_load
 
-
 plt.rcParams.update(
     {
         "xtick.top": True,
@@ -74,10 +73,10 @@ def main(args: Namespace) -> None:
     with open(args.input, "r") as f:
         fit = yaml_load(f)
 
-
-
-    fig, ax,  = plt.subplots(1, 1)
-
+    (
+        fig,
+        ax,
+    ) = plt.subplots(1, 1)
 
     xdict = fit["xdict"]
     errorsdict = fit.get("errorsdict_profiled", fit["errorsdict"])
