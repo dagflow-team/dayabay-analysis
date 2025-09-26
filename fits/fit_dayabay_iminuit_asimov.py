@@ -14,42 +14,17 @@ Example of call
         --use-hubber-mueller-spectral-uncertainties
 """
 from __future__ import annotations
-import iminuit
-from json import dump as json_dump
-from yaml import safe_dump as yaml_dump
-from pickle import dump as pickle_dump
+
 from argparse import ArgumentParser
-from typing import TYPE_CHECKING
+from pprint import pprint
+
+import iminuit
 from dag_modelling.tools.make_fcn import make_fcn
 from dayabay_model_official import model_dayabay
 
+from fits import filter_save_fit
 
 ASIMOV_OUTPUT_INDEX = 0
-
-if TYPE_CHECKING:
-    from typing import Any, Callable
-
-
-def save_json(data, filename: str) -> None:
-    with open(filename, "w") as f:
-        json_dump(data, f, indent=4)
-
-
-def save_pickle(data, filename: str) -> None:
-    with open(filename, "wb") as f:
-        pickle_dump(data, f)
-
-
-def save_yaml(data: dict[str, Any], filename: str) -> None:
-    with open(filename, "w") as f:
-        yaml_dump(data, f)
-
-
-_save_data: dict[str, Callable] = {
-    "json": save_json,
-    "yaml": save_yaml,
-    "pickle": save_pickle,
-}
 
 
 def main(args) -> None:
@@ -67,7 +42,7 @@ def main(args) -> None:
     # variate rate in each detector
     if args.free_spectrum_shape:
         free_parameters = {
-            "free." + par.name: par
+            par.name: par
             for par in filter(
                 lambda x: "global_normalization" not in x.name,
                 storage["parameters.free"].walkvalues(),
@@ -75,7 +50,7 @@ def main(args) -> None:
         }
     else:
         free_parameters = {
-            "free." + par.name: par
+            par.name: par
             for par in filter(
                 lambda x: "neutrino_per_fission" not in x.name,
                 storage["parameters.free"].walkvalues(),
@@ -87,11 +62,11 @@ def main(args) -> None:
     # Usually, these parameters are used for fit with observed data
     if args.use_hubber_mueller_spectral_uncertainties:
         constrained_parameters = {
-            "constrained." + par.name: par for par in storage["parameters.constrained"].walkvalues()
+            par.name: par for par in storage["parameters.constrained"].walkvalues()
         }
     else:
         constrained_parameters = {
-            "constrained." + par.name: par
+            par.name: par
             for par in filter(
                 lambda x: "reactor_antineutrino" not in x.name,
                 storage["parameters.constrained"].walkvalues(),
@@ -118,11 +93,10 @@ def main(args) -> None:
     # Do fit
     result = minimizer.migrad()
 
-    print(result)
+    pprint(result)
 
     if args.output:
-        *filename, ext = args.output.split(".")
-        _save_data[ext](result, args.output)
+        filter_save_fit(result, args.output)
 
 
 if __name__ == "__main__":

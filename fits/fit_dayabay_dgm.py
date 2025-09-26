@@ -90,10 +90,6 @@ def main(args: Namespace) -> None:
         if args.profile_parameters:
             minos_profile = minimizer.profile_errors(args.profile_parameters)
             fit["errorsdict_profiled"] = minos_profile["errorsdict"]
-        # Filter fit output before saving in yaml format
-        filter_fit(fit, ["summary"])
-        # Convert all arrays in lists
-        convert_numpy_to_lists(fit)
         if args.output:
             with open(f"{args.output}.constrained_osc", "w") as f:
                 yaml_dump(fit, f)
@@ -117,7 +113,6 @@ def main(args: Namespace) -> None:
         with open(f"{args.output}", "w") as f:
             yaml_dump(fit, f)
     pprint(fit)
-    o
 
 
 if __name__ == "__main__":
