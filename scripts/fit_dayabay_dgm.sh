@@ -1,7 +1,7 @@
 #!/bin/bash
 
 printf "%s\n" \
-     "Simple statistic only fit with Pearson's chi-squared function" \
+     "Simple statistic only fit with combined Neyman-Pearson chi-squared function" \
      "Data type: determines from data/ content" \
      "WARNING: make sure that you have data/ directory" \
      "Asimov data" \
@@ -9,13 +9,13 @@ printf "%s\n" \
      'Minimization parameters: $\Delta m^2_{32}$ and $sin^2 2\theta_{13}$'
 
 ./fits/fit_dayabay_dgm.py \
-    --statistic stat.chi2p \
+    --statistic stat.chi2cnp \
     --free-parameters survival_probability.DeltaMSq32 survival_probability.SinSq2Theta13 \
-    --output fit-stat-chi2p-free_survival_probability.yaml
+    --output fit-stat-chi2cnp-free_survival_probability.yaml
 
 
 printf "%s\n" \
-     "Simple statistic+reactor systematic fit with Pearson's chi-squared function" \
+     "Simple statistic+reactor systematic fit with combined Neyman-Pearson chi-squared function" \
      "Data type: npz" \
      "WARNING: make sure that you have data-npz/ directory" \
      "Asimov data" \
@@ -30,16 +30,16 @@ printf "%s\n" \
      '- Detector energy scale:  $\eta^{\mathrm{AD}}$ (8 parameters)'
 
 ./fits/fit_dayabay_dgm.py \
-     --path-data data-npz \
-     --statistic full.pull.chi2p \
+     --path-data data-root \
+     --statistic full.pull.chi2cnp \
      --concatenation-mode detector \
      --free-parameters survival_probability \
      --constrained-parameters detector \
-     --output fit-syst-chi2p-free_survival_probability-constrained_detector.yaml
+     --output fit-syst-chi2cnp-free_survival_probability-constrained_detector.pickle
 
 
 printf "%s\n" \
-     "Simple statistic+all systematic fit with Neyman's chi-squared function" \
+     "Simple statistic+all systematic fit with combined Neyman-Pearson chi-squared function" \
      "Data type: determines from data/ content" \
      "WARNING: make sure that you have data/ directory" \
      "Observed data" \
@@ -51,13 +51,13 @@ printf "%s\n" \
 
 ./fits/fit_dayabay_dgm.py \
     --data loaded \
-    --statistic full.covmat.chi2n \
+    --statistic full.covmat.chi2cnp \
     --free-parameters survival_probability neutrino_per_fission_factor \
-    --output fit-syst-chi2n-free_survival_probability_neutrino_per_fission_factor-constrained_covmat_all.yaml
+    --output fit-syst-chi2cnp-free_survival_probability_neutrino_per_fission_factor-constrained_covmat_all.json
 
 
 printf "%s\n" \
-     "Simple statistic fit with Pearson's unbiased chi-squared function" \
+     "Simple statistic fit with combined Neyman-Pearson chi-squared function" \
      "Data type: tsv" \
      "WARNING: make sure that you have data-tsv/ directory" \
      "Monte-Carlo data based on Asimov data (seed = 1)" \
@@ -68,9 +68,9 @@ printf "%s\n" \
      "All constrained parameters are used in covariance matrix"
 
 ./fits/fit_dayabay_dgm.py \
-    --path-data data-tsv \
+    --path-data data-root \
     --monte-carlo-mode poisson --seed 1 \
     --concatenation-mode detector \
-    --statistic stat.chi2p_unbiased \
+    --statistic stat.chi2cnp \
     --free-parameters survival_probability neutrino_per_fission_factor \
-    --output fit-syst-chi2p_unbiased-free_survival_probability_neutrino_per_fission_factor-mc_poisson_1.yaml
+    --output fit-syst-chi2cnp-free_survival_probability_neutrino_per_fission_factor-mc_poisson_1.yaml

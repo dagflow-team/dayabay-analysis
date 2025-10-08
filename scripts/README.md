@@ -8,7 +8,7 @@ Contains several examples of running fit procedure within framework tools.
 
 ### The first script
 
-It starts fit to Asimov data with statistical only Pearson's chi-sqaured.
+It starts fit to Asimov data with statistical only combined Neyman-Pearson chi-sqaured.
 
 Data will be loaded from `./data/`. Don't forget to create it before running.
 
@@ -20,7 +20,7 @@ Output of the fit procedure will be dumped in `yaml`-format.
 
 ### The second script
 
-It starts fit to Asimov data with Pearson's chi-sqaured that treats pull terms.
+It starts fit to Asimov data with combined Neyman-Pearson chi-sqaured that treats pull terms.
 
 Data will be loaded from `./data-npz/`. Don't forget to create it before running.
 
@@ -34,7 +34,7 @@ Output of the fit procedure will be dumped in `json`-format.
 
 ### The third script
 
-It starts fit to observed data with Neyman's chi-sqaured that includes covariance matrix.
+It starts fit to observed data with combined Neyman-Pearson chi-sqaured that includes covariance matrix.
 
 Data will be loaded from `./data/`. Don't forget to create it before running.
 
@@ -49,7 +49,7 @@ Output of the fit procedure will be dumped in `pickle`-format.
 
 ### The forth script
 
-It starts fit to Monte-Carlo ata with statistical only unbiased Pearson's chi-sqaured. Monte-Carlo includes variation of bin observations via Poisson distribution `$\mathrm{Poisson}(N)$`, where `$N$` is number of events in the bin.
+It starts fit to Monte-Carlo ata with statistical only combined Neyman-Pearson chi-sqaured. Monte-Carlo includes variation of bin observations via Poisson distribution `$\mathrm{Poisson}(N)$`, where `$N$` is number of events in the bin.
 
 Data will be loaded from `./data-tsv/`. Don't forget to create it before running.
 
@@ -66,7 +66,7 @@ Contains several examples of running fit procedure on Asimov data within `iminui
 
 ### The first script
 
-It starts fit to Asimov data with Neyman's chi-sqaured that includes covariance matrix.
+It starts fit to Asimov data with combined Neyman-Pearson chi-sqaured that includes covariance matrix.
 
 Data will be loaded from `./data-hdf5/`. Don't forget to create it before running.
 
@@ -80,7 +80,7 @@ Output of the fit procedure will be dumped in `json`-format.
 
 ### The second script
 
-It starts fit to Asimov data with Neyman's chi-sqaured that includes covariance matrix.
+It starts fit to Asimov data with combined Neyman-Pearson chi-sqaured that includes covariance matrix.
 
 Data will be loaded from `./data-root/`. Don't forget to create it before running.
 
@@ -96,7 +96,7 @@ Contains several examples of running fit procedure on observed data within `imin
 
 ### The first script
 
-It starts fit to observed data with Neyman's chi-sqaured that includes covariance matrix.
+It starts fit to observed data with combined Neyman-Pearson chi-sqaured that includes covariance matrix.
 
 Data will be loaded from `./data/`. Don't forget to create it before running.
 
@@ -110,7 +110,7 @@ Output of the fit procedure will be dumped in `json`-format.
 
 ### The second script
 
-It starts fit to observed data with Neyman's chi-sqaured that includes covariance matrix.
+It starts fit to observed data with combined Neyman-Pearson chi-sqaured that includes covariance matrix.
 
 Data will be loaded from `./data-npz/`. Don't forget to create it before running.
 

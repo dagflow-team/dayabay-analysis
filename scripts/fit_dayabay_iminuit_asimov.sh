@@ -1,7 +1,7 @@
 #!/bin/bash
 
 printf "%s\n" \
-     "Simple statistic+all systematic fit with Neyman's chi-squared function" \
+     "Simple statistic+all systematic fit with combined Neyman-Neyman chi-squared function" \
      "Data type: determines from data/ content" \
      "WARNING: make sure that you have data/ directory" \
      "Asimov observation" \
@@ -12,13 +12,13 @@ printf "%s\n" \
      "All constrained parameters are used in covariance matrix"
 
 ./fits/fit_dayabay_iminuit_asimov.py \
-    --statistic full.covmat.chi2n \
+    --statistic full.covmat.chi2cnp \
     --free-spectrum-shape \
-    --output fit-syst-chi2n-free_spectrum_shape-constrained_covmat_all.json
+    --output fit-syst-chi2cnp-free_spectrum_shape-constrained_covmat_all.json
 
 
 printf "%s\n" \
-     "Simple statistic+all systematic fit with Pearson's chi-squared function" \
+     "Simple statistic+all systematic fit with combined Neyman-Pearson chi-squared function" \
      "Data type: root" \
      "WARNING: make sure that you have data-root/ directory" \
      "Asimov observation" \
@@ -33,5 +33,5 @@ printf "%s\n" \
 ./fits/fit_dayabay_iminuit_asimov.py \
     --path-data data-root \
     --concatenation-mode detector \
-    --statistic full.pull.chi2p \
-    --output fit-syst-chi2p-free_spectrum_shape-constrained_pull_all.yaml
+    --statistic full.pull.chi2cnp \
+    --output fit-syst-chi2cnp-free_spectrum_shape-constrained_pull_all.yaml
