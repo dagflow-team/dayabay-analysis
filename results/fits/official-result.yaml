@@ -1,0 +1,6 @@
+xdict:
+  survival_probability.DeltaMSq32: 0.002466
+  survival_probability.SinSq2Theta13: 0.0851
+errorsdict:
+  survival_probability.DeltaMSq32: 0.000060
+  survival_probability.SinSq2Theta13: 0.0024

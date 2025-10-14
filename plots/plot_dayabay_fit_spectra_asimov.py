@@ -67,6 +67,8 @@ def main(args: Namespace) -> None:
     model = model_dayabay()
     storage = model.storage
 
+    model.switch_data("asimov")
+
     data_obs = get_obs(storage[f"outputs.eventscount.final.{args.concatenation}"].walkjoineditems())
     model.set_parameters(fit["xdict"])
     fit_obs = get_obs(storage[f"outputs.eventscount.final.{args.concatenation}"].walkjoineditems())

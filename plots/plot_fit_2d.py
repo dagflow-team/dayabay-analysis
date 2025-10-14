@@ -7,7 +7,7 @@ Example of call
 
 .. code-block:: shell
 
-    ./scripts/plot_fit_2d.py \
+    ./scripts/plot_fit_2d.py
 
 """
 from argparse import Namespace
@@ -73,10 +73,7 @@ def main(args: Namespace) -> None:
     with open(args.input, "r") as f:
         fit = yaml_load(f)
 
-    (
-        fig,
-        ax,
-    ) = plt.subplots(1, 1)
+    fig, ax = plt.subplots(1, 1)
 
     xdict = fit["xdict"]
     errorsdict = fit.get("errorsdict_profiled", fit["errorsdict"])
@@ -95,24 +92,11 @@ def main(args: Namespace) -> None:
         yerr=[[dm_error_left], [dm_error_right]],
         label="best fit",
     )
-    label = r"$0.1\sigma$"
-    ax.axvspan(
-        sin_value - 0.1 * sin_error_left,
-        sin_value + 0.1 * sin_error_right,
-        -10,
-        10,
-        color="0.9",
-        label=label,
-    )
-    ax.axhspan(
-        dm_value - 0.1 * dm_error_left,
-        dm_value + 0.1 * dm_error_right,
-        -10,
-        10,
-        color="0.9",
-    )
 
+    ax.set_xlabel(r"$\sin^22\theta_{13}$")
+    ax.set_ylabel(r"$\Delta m^2_{32}$, [eV$^2$]")
     plt.legend()
+    plt.subplots_adjust(left=0.17, right=0.96, bottom=0.14, top=0.95)
 
     if args.output:
         plt.savefig(args.output, metadata={"creationDate": None})
@@ -129,7 +113,7 @@ if __name__ == "__main__":
     comparison = parser.add_argument_group("comparison", "Comparison options")
     comparison.add_argument(
         "--input",
-        help="Path to file with reference fit values",
+        help="Path to file with fit values",
     )
 
     outputs = parser.add_argument_group("outputs", "set outputs")

@@ -8,15 +8,15 @@ printf "%s\n" \
      "Final observation concatenated by detector and period" \
      "Minimization parameters:" \
      'Free: $\Delta m^2_{32}$, $sin^2 2\theta_{13}$ and $\xi_i, i = \overline{0, 18}$' \
-     "where last parametrs are parameters of antineutrino spectra shape" \
-     "All constrained parameters are used in covariance matrix"
+     "where last parameters are parameters of antineutrino spectra shape" \
+     "All constrained parameters are used in covariance matrix" \
 
 ./fits/fit_dayabay_iminuit_monte_carlo.py \
     --statistic full.covmat.chi2cnp \
     --monte-carlo poisson \
     --seed 1 \
     --free-spectrum-shape \
-    --output fit-syst-chi2cnp-free_spectrum_shape-constrained_covmat_all.json
+    --output fit-mc_poisson_1-syst-chi2cnp-free_spectrum_shape-constrained_covmat_all.json
 
 
 printf "%s\n" \
@@ -38,4 +38,4 @@ printf "%s\n" \
     --seed 3 \
     --concatenation-mode detector \
     --statistic full.pull.chi2cnp \
-    --output fit-syst-chi2cnp-free_spectrum_shape-constrained_pull_all.yaml
+    --output fit-mc_poisson_3-syst-chi2cnp-free_spectrum_shape-constrained_pull_all.yaml

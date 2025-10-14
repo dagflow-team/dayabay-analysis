@@ -30,8 +30,6 @@ if TYPE_CHECKING:
     from dag_modelling.parameters import Parameter
 
 
-DATA_INDICES = {"model": 0, "loaded": 1}
-
 
 def main(args: Namespace) -> None:
     # Set verbosity level
@@ -51,7 +49,7 @@ def main(args: Namespace) -> None:
     # Initialize helpful variables and switch output of model
     # to Asimov (output 0) or Real data (output 1).
     storage = model.storage
-    storage["nodes.data.proxy"].switch_input(DATA_INDICES[args.data])
+    model.switch_data(args.data)
 
     parameters_free = storage("parameters.free")
     parameters_constrained = storage("parameters.constrained")
@@ -155,8 +153,8 @@ if __name__ == "__main__":
     fit_options = parser.add_argument_group("fit", "Set fit procedure")
     fit_options.add_argument(
         "--data",
-        default="model",
-        choices=DATA_INDICES.keys(),
+        default="asimov",
+        choices=["asimov", "real"],
         help="choose data for fit",
     )
     fit_options.add_argument(
