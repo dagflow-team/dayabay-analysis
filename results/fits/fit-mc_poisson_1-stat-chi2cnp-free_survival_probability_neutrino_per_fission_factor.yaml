@@ -1,4 +1,4 @@
-clock: 22.021681417001673
+clock: 17.065587019002123
 covariance:
 - - 3.2473172810306034e-06
   - -5.499489887337405e-09
@@ -519,7 +519,7 @@ npars_constrained: 0
 npars_free: 21
 statistic_name: statistic.stat.chi2cnp
 success: true
-wall: 22.021685361862183
+wall: 17.065590143203735
 x:
 - 0.08722308250004436
 - 0.0023963941022596964

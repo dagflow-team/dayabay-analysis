@@ -4,11 +4,11 @@ printf "%s\n" \
      "Simple statistic+all systematic fit with combined Neyman-Neyman chi-squared function" \
      "Data type: determines from data/ content" \
      "WARNING: make sure that you have data/ directory" \
-     "Observed data" \
+     "Real data" \
      "Final observation concatenated by detector and period" \
      "Minimization parameters:" \
      'Free: $\Delta m^2_{32}$, $sin^2 2\theta_{13}$ and $\xi_i, i = \overline{0, 18}$' \
-     "where last parametrs are parameters of antineutrino spectra shape" \
+     "where last parameters are parameters of antineutrino spectra shape" \
      "All constrained parameters are used in covariance matrix" \
      '$\Delta m^2_{32}$, $sin^2 2\theta_{13}$ are profiled within Minos procedure'
 
@@ -16,17 +16,17 @@ printf "%s\n" \
     --statistic full.covmat.chi2cnp \
     --free-spectrum-shape \
     --profile-parameters survival_probability.DeltaMSq32 survival_probability.SinSq2Theta13 \
-    --output fit-syst-chi2cnp-free_spectrum_shape-constrained_covmat_all.json
+    --output fit-real-syst-chi2cnp-free_spectrum_shape-constrained_covmat_all.json
 
 
 printf "%s\n" \
      "Simple statistic+all systematic fit with combined Neyman-Pearson chi-squared function" \
      "Data type: hdf5" \
      "WARNING: make sure that you have data-hdf5/ directory" \
-     "Observed data" \
+     "Real data" \
      "Final observation concatenated by detector" \
      "Minimization parameters:" \
-     'Free: $\Delta m^2_{32}$, $sin^2 2\theta_{13}$ and $N^{\rm global}$' \
+     'Free: $\Delta m^2_{32}$, $sin^2 2\theta_{13}$ and $\xi_i, i = \overline{0, 18}$' \
      "where the last parameter scales observed IBD spectrum in each detector" \
      "simultaneously" \
      "All constrained parameters are included as pull terms" \
@@ -34,6 +34,8 @@ printf "%s\n" \
 
 ./fits/fit_dayabay_iminuit_data.py \
     --path-data data-hdf5 \
-    --concatenation-mode detector \
     --statistic full.pull.chi2cnp \
-    --output fit-syst-chi2cnp-free_spectrum_shape-constrained_pull_all.yaml
+    --concatenation-mode detector \
+    --free-spectrum-shape \
+    --profile-parameters survival_probability.DeltaMSq32 survival_probability.SinSq2Theta13 \
+    --output fit-real-syst-chi2cnp-free_spectrum_shape-constrained_pull_all.yaml

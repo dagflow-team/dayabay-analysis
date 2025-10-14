@@ -235,5 +235,7 @@ def filter_save_fit(data: dict[str, Any] | Minuit, filename: str, minos_result: 
             _save_yaml(result, filename)
         case "pickle":
             _save_pickle(result, filename)
+        case "pkl":
+            _save_pickle(result, filename)
         case _:
             raise RuntimeError(f"Couldn't dump result to `.{ext}`-type")

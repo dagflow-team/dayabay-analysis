@@ -33,7 +33,7 @@ def main(args) -> None:
     storage = model.storage
 
     # Switch output for data from observed data to Asimov data
-    storage["nodes.data.proxy"].switch_input(ASIMOV_OUTPUT_INDEX)
+    model.switch_data("asimov")
 
     # Create dictionary of free parameters: [parameter name, parameter]
     # If user put --free-spectrum-shape flag, it will add parameters
