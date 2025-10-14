@@ -95,8 +95,12 @@ def main(args) -> None:
 
     pprint(result)
 
+    minos_result = None
+    if args.profile_parameters:
+        minos_result = minimizer.minos(*args.profile_parameters).merrors
+
     if args.output:
-        filter_save_fit(result, args.output)
+        filter_save_fit(result, args.output, minos_result)
 
 
 if __name__ == "__main__":
@@ -143,6 +147,13 @@ if __name__ == "__main__":
             "full.pull.chi2poisson",
         ],
         help="Choose statistic for fit",
+    )
+    parser.add_argument(
+        "--profile-parameters",
+        action="extend",
+        nargs="*",
+        default=[],
+        help="choose parameters for Minos profiling",
     )
     parser.add_argument(
         "--output",

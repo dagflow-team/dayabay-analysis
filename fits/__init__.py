@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING
 import numpy as np
 from dag_modelling.parameters import Parameter
 from iminuit.minuit import Minuit
+from iminuit.util import MErrors
 from yaml import add_representer
 from yaml import safe_dump as yaml_dump
 
@@ -185,25 +186,19 @@ def convert_minuit_to_dict(data: Minuit) -> dict[str, Any]:
     x = [value for value in data.values]
     errors = [error for error in data.errors]
     return dict(
-        # clock=,
         covariance=data.covariance,
-        # errorsdef=,
         errorsdict=dict(zip(names, errors)),
         fun=data.fval,
-        # hess_inv=data.hesse,
         names=names,
-        # nbins=,
-        # ndof=,
         nfev=data.nfcn,
         npars=data.npar,
         success=data.valid,
         x=np.array(x),
-        # wall=,
         xdict=dict(zip(names, x)),
     )
 
 
-def filter_save_fit(data: dict[str, Any] | Minuit, filename: str) -> None:
+def filter_save_fit(data: dict[str, Any] | Minuit, filename: str, minos_result: MErrors | None = None) -> None:
     """Filter and save fit results.
 
     It filters fit data from undumpable objects
@@ -215,6 +210,8 @@ def filter_save_fit(data: dict[str, Any] | Minuit, filename: str) -> None:
         Minuit object or dictionary that contains result of fit
     filename : str
         Path to save output
+    minos_result : Minuit | None = None
+        Results of profiling of parameters from Minos procedure
 
     Returns
     -------
@@ -225,6 +222,9 @@ def filter_save_fit(data: dict[str, Any] | Minuit, filename: str) -> None:
         result = convert_minuit_to_dict(data)
     else:
         result = data.copy()
+    if minos_result:
+        result["errorsdict_profiled"] = {parameter: [merror.lower, merror.upper] for parameter, merror in minos_result.items()}
+
     filter_fit(result, ["summary"])
     convert_numpy_to_lists(result)
     *rootparts, ext = filename.split(".")

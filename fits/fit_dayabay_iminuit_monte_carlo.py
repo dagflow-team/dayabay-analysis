@@ -102,8 +102,12 @@ def main(args) -> None:
 
     pprint(result)
 
+    minos_result = {}
+    if args.profile_parameters:
+        minos_result = minimizer.minos(*args.profile_parameters).merrors
+
     if args.output:
-        filter_save_fit(result, args.output)
+        filter_save_fit(result, args.output, minos_result)
 
 
 if __name__ == "__main__":
