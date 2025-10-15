@@ -37,6 +37,7 @@ printf "%s\n" \
     --concatenation-mode detector \
     --free-parameters survival_probability \
     --constrained-parameters detector \
+    --profile-parameters survival_probability.DeltaMSq32 survival_probability.SinSq2Theta13 \
     --output fit-asimov-syst-chi2cnp-free_survival_probability-constrained_detector.pickle
 
 
@@ -75,4 +76,5 @@ printf "%s\n" \
     --concatenation-mode detector \
     --statistic stat.chi2cnp \
     --free-parameters survival_probability neutrino_per_fission_factor \
+    --profile-parameters survival_probability.DeltaMSq32 survival_probability.SinSq2Theta13 \
     --output fit-mc_poisson_1-stat-chi2cnp-free_survival_probability_neutrino_per_fission_factor.yaml

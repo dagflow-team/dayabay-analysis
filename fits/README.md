@@ -54,7 +54,7 @@ It has several options:
   - `chi2n`: Neyman's definition of chi-squared function;
   - `chi2p`: Pearson's definition of chi-squared function;
   - `chi2cnp`: combined Neyman-Pearson's definition of chi-squared function;
-  - `chi2p_unbiased`: Pearson's definition of chi-squared function with addition logarithm of #FIXME;
+  - `chi2p_unbiased`: Pearson's definition of chi-squared function with unbiasing term added in the form of log|V| (logarithm of the determinant of the full covariance matrix). This option potentially might be used, however the validity should be checked.
   - `chi2poisson`: chi-squared function based on Poisson distribution;
   - `full.covmat.chi2p_iterative`: Pearson's chi-squared function with covariance matrix. Statistical errors are frozen. Could be used in iterative fit procedure;
   - `full.covmat.chi2cnp`: combined Neyman-Pearson's chi-squared as sum of Neyman's chi-squared with covariance matrix and Pearson's chi-squared with covariance matrix;
