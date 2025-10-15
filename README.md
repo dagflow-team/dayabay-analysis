@@ -18,18 +18,17 @@ to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-o
 
 ## List of files
 
-- `fits/README.md`: short description of fit scripts;
-- `fits/__init__.py`: contains useful functions for fitting;
-- `fits/fit_dayabay_dgm.py`: much flexible example of fit of Daya Bay model based on dag-modeling framework;
-- `fits/fit_dayabay_iminuit_asimov.py`: fit of the Daya Bay model Asimov data with chosen chi-squared based on `iminuit` package;
-- `fits/fit_dayabay_iminuit_data.py`: fit of the Daya Bay model observed data with chosen chi-squared based on `iminuit` package;
-- `fits/fit_dayabay_iminuit_monte_carlo.py`: fit of the Daya Bay model Monte-Carlo data with chosen chi-squared based on `iminuit` package;
-- `plots/README.md`: short description of plot scripts;
-- `plots/plot_dayabay_fit_spectra_asimov.md`: script for plotting Daya Bay spectra;
-- `requirements.txt`: contains list of libraries to be installed;
-- `pyproject.toml`: configuration file for linters `black` and `isort`;
-- `.gitignore`: configuration file for ignoring patterns by `git` utility;
-- `.envrc`: controls environment variables within `direnv` utility.
+- [fits/README.md](fits/README.md): short description of fit scripts;
+- [fits/\_\_init\_\_.py](fits/__init__.py): contains useful functions for fitting;
+- [fits/fit_dayabay_dgm.py](fits/fit_dayabay_dgm.py): much flexible example of fit of Daya Bay model based on dag-modeling framework;
+- [fits/fit_dayabay_iminuit_asimov.py](fits/fit_dayabay_iminuit_asimov.py): fit of the Daya Bay model Asimov data with chosen chi-squared based on `iminuit` package;
+- [fits/fit_dayabay_iminuit_data.py](fits/fit_dayabay_iminuit_data.py): fit of the Daya Bay model observed data with chosen chi-squared based on `iminuit` package;
+- [fits/fit_dayabay_iminuit_monte_carlo.py](fits/fit_dayabay_iminuit_monte_carlo.py): fit of the Daya Bay model Monte-Carlo data with chosen chi-squared based on `iminuit` package;
+- [plots/README.md](plots/README.md): short description of plot scripts;
+- [plots/plot_dayabay_fit_spectra_asimov.md](plots/plot_dayabay_fit_spectra_asimov.md): script for plotting Daya Bay spectra;
+- [requirements.txt](requirements.txt): contains list of libraries to be installed;
+- [pyproject.toml](pyproject.toml): configuration file for linters `black` and `isort`;
+- [.gitignore](.gitignore): configuration file for ignoring patterns by `git` utility;
 
 ## Minimal working examples
 
@@ -65,13 +64,13 @@ or
 
 Directory results contain reference results of fitting and plotting of best fits.
 
-The most closest result to official might be obtained with CNP chi squared with pull terms and free spectrum. For more details check third script from `scripts/fit_dayabay_dgm.sh` or second script from `scripts/fit_dayabay_iminuit_data.sh`.
+The most closest result to official might be obtained with CNP chi squared with pull terms and free spectrum. For more details check third script from [scripts/fit_dayabay_dgm.sh](scripts/fit_dayabay_dgm.sh) or second script from [scripts/fit_dayabay_iminuit_data.sh](scripts/fit_dayabay_iminuit_data.sh).
 
 **Warning**: some tests contain option `--profile-parameters`. This option activates profiling of parameters to obtain correct values of errors. It might take a long time. If you want to just test, remove `--profile-parameters` key.
 
 ### results/fits
 
-Each file contain information about best fit under assumption certain model configurations. Configurations are described in `scripts/README.md`. Also, configurations are described before starting the fit command in shell script.
+Each file contain information about best fit under assumption certain model configurations. Configurations are described in [scripts/README.md](scripts/README.md). Also, configurations are described before starting the fit command in shell script.
 
 After running script from `scripts/`, you may compare results. Central values of best fit are stored under key `xdict`. Errors of best fit are stored under key `errordict` (errors obtained from covariance matrix) or `errordict_profiled` (errors obtained with Minos algorithm).
 

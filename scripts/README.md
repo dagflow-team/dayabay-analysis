@@ -1,6 +1,6 @@
 # Description
 
-This directory contains several examples of running fit procedure via scripts from `fits/`.
+This directory contains several examples of running fit procedure via scripts from [fits/](fits).
 
 ## fit_dayabay_dgm.sh
 

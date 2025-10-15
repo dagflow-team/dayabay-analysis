@@ -107,7 +107,7 @@ def main(args: Namespace) -> None:
         axs[0].set_ylabel("Entries")
         axs[1].set_xlabel("E, MeV")
         axs[1].set_ylabel("data / fit - 1")
-        plt.subplots_adjust(hspace=0.0, left=0.1, right=0.9, bottom=0.125, top=0.925)
+        plt.subplots_adjust(hspace=0.0, left=0.15, right=0.95, bottom=0.125, top=0.925)
         if args.output:
             plt.savefig(
                 args.output.format(obs_name.replace(".", "-")),

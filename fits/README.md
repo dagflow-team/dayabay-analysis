@@ -2,7 +2,7 @@
 
 Each script contain possible ways to fit Daya Bay model to Asimov/observed/Monte-Carlo data.
 
-Custom functions are located in `__init__.py` file.
+Custom functions are located in [\_\_init\_\t.py](fits/__init__.py) file.
 
 ## fit_dayabay_dgm.py
 
