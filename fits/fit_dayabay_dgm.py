@@ -171,7 +171,7 @@ if __name__ == "__main__":
     )
     fit_options.add_argument(
         "--statistic",
-        default="stat.chi2p",
+        default="full.pull.chi2cnp",
         choices=[
             "stat.chi2p_iterative",
             "stat.chi2n",
