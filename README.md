@@ -65,13 +65,13 @@ or
 
 Directory results contain reference results of fitting and plotting of best fits.
 
-The most closest result to official might be obtained with CNP chi squared with pull terms and free spectrum. For more details check third script from `scripts/fit_dayabay_dgm.sh` or second script from `scripts/fit_dayabay_iminuit_data.sh`.
+The most closest result to official might be obtained with CNP chi squared with pull terms and free spectrum. For more details check third script from [scripts/fit_dayabay_dgm.sh](scripts/fit_dayabay_dgm.sh) or second script from [scripts/fit_dayabay_iminuit_data.sh](scripts/fit_dayabay_iminuit_data.sh).
 
 **Warning**: some tests contain option `--profile-parameters`. This option activates profiling of parameters to obtain correct values of errors. It might take a long time. If you want to just test, remove `--profile-parameters` key.
 
 ### results/fits
 
-Each file contain information about best fit under assumption certain model configurations. Configurations are described in `scripts/README.md`. Also, configurations are described before starting the fit command in shell script.
+Each file contain information about best fit under assumption certain model configurations. Configurations are described in [scripts/README.md](scripts/README.md). Also, configurations are described before starting the fit command in shell script.
 
 After running script from `scripts/`, you may compare results. Central values of best fit are stored under key `xdict`. Errors of best fit are stored under key `errordict` (errors obtained from covariance matrix) or `errordict_profiled` (errors obtained with Minos algorithm).
 
