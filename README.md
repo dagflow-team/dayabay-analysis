@@ -72,8 +72,8 @@ The most closest result to official might be obtained with CNP chi squared with 
 
 Each file contain information about best fit under assumption certain model configurations. Configurations are described in [scripts/README.md](scripts/README.md). Also, configurations are described before starting the fit command in shell script.
 
-After running script from `scripts/`, you may compare results. Central values of best fit are stored under key `xdict`. Errors of best fit are stored under key `errordict` (errors obtained from covariance matrix) or `errordict_profiled` (errors obtained with Minos algorithm).
+After running script from [scripts/](scripts), you may compare results. Central values of best fit are stored under key `xdict`. Errors of best fit are stored under key `errordict` (errors obtained from covariance matrix) or `errordict_profiled` (errors obtained with Minos algorithm).
 
 ### results/plots
 
-This directory contains results of running `plots/plot_fit_2d.py` with files from `results/fits`.
+This directory contains results of running `plots/plot_fit_2d.py` with files from [results/fits/](results/fits).
