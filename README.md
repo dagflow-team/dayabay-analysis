@@ -86,7 +86,7 @@ After running script from [scripts/](scripts), you may compare results. Central 
 
 ### results/plots
 
-This directory contains results of running `plots/plot_fit_2d.py` with files from [results/fits/](results/fits).
+This directory contains results of running [plots/plot_fit_2d.py](plots/plot_fit_2d.py) and [plots/plot_fit_dayabay_asimov.py] with file [results/fits/fit-result-stat-example.yaml](results/fits/fit-result-stat-example.yaml).
 
 ## Known issues
 
