@@ -72,7 +72,11 @@ Examples of running scripts are stored in [scripts/](scripts).
 
 Directory [results/](results) contain reference results of fitting and plotting of best fits.
 
-The most closest result to [the PRL 130, 161802](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.130.161802) might be obtained with CNP chi squared with pull terms and free spectrum. For more details check third script from [scripts/fit_dayabay_dgm.sh](scripts/fit_dayabay_dgm.sh) or second script from [scripts/fit_dayabay_iminuit_data.sh](scripts/fit_dayabay_iminuit_data.sh).
+The most closest result to [the PRL 130, 161802]() might be obtained with CNP chi-squared. 
+
+We provide a few various definitions of the chi-squared function for the analysis. Please, note, that [the official result](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.130.161802) is using Combined Neyman-Pearson's chi-squared with pull terms and free spectrum.  For more details check third script from [scripts/fit_dayabay_dgm.sh](scripts/fit_dayabay_dgm.sh) or second script from [scripts/fit_dayabay_iminuit_data.sh](scripts/fit_dayabay_iminuit_data.sh).
+
+**Disclaimer**: Please, be warned that the use of alternative to CNP definitions may introduce bias to the results. Moreover even if the used chi-squared construction is unbiased the result might be slightly different from CNP. Therefore while the choice of the function is left for the analyzer's discretion, the alternative definition should be used only when strictly necessary.
 
 Description for each type of chi-squared function, you may find in [fits/README.md](fits/README.md).
 

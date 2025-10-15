@@ -12,7 +12,7 @@ It starts fit to Asimov data with statistical only combined Neyman-Pearson chi-s
 
 Data will be loaded from `./data/`. Don't forget to create it before running.
 
-As free parameters are chosen `$\Delta m^2_{32}$` and `$\sin^2 2\theta_{13}$`.
+As free parameters are chosen $\Delta m^2_{32}$ and $\sin^2 2\theta_{13}$.
 
 Final observation concatenated by detectors and periods.
 
@@ -24,7 +24,7 @@ It starts fit to Asimov data with combined Neyman-Pearson chi-sqaured that treat
 
 Data will be loaded from `./data-npz/`. Don't forget to create it before running.
 
-As free parameters are chosen parameters from `survival_probability` namespace. This namespace contains `$\Delta m^2_{32}$` and `$\sin^2 2\theta_{13}$`.
+As free parameters are chosen parameters from `survival_probability` namespace. This namespace contains $\Delta m^2_{32}$ and $\sin^2 2\theta_{13}$.
 
 Also, parameters from `detector` namespace are included as pull terms.
 
@@ -49,7 +49,7 @@ Output of the fit procedure will be dumped in `pickle`-format.
 
 ### The forth script
 
-It starts fit to Monte-Carlo ata with statistical only combined Neyman-Pearson chi-sqaured. Monte-Carlo includes variation of bin observations via Poisson distribution `$\mathrm{Poisson}(N)$`, where `$N$` is number of events in the bin.
+It starts fit to Monte-Carlo ata with statistical only combined Neyman-Pearson chi-sqaured. Monte-Carlo includes variation of bin observations via Poisson distribution $\mathrm{Poisson}(N)$, where $N$ is number of events in the bin.
 
 Data will be loaded from `./data-tsv/`. Don't forget to create it before running.
 
