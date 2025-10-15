@@ -20,7 +20,7 @@ It has several options:
 - `--seed`: option to fix pseudo-sequance of random values. Default: 0. Useful for Monte-Carlo modeling;
 - `--concatenation-mode`: possible way to concatenate final observation. Supports: `detector`, `detector_period`. Default: `detector_period`;
 - `--data`: option to switch between Asimov (Monte-Carlo) and real final observation. Default: Asimov (Monte-Carlo) observation;
-- `--constrain-osc-parameters`: constrain oscillation parameters. Might be useful, if minimization procedure fails within non-physical values of $\sin^22\theta){13}$ or $\Delta m^2_{32}$. After fit with limited oscillation parameters, fit with free oscillation parameters is produced;
+- `--constrain-osc-parameters`: constrain oscillation parameters. Might be useful, if minimization procedure fails within non-physical values of $\sin^22\theta_{13}$ or $\Delta m^2_{32}$. After fit with limited oscillation parameters, fit with free oscillation parameters is produced;
 - `--profile-parameters`: option provides profiling of minimizable parameters within Minos algorithm;
 - `--statistic`: type of chi-squared statistic to be minimized. Supports: `stat.chi2p_iterative`, `stat.chi2n`, `stat.chi2p`, `stat.chi2cnp`, `stat.chi2p_unbiased`, `stat.chi2poisson`, `full.covmat.chi2p_iterative`, `full.covmat.chi2n`, `full.covmat.chi2p`, `full.covmat.chi2p_unbiased`, `full.covmat.chi2cnp`, `full.covmat.chi2cnp_alt`, `full.pull.chi2p_iterative`, `full.pull.chi2p`, `full.pull.chi2cnp`, `full.pull.chi2p_unbiased`, `full.pull.chi2poisson`. Default: `stat.chi2p`. Quick note about naming:
   - `stat`: referes to chi-squared function that **do not** include pull-terms on constrained parameters;
