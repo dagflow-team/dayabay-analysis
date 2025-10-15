@@ -22,9 +22,8 @@ from dag_modelling.tools.logger import DEBUG as INFO4
 from dag_modelling.tools.logger import INFO1, INFO2, INFO3, set_level
 from dayabay_model_official import model_dayabay
 from dgm_fit.iminuit_minimizer import IMinuitMinimizer
-from yaml import dump as yaml_dump
 
-from fits import convert_numpy_to_lists, do_fit, filter_fit, update_dict_parameters
+from fits import do_fit, update_dict_parameters, filter_save_fit
 
 if TYPE_CHECKING:
     from dag_modelling.parameters import Parameter
@@ -99,18 +98,17 @@ def main(args: Namespace) -> None:
         chi2, parameters=minimization_parameters, nbins=model.nbins, verbose=args.verbose > 1
     )
 
-    fit = do_fit(minimizer, model, args.n_iterations)
     # Start fitting
-    if args.profile_parameters:
-        minos_profile = minimizer.profile_errors(args.profile_parameters)
-        fit["errorsdict_profiled"] = minos_profile["errorsdict"]
+    result = do_fit(minimizer, model, args.n_iterations)
 
-    filter_fit(fit, ["summary"])
-    convert_numpy_to_lists(fit)
+    if args.profile_parameters:
+        errors_profiled = minimizer.profile_errors(args.profile_parameters)
+        result["errorsdict_profiled"] = errors_profiled
+
     if args.output:
-        with open(f"{args.output}", "w") as f:
-            yaml_dump(fit, f)
-    pprint(fit)
+        filter_save_fit(result, args.output)
+
+    pprint(result)
 
 
 if __name__ == "__main__":
