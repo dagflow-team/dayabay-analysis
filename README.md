@@ -15,6 +15,7 @@ to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-o
 - [Validating results](#validating-results)
   - [results/fits](#results-fits)
   - [results/plots](#results-plots)
+- [Known issues](#known-issues)
 
 ## List of files
 
@@ -44,16 +45,16 @@ to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-o
   - Fit script:
 ```bash
 ./fits/fit_dayabay_iminuit_asimov.py \
-    --statistic full.covmat.chi2n \
+    --statistic full.covmat.chi2cnp \
     --free-spectrum-shape
 ```
-- Plot script:
+  - Plot script:
 ```bash
 ./plots/plot_dayabay_fit_spectra_asimov.py \
     --input examples/fit-result-stat-example.yaml \
     --show
 ```
-or
+  or
 ```bash
 ./plots/plot_fit_2d.py \
     --input examples/fit-result-stat-example.yaml \
@@ -62,9 +63,18 @@ or
 
 ## Validating results
 
-Directory results contain reference results of fitting and plotting of best fits.
+Daya Bay model can be used in several modes:
+- Asimov: means that final observation is based on average values of model parameters. Proper scripts are [fits/fit_dayabay_dgm.py](fits/fit_dayabay_dgm.py) with option `--data asimov` and [fits/fit_dayabay_iminuit_asimov.py](fits/fit_dayabay_iminuit_asimov.py).
+- Real data: means that final observation of model will be based on measured data during experiment campaign. Proper scripts are [fits/fit_dayabay_dgm.py](fits/fit_dayabay_dgm.py) with option `--data real` and [fits/fit_dayabay_iminuit_data.py](fits/fit_dayabay_iminuit_data.py).
+- Monte-Carlo data: means that final observation of model will be Monte-Carlo observation of Asimov data after Poisson procedure of randomixation: Proper script is [fits/fit_dayabay_iminuit_monte_carlo.py](fits/fit_dayabay_iminuit_monte_carlo.py).
 
-The most closest result to official might be obtained with CNP chi squared with pull terms and free spectrum. For more details check third script from [scripts/fit_dayabay_dgm.sh](scripts/fit_dayabay_dgm.sh) or second script from [scripts/fit_dayabay_iminuit_data.sh](scripts/fit_dayabay_iminuit_data.sh).
+Examples of running scripts are stored in [scripts/](scripts).
+
+Directory [results/](results) contain reference results of fitting and plotting of best fits.
+
+The most closest result to [the PRL 130, 161802](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.130.161802) might be obtained with CNP chi squared with pull terms and free spectrum. For more details check third script from [scripts/fit_dayabay_dgm.sh](scripts/fit_dayabay_dgm.sh) or second script from [scripts/fit_dayabay_iminuit_data.sh](scripts/fit_dayabay_iminuit_data.sh).
+
+Description for each type of chi-squared function, you may find in [fits/README.md](fits/README.md).
 
 **Warning**: some tests contain option `--profile-parameters`. This option activates profiling of parameters to obtain correct values of errors. It might take a long time. If you want to just test, remove `--profile-parameters` key.
 
@@ -77,3 +87,11 @@ After running script from [scripts/](scripts), you may compare results. Central 
 ### results/plots
 
 This directory contains results of running `plots/plot_fit_2d.py` with files from [results/fits/](results/fits).
+
+## Known issues
+
+Matplotlib may pass warning that `UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown plt.show()`. Please istall `PyQT5` as python package to solve this issue:
+```bash
+pip install pyqt5
+```
+It might works for Linux users.
