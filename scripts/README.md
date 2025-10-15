@@ -1,6 +1,6 @@
 # Description
 
-This directory contains several examples of running fit procedure via scripts from [fits/](fits).
+This directory contains several examples of running fit procedure via scripts from [fits/](fits). Also, it contains examples of running plotting scripts from [plots/](plots).
 
 ## fit_dayabay_dgm.sh
 
@@ -12,7 +12,7 @@ It starts fit to Asimov data with statistical only combined Neyman-Pearson chi-s
 
 Data will be loaded from `./data/`. Don't forget to create it before running.
 
-As free parameters are chosen `$\Delta m^2_{32}$` and `$\sin^2 2\theta_{13}$`.
+As free parameters are chosen $\Delta m^2_{32}$ and $\sin^2 2\theta_{13}$.
 
 Final observation concatenated by detectors and periods.
 
@@ -24,7 +24,7 @@ It starts fit to Asimov data with combined Neyman-Pearson chi-sqaured that treat
 
 Data will be loaded from `./data-npz/`. Don't forget to create it before running.
 
-As free parameters are chosen parameters from `survival_probability` namespace. This namespace contains `$\Delta m^2_{32}$` and `$\sin^2 2\theta_{13}$`.
+As free parameters are chosen parameters from `survival_probability` namespace. This namespace contains $\Delta m^2_{32}$ and $\sin^2 2\theta_{13}$.
 
 Also, parameters from `detector` namespace are included as pull terms.
 
@@ -49,7 +49,7 @@ Output of the fit procedure will be dumped in `pickle`-format.
 
 ### The forth script
 
-It starts fit to Monte-Carlo ata with statistical only combined Neyman-Pearson chi-sqaured. Monte-Carlo includes variation of bin observations via Poisson distribution `$\mathrm{Poisson}(N)$`, where `$N$` is number of events in the bin.
+It starts fit to Monte-Carlo ata with statistical only combined Neyman-Pearson chi-sqaured. Monte-Carlo includes variation of bin observations via Poisson distribution $\mathrm{Poisson}(N)$, where $N$ is number of events in the bin.
 
 Data will be loaded from `./data-tsv/`. Don't forget to create it before running.
 
@@ -76,6 +76,8 @@ All nuisance parameters are treated within covariance matrix.
 
 Final observation concatenated by detectors and periods.
 
+Errors for $\Delta m^2_{32}$ and $\sin^22\theta_{13}$ are obtained with minos procedure of profiling.
+
 Output of the fit procedure will be dumped in `json`-format.
 
 ### The second script
@@ -87,6 +89,8 @@ Data will be loaded from `./data-root/`. Don't forget to create it before runnin
 All nuisance parameters are treated as pull terms.
 
 Final observation concatenated by detectors.
+
+Errors for $\Delta m^2_{32}$ and $\sin^22\theta_{13}$ are obtained with minos procedure of profiling.
 
 Output of the fit procedure will be dumped in `json`-format.
 
@@ -106,6 +110,8 @@ All nuisance parameters are treated within covariance matrix.
 
 Final observation concatenated by detectors and periods.
 
+Errors for $\Delta m^2_{32}$ and $\sin^22\theta_{13}$ are obtained with minos procedure of profiling.
+
 Output of the fit procedure will be dumped in `json`-format.
 
 ### The second script
@@ -119,4 +125,9 @@ All nuisance parameters are treated as pull terms.
 Final observation concatenated by detectors.
 
 Output of the fit procedure will be dumped in `json`-format.
+
+
+## plot_dayabay_fit_spectra_asimov.sh
+
+## plot_fit_2d.sh
 
