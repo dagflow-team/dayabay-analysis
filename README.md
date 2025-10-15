@@ -19,7 +19,7 @@ to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-o
 ## List of files
 
 - [fits/README.md](fits/README.md): short description of fit scripts;
-- [fits/__init__.py](fits/__init__.py): contains useful functions for fitting;
+- [fits/\_\_init\_\_.py](fits/__init__.py): contains useful functions for fitting;
 - [fits/fit_dayabay_dgm.py](fits/fit_dayabay_dgm.py): much flexible example of fit of Daya Bay model based on dag-modeling framework;
 - [fits/fit_dayabay_iminuit_asimov.py](fits/fit_dayabay_iminuit_asimov.py): fit of the Daya Bay model Asimov data with chosen chi-squared based on `iminuit` package;
 - [fits/fit_dayabay_iminuit_data.py](fits/fit_dayabay_iminuit_data.py): fit of the Daya Bay model observed data with chosen chi-squared based on `iminuit` package;
