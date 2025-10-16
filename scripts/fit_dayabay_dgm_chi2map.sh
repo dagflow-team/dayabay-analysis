@@ -14,5 +14,5 @@
     --constrained-parameters survival_probability detector reactor background \
     --scan-par survival_probability.SinSq2Theta13 0.072 0.098 21 \
     --scan-par survival_probability.DeltaMSq32 2.17e-3 2.77e-3 21 \
-    --chi2 full.covmat.chi2cnp \
+    --chi2 full.pull.chi2cnp \
     --output contour-real-pull-chi2cnp.npz
