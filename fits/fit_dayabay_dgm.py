@@ -23,11 +23,10 @@ from dag_modelling.tools.logger import INFO1, INFO2, INFO3, set_level
 from dayabay_model_official import model_dayabay
 from dgm_fit.iminuit_minimizer import IMinuitMinimizer
 
-from fits import do_fit, update_dict_parameters, filter_save_fit
+from fits import do_fit, filter_save_fit, update_dict_parameters
 
 if TYPE_CHECKING:
     from dag_modelling.parameters import Parameter
-
 
 
 def main(args: Namespace) -> None:

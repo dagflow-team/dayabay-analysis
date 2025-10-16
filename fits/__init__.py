@@ -198,7 +198,9 @@ def convert_minuit_to_dict(data: Minuit) -> dict[str, Any]:
     )
 
 
-def filter_save_fit(data: dict[str, Any] | Minuit, filename: str, minos_result: MErrors | None = None) -> None:
+def filter_save_fit(
+    data: dict[str, Any] | Minuit, filename: str, minos_result: MErrors | None = None
+) -> None:
     """Filter and save fit results.
 
     It filters fit data from undumpable objects
@@ -223,7 +225,9 @@ def filter_save_fit(data: dict[str, Any] | Minuit, filename: str, minos_result: 
     else:
         result = data.copy()
     if minos_result:
-        result["errorsdict_profiled"] = {parameter: [merror.lower, merror.upper] for parameter, merror in minos_result.items()}
+        result["errorsdict_profiled"] = {
+            parameter: [merror.lower, merror.upper] for parameter, merror in minos_result.items()
+        }
 
     filter_fit(result, ["summary"])
     convert_numpy_to_lists(result)
