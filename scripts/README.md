@@ -127,6 +127,12 @@ Final observation concatenated by detectors.
 Output of the fit procedure will be dumped in `json`-format.
 
 
+## fit_dayabay_dgm_chi2map.sh
+
+Contains examples of creating chi-sqaured map based on combined Neyam-Pearson's chi-squared.
+
+**Warning**: it may take a lot of time to create chi-squared map.
+
 ## plot_dayabay_fit_spectra_asimov.sh
 
 ## plot_fit_2d.sh
