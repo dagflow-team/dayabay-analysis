@@ -10,9 +10,9 @@ Example of call
     ./scripts/plot_fit_2d.py
 
 """
+import os
 from argparse import Namespace
 
-import os
 import numpy as np
 from matplotlib import pyplot as plt
 from yaml import safe_load as yaml_load
