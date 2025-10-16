@@ -5,6 +5,7 @@ from __future__ import annotations
 from argparse import Namespace
 from typing import TYPE_CHECKING
 
+import os
 import numpy as np
 from dayabay_model_official import model_dayabay
 from matplotlib import pyplot as plt
@@ -111,8 +112,14 @@ def main(args: Namespace) -> None:
                 metadata={"creationDate": None},
             )
 
-    if args.show:
-        plt.show()
+    try:
+        if args.show:
+            plt.show()
+    except UserWarning:
+        print("it is not possible to show plots, they will be saved in tmp/tmp-{}.pdf")
+        os.makedirs("tmp/", exist_ok=True)
+        for obs_name in data_obs:
+            plt.savefig(f"tmp/tmp-{obs_name.replace('.', '-')}.pdf", metadata={"creationDate": None})
 
 
 if __name__ == "__main__":

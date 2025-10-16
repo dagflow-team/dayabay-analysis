@@ -35,41 +35,6 @@ def convert_sigmas_to_chi2(df: int, sigmas: list[float] | NDArray) -> NDArray:
     return chi2(df).ppf(percentiles)
 
 
-def get_profile_of_chi2(
-    parameter_grid: NDArray,
-    profile_grid: NDArray,
-    chi2_map: NDArray,
-    best_fit_value: float,
-    best_fit_fun: float,
-) -> tuple[NDArray, NDArray]:
-    """Make a profile of the chi-squared map using thee minimum value. Works
-    with 2-dimensional maps.
-
-    Parameters
-    ----------
-    parameter_grid : NDArray
-        Array of grid to look for best fit value of parameter.
-    profile_grid : NDArray
-        Array of grid to create profile grid.
-    chi2_map : NDArray
-        Map of chi-squared values.
-    best_fit_value : float
-        Value of parameter in best fit point.
-    best_fit_fun : float
-        Value of the chi-squared in best fit point.
-
-    Returns
-    -------
-    tuple[NDArray, NDArray]
-        Array of profile grid values and array of chi-squared values.
-    """
-    abs_difference = np.abs(parameter_grid - best_fit_value)
-    closest_value = abs_difference.min()
-    mask = abs_difference == closest_value
-    chi2_profile = chi2_map[mask] - best_fit_fun
-    return profile_grid[mask], chi2_profile
-
-
 def prepare_axes(
     ax: plt.Axes,
     limits: list[tuple[float, float]],
@@ -109,7 +74,7 @@ def prepare_axes(
         ax.set_yticks(ticks, ticks)
         ax.set_ylabel(ylabel)
         ax.hlines(levels, *xlim, linestyle="--", alpha=0.25, colors="black")
-    ax.plot(profile[0], profile[1], color="black")
+    ax.plot(profile[0], profile[1], color="black", alpha=0.25)
     ax.set_xlim(xlim)
     ax.set_ylim(ylim)
     ax.minorticks_on()
@@ -129,31 +94,22 @@ def main(args: Namespace) -> None:
         best_fit_y = cos_sq_theta12 * (delta_m_sq21 + best_fit_y) + sin_sq_theta12 * best_fit_y
 
     fig, axes = plt.subplots(2, 2, gridspec_kw={"width_ratios": [3, 1], "height_ratios": [1, 3]})
-    sinSqD13_profile, chi2_profile = get_profile_of_chi2(
-        xy_grid[:, 1], xy_grid[:, 0], chi2_map, best_fit_y, fun
-    )
 
-    # TODO: profile 1d
+    sin_sq2theta13 , chi2_profile = data["chi2map1d_x"]
     label = r"$\Delta\chi^2$"
     prepare_axes(
         axes[0, 0],
         limits=[(xy_grid[:, 0].min(), xy_grid[:, 0].max()), (0, 20)],
         ylabel=label,
-        profile=(sinSqD13_profile, chi2_profile),
+        profile=(sin_sq2theta13, chi2_profile),
     )
 
-    dm32_profile, chi2_profile = get_profile_of_chi2(
-        xy_grid[:, 0],
-        xy_grid[:, 1],
-        chi2_map,
-        best_fit_x,
-        fun,
-    )
+    dm32 , chi2_profile = data["chi2map1d_y"]
     prepare_axes(
         axes[1, 1],
         limits=[(0, 20), (xy_grid[:, 1].min(), xy_grid[:, 1].max())],
         xlabel=label,
-        profile=(chi2_profile, dm32_profile),
+        profile=(chi2_profile, dm32),
     )
 
     ndof = 2  # len(parameters)
