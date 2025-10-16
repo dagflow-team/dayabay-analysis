@@ -12,6 +12,7 @@ Example of call
 """
 from argparse import Namespace
 
+import os
 import numpy as np
 from matplotlib import pyplot as plt
 from yaml import safe_load as yaml_load
@@ -101,8 +102,13 @@ def main(args: Namespace) -> None:
     if args.output:
         plt.savefig(args.output, metadata={"creationDate": None})
 
-    if args.show:
-        plt.show()
+    try:
+        if args.show:
+            plt.show()
+    except UserWarning:
+        print("it is not possible to show plot, it will be saved in tmp/tmp.pdf")
+        os.makedirs("tmp/", exist_ok=True)
+        plt.savefig("tmp/tmp.pdf", metadata={"creationDate": None})
 
 
 if __name__ == "__main__":
