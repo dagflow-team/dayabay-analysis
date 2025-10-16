@@ -2,11 +2,24 @@
 
 from argparse import Namespace
 
+<<<<<<< HEAD
+=======
+import os
+>>>>>>> main
 import numpy as np
 from matplotlib import pyplot as plt
 from numpy.typing import NDArray
 from scipy.stats import chi2, norm
 
+<<<<<<< HEAD
+=======
+sin_sq_2theta12 = 0.851
+cos_sq_2theta12 = 1 - sin_sq_2theta12
+cos_2theta12 = cos_sq_2theta12**0.5
+sin_sq_theta12 = (1.0 - cos_2theta12) / 2.0
+cos_sq_theta12 = 1.0 - sin_sq_theta12
+delta_m_sq21 = 7.53e-05
+>>>>>>> main
 
 def convert_sigmas_to_chi2(df: int, sigmas: list[float] | NDArray) -> NDArray:
     """Convert deviation of normal unit distribution N(0, 1) to critical value
@@ -117,6 +130,9 @@ def main(args: Namespace) -> None:
     best_fit_y = best_fit_values["survival_probability.DeltaMSq32"]
     fun = best_fit_values["fun"]
     
+    if not args.dm32:
+        xy_grid[:, 1] = cos_sq_theta12 * (delta_m_sq21 + xy_grid[:, 1]) + sin_sq_theta12 * xy_grid[:, 1]
+        best_fit_y = cos_sq_theta12 * (delta_m_sq21 + best_fit_y) + sin_sq_theta12 * best_fit_y
 
     fig, axes = plt.subplots(2, 2, gridspec_kw={"width_ratios": [3, 1], "height_ratios": [1, 3]})
     sinSqD13_profile, chi2_profile = get_profile_of_chi2(
@@ -150,6 +166,7 @@ def main(args: Namespace) -> None:
     levels = convert_sigmas_to_chi2(ndof, [0, 1, 2, 3])
     axes[1, 0].grid(linestyle="--")
     axes[1, 0].tricontourf(xy_grid[:, 0], xy_grid[:, 1], chi2_map - fun, levels=levels, cmap="GnBu")
+    axes[1, 0].scatter(best_fit_x, best_fit_y)
     # axes[1, 0].errorbar(
     #     best_fit_x,
     #     best_fit_y,
@@ -161,7 +178,9 @@ def main(args: Namespace) -> None:
     #     capsize=3,
     # )
 
-    axes[1, 0].set_ylabel(r"$\Delta m^2_{32}$, [eV$^2$]")
+    axes[1, 0].set_ylabel(r"$\Delta m^2_{ee}$, [eV$^2$]")
+    if args.dm32:
+        axes[1, 0].set_ylabel(r"$\Delta m^2_{32}$, [eV$^2$]")
     axes[1, 0].set_xlabel(r"$\sin^22\theta_{13}$")
     axes[1, 0].minorticks_on()
     fig.delaxes(axes[0, 1])
@@ -169,7 +188,14 @@ def main(args: Namespace) -> None:
     plt.subplots_adjust(wspace=0, hspace=0)
     if args.output:
         plt.savefig(args.output)
-    plt.show()
+
+    try:
+        if args.show:
+            plt.show()
+    except UserWarning:
+        print("it is not possible to show plot, it will be saved in tmp/tmp.pdf")
+        os.makedirs("tmp/", exist_ok=True)
+        plt.savefig(f"tmp/tmp.pdf", metadata={"creationDate": None})
 
 
 if __name__ == "__main__":
@@ -181,6 +207,16 @@ if __name__ == "__main__":
     parser.add_argument(
         "--output",
         help="path to save plot",
+    )
+    parser.add_argument(
+        "--dm32",
+        action="store_true",
+        help=r"Switch plot y-axis from $\Delta m^2_{32}$ to $\Delta m^2_{ee}$",
+    )
+    parser.add_argument(
+        "--show",
+        action="store_true",
+        help="show plot",
     )
 
     args = parser.parse_args()
