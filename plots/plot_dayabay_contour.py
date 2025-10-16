@@ -95,7 +95,7 @@ def main(args: Namespace) -> None:
 
     fig, axes = plt.subplots(2, 2, gridspec_kw={"width_ratios": [3, 1], "height_ratios": [1, 3]})
 
-    sin_sq2theta13 , chi2_profile = data["chi2map1d_x"]
+    sin_sq2theta13 , chi2_profile = data["chi2map1d_x"].T
     label = r"$\Delta\chi^2$"
     prepare_axes(
         axes[0, 0],
@@ -104,7 +104,7 @@ def main(args: Namespace) -> None:
         profile=(sin_sq2theta13, chi2_profile),
     )
 
-    dm32 , chi2_profile = data["chi2map1d_y"]
+    dm32 , chi2_profile = data["chi2map1d_y"].T
     prepare_axes(
         axes[1, 1],
         limits=[(0, 20), (xy_grid[:, 1].min(), xy_grid[:, 1].max())],
