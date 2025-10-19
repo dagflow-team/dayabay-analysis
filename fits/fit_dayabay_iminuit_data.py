@@ -27,7 +27,7 @@ from fits import filter_save_fit
 
 def main(args) -> None:
     # Load Daya Bay model
-    model = model_dayabay()
+    model = model_dayabay(path_data=args.path_data, concatenation_mode=args.concatenation_mode)
     storage = model.storage
 
     # Switch output for data from observed data to Asimov data

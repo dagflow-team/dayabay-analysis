@@ -78,7 +78,7 @@ def cartesian_product(
 
 
 def main(args: Namespace) -> None:
-    model = model_dayabay()
+    model = model_dayabay(path_data=args.path_data, concatenation_mode=args.concatenation_mode)
 
     storage = model.storage
     model.switch_data(args.data)
@@ -186,6 +186,17 @@ if __name__ == "__main__":
     from argparse import ArgumentParser
 
     parser = ArgumentParser()
+    parser.add_argument(
+        "--path-data",
+        default=None,
+        help="Path to data",
+    )
+    parser.add_argument(
+        "--concatenation-mode",
+        default="detector_period",
+        choices=["detector", "detector_period"],
+        help="Choose type of concatenation for final observation: by detector or by detector and period",
+    )
     parser.add_argument(
         "--par",
         nargs=2,
