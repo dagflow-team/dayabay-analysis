@@ -45,8 +45,7 @@ to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-o
   - Fit script:
 ```bash
 ./fits/fit_dayabay_iminuit_asimov.py \
-    --statistic full.covmat.chi2cnp \
-    --free-spectrum-shape
+    --statistic full.covmat.chi2cnp
 ```
   - Plot script:
 ```bash
