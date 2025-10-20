@@ -70,8 +70,6 @@ It starts fit to Asimov data with combined Neyman-Pearson chi-sqaured that inclu
 
 Data will be loaded from `./data-hdf5/`. Don't forget to create it before running.
 
-Option `--free-spectrum-shape` includes parameters from the namespace `neutrino_per_fission_factor` as free parameters.
-
 All nuisance parameters are treated within covariance matrix.
 
 Final observation concatenated by detectors and periods.
@@ -103,8 +101,6 @@ Contains several examples of running fit procedure on observed data within `imin
 It starts fit to observed data with combined Neyman-Pearson chi-sqaured that includes covariance matrix.
 
 Data will be loaded from `./data/`. Don't forget to create it before running.
-
-Option `--free-spectrum-shape` includes parameters from the namespace `neutrino_per_fission_factor` as free parameters.
 
 All nuisance parameters are treated within covariance matrix.
 

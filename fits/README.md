@@ -59,7 +59,6 @@ It has several options:
   - `full.covmat.chi2p_iterative`: Pearson's chi-squared function with covariance matrix. Statistical errors are frozen. Could be used in iterative fit procedure;
   - `full.covmat.chi2cnp`: combined Neyman-Pearson's chi-squared as sum of Neyman's chi-squared with covariance matrix and Pearson's chi-squared with covariance matrix;
   - `full.covmat.chi2cnp_alt`: combined Neyman-Pearson's chi-squared from [the paper](https://arxiv.org/pdf/1903.07185) (formula 18);
-- `--free-spectrum-shape`: add parameters of anineutrino spectrum shape variation as free parameters. Otherwise, the scale parameter on IBD part of observation will be used ($N^{\rm global}$ - global normalization);
 - `--use-hubber-mueller-spectral-uncertainties`: add parameters of Huber-Mueller uncertainties for each isotope. **Warning**: it contains 900+ parameters, so fit procedure will take a long time;
 - `--output`: option to save fit result. Supports: `json`, `yaml`, `pickle`.
 
@@ -83,7 +82,6 @@ It has several options:
   - `full.covmat.chi2p_iterative`: Pearson's chi-squared function with covariance matrix. Statistical errors are frozen. Could be used in iterative fit procedure;
   - `full.covmat.chi2cnp`: combined Neyman-Pearson's chi-squared as sum of Neyman's chi-squared with covariance matrix and Pearson's chi-squared with covariance matrix;
   - `full.covmat.chi2cnp_alt`: combined Neyman-Pearson's chi-squared from [the paper](https://arxiv.org/pdf/1903.07185) (formula 18);
-- `--free-spectrum-shape`: add parameters of anineutrino spectrum shape variation as free parameters. Otherwise, the scale parameter on IBD part of observation will be used ($N^{\rm global}$ - global normalization);
 - `--use-hubber-mueller-spectral-uncertainties`: add parameters of Huber-Mueller uncertainties for each isotope. **Warning**: it contains 900+ parameters, so fit procedure will take a long time;
 - `--output`: option to save fit result. Supports: `json`, `yaml`, `pickle`.
 
@@ -111,6 +109,5 @@ It has several options:
   - `full.covmat.chi2p_iterative`: Pearson's chi-squared function with covariance matrix. Statistical errors are frozen. Could be used in iterative fit procedure;
   - `full.covmat.chi2cnp`: combined Neyman-Pearson's chi-squared as sum of Neyman's chi-squared with covariance matrix and Pearson's chi-squared with covariance matrix;
   - `full.covmat.chi2cnp_alt`: combined Neyman-Pearson's chi-squared from [the paper](https://arxiv.org/pdf/1903.07185) (formula 18);
-- `--free-spectrum-shape`: add parameters of anineutrino spectrum shape variation as free parameters. Otherwise, the scale parameter on IBD part of observation will be used ($N^{\rm global}$ - global normalization);
 - `--use-hubber-mueller-spectral-uncertainties`: add parameters of Huber-Mueller uncertainties for each isotope. **Warning**: it contains 900+ parameters, so fit procedure will take a long time;
 - `--output`: option to save fit result. Supports: `json`, `yaml`, `pickle`.

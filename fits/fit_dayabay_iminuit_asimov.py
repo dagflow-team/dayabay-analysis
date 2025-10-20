@@ -10,7 +10,6 @@ Example of call
 
     ./fits/fit_dayabay_iminuit_asimov.py \
         --statistic full.pull.chi2cnp \
-        --free-spectrum-shape \
         --use-hubber-mueller-spectral-uncertainties
 """
 from __future__ import annotations
@@ -36,26 +35,13 @@ def main(args) -> None:
     model.switch_data("asimov")
 
     # Create dictionary of free parameters: [parameter name, parameter]
-    # If user put --free-spectrum-shape flag, it will add parameters
-    # to variate electron antineutrino spectrum shape
-    # Otherwise, it will add global normalization paramter to simultaniously
-    # variate rate in each detector
-    if args.free_spectrum_shape:
-        free_parameters = {
-            par.name: par
-            for par in filter(
-                lambda x: "global_normalization" not in x.name,
-                storage["parameters.free"].walkvalues(),
-            )
-        }
-    else:
-        free_parameters = {
-            par.name: par
-            for par in filter(
-                lambda x: "neutrino_per_fission" not in x.name,
-                storage["parameters.free"].walkvalues(),
-            )
-        }
+    free_parameters = {
+        par.name: par
+        for par in filter(
+            lambda x: "global_normalization" not in x.name,
+            storage["parameters.free"].walkvalues(),
+        )
+    }
     # Create dictionary of constrained parameters: [parameter name, parameter]
     # If user put --use-hubber-mueller-spectral-uncertainties flag, it will add
     # parameters of uncertainties for each isotope (more than 1000 parameters)
@@ -115,9 +101,6 @@ if __name__ == "__main__":
         default="detector_period",
         choices=["detector", "detector_period"],
         help="Choose type of concatenation for final observation: by detector or by detector and period",
-    )
-    parser.add_argument(
-        "--free-spectrum-shape", action="store_true", help="Minimize spectrum shape"
     )
     parser.add_argument(
         "--use-hubber-mueller-spectral-uncertainties",
