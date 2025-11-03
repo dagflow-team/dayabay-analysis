@@ -42,7 +42,6 @@ def main(args: Namespace) -> None:
         monte_carlo_mode=args.monte_carlo_mode,
         concatenation_mode=args.concatenation_mode,
         parameter_values=args.par,
-        override_cfg_files={"antineutrino_spectrum_segment_edges": "anue_segments_juno_300keV.tsv"},
     )
 
     # Initialize helpful variables and switch output of model
