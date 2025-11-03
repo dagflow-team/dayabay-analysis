@@ -71,6 +71,7 @@ def main(args) -> None:
         parameters=parameters,
         safe=False,
     )
+    import IPython; IPython.embed()
 
     # Initialize minimizer
     minimizer = iminuit.Minuit(
@@ -122,7 +123,6 @@ if __name__ == "__main__":
             "full.covmat.chi2p",
             "full.covmat.chi2p_unbiased",
             "full.covmat.chi2cnp",
-            "full.covmat.chi2cnp_alt",
             "full.pull.chi2p_iterative",
             "full.pull.chi2p",
             "full.pull.chi2cnp",

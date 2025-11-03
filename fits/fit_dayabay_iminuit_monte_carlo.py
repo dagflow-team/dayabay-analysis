@@ -71,6 +71,7 @@ def main(args) -> None:
     if "covmat" not in args.statistic:
         parameters.update(constrained_parameters)
 
+    model.next_sample()
     # Create wrapper for statistic, put parameters
     # safe=False disables returning of parameters to the initial values
     fcn = make_fcn(
@@ -81,8 +82,12 @@ def main(args) -> None:
 
     # Initialize minimizer
     minimizer = iminuit.Minuit(
-        fcn, name=parameters.keys(), **{name: par.value for name, par in parameters.items()}
+        fcn, name=parameters.keys(), **{name: par.value for name, par in parameters.items()},
     )
+    minimizer.print_level = 3
+    # import IPython; IPython.embed()
+    # minimizer.limits["survival_probability.SinSq2Theta12"] = (0, None)
+    # minimizer.limits["survival_probability.SinSq2Theta13"] = (0, None)
     # Do fit
     result = minimizer.migrad()
 
@@ -142,7 +147,6 @@ if __name__ == "__main__":
             "full.covmat.chi2p",
             "full.covmat.chi2p_unbiased",
             "full.covmat.chi2cnp",
-            "full.covmat.chi2cnp_alt",
             "full.pull.chi2p_iterative",
             "full.pull.chi2p",
             "full.pull.chi2cnp",

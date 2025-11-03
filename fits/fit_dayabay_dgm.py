@@ -42,6 +42,7 @@ def main(args: Namespace) -> None:
         monte_carlo_mode=args.monte_carlo_mode,
         concatenation_mode=args.concatenation_mode,
         parameter_values=args.par,
+        override_cfg_files={"antineutrino_spectrum_segment_edges": "anue_segments_juno_300keV.tsv"},
     )
 
     # Initialize helpful variables and switch output of model
@@ -92,6 +93,7 @@ def main(args: Namespace) -> None:
         if not fit["success"]:
             exit()
 
+    # import IPython; IPython.embed()
     # Initialize minimizer object
     minimizer = IMinuitMinimizer(
         chi2, parameters=minimization_parameters, nbins=model.nbins, verbose=args.verbose > 1
@@ -181,7 +183,6 @@ if __name__ == "__main__":
             "full.covmat.chi2p",
             "full.covmat.chi2p_unbiased",
             "full.covmat.chi2cnp",
-            "full.covmat.chi2cnp_alt",
             "full.pull.chi2p_iterative",
             "full.pull.chi2p",
             "full.pull.chi2cnp",
