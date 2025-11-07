@@ -103,7 +103,7 @@ def main(args: Namespace) -> None:
 
     if args.profile_parameters:
         errors_profiled = minimizer.profile_errors(args.profile_parameters)
-        result["errorsdict_profiled"] = errors_profiled
+        result["errorsdict_profiled"] = errors_profiled["errorsdict"]
 
     if args.output:
         filter_save_fit(result, args.output)
