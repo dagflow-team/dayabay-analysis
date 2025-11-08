@@ -64,7 +64,7 @@ def main(args) -> None:
         constrained_parameters = {
             par.name: par
             for par in filter(
-                lambda x: "reactor_antineutrino" not in x.name or "nominal_thermal_power" not in x.name,
+                lambda x: not ("reactor_antineutrino" in x.name or "nominal_thermal_power" in x.name),
                 storage["parameters.constrained"].walkvalues(),
             )
         }
