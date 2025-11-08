@@ -18,10 +18,11 @@ from argparse import ArgumentParser
 from pprint import pprint
 
 import iminuit
+import numpy as np
 from dag_modelling.tools.make_fcn import make_fcn
 from dayabay_model_official import model_dayabay
 
-from fits import filter_save_fit
+from fits import convert_minuit_to_dict
 
 
 def main(args) -> None:
@@ -82,12 +83,35 @@ def main(args) -> None:
 
     pprint(result)
 
-    minos_result = None
-    if args.profile_parameters:
-        minos_result = minimizer.minos(*args.profile_parameters).merrors
+    contours = []
+    for cl in args.confidence_levels:
+        contours.append(result.mncontour(*args.profile_parameters, cl=cl))
+
+    profiles = []
+    for parameter in args.profile_parameters:
+        profiles.append(result.mnprofile(parameter, subtract_min=True)[:2])
+
+    result_dict = convert_minuit_to_dict(result)
+    final_result = {
+        f"sigma{idx}": contour for idx, contour in zip(args.confidence_levels, contours)
+    }
+    final_result.update(
+        {parameter: profile for parameter, profile in zip(args.profile_parameters, profiles)}
+    )
+    parameter_x, parameter_y = args.profile_parameters
+    final_result.update(
+        {
+            "best-fit": np.array(
+                [(result_dict[parameter_x], result_dict[parameter_y], result_dict["fun"])],
+                dtype=np.dtype(
+                    [(parameter_x, np.float64), (parameter_y, np.float64), ("fun", np.float64)]
+                ),
+            )
+        }
+    )
 
     if args.output:
-        filter_save_fit(result, args.output, minos_result)
+        np.savez(args.output, **final_result)
 
 
 if __name__ == "__main__":
@@ -139,9 +163,17 @@ if __name__ == "__main__":
         help="choose parameters for Minos profiling",
     )
     parser.add_argument(
+        "--confidence-levels",
+        action="extend",
+        nargs="*",
+        type=int,
+        required=True,
+        help="choose CL for contours",
+    )
+    parser.add_argument(
         "--output",
         type=str,
-        help="Path to save output",
+        help="Path to save output, supports only npz",
     )
     args = parser.parse_args()
 

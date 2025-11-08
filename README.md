@@ -77,7 +77,7 @@ We provide a few various definitions of the χ² function (statistic) for the an
 
 **Disclaimer**: Please, be warned that the use of alternative to CNP definitions may introduce the bias to the results. Moreover even if the used χ² construction is unbiased the result might be slightly different from the official one. Therefore while the choice of the function is left for the analyzer's discretion, the alternative definitions should be used only when strictly necessary.
 
-The list of provided choices for the statistic includes `stat.chi2p_iterative`, `stat.chi2n`, `stat.chi2p`, `stat.chi2cnp`, `stat.chi2p_unbiased`, `stat.chi2poisson`, `full.covmat.chi2p_iterative`, `full.covmat.chi2n`, `full.covmat.chi2p`, `full.covmat.chi2p_unbiased`, `full.covmat.chi2cnp`, `full.covmat.chi2cnp_alt`, `full.pull.chi2p_iterative`, `full.pull.chi2p`, `full.pull.chi2cnp`, `full.pull.chi2p_unbiased`, `full.pull.chi2poisson`. In more details:
+The list of provided choices for the statistic includes `stat.chi2p_iterative`, `stat.chi2n`, `stat.chi2p`, `stat.chi2cnp`, `stat.chi2p_unbiased`, `stat.chi2poisson`, `full.covmat.chi2p_iterative`, `full.covmat.chi2n`, `full.covmat.chi2p`, `full.covmat.chi2p_unbiased`, `full.covmat.chi2cnp`, `full.pull.chi2p_iterative`, `full.pull.chi2p`, `full.pull.chi2cnp`, `full.pull.chi2p_unbiased`, `full.pull.chi2poisson`. In more details:
 - Options of the propagation of systematic uncertainties:
     * `stat`: refers to χ² function that has no systematic uncertainties included, only statistical one.
     * `full.pull`: refers to χ² function that includes systematic uncertainties via nuisance parameters.
@@ -90,8 +90,7 @@ The list of provided choices for the statistic includes `stat.chi2p_iterative`, 
     * `chi2p`: Pearson's definition of χ² function. The statistical uncertainties are based on the prediction. This one should be used only for Asimov data (no fluctuations). It is advised to never use it for data, unless analyzer knows what he is doing. In the case of presence of fluctuations Pearson's χ² may provide biased result due to interplay between parameter dependent uncertainties and fluctuations.
 - Some specific χ² constructions. For all of them the analysis should be thoroughly validated.
     * `full.covmat.chi2p_iterative`: Pearson's χ² function with covariance matrix. The covariance matrix are fixed during the minimization process. Could be used in iterative fit procedure when the covariance matrix is updated at the best fit position and the fit is repeated.
-    * `full.covmat.chi2cnp`: combined Neyman-Pearson's χ² with covariance matrix. It is built as a sum of Neyman's χ² with covariance matrix and Pearson's χ² with covariance matrix with appropriate weights.
-    * `full.covmat.chi2cnp_alt`: combined Neyman-Pearson's χ² with covariance matrix. The statistical part of the covariance matrix is defined according to [the corresponding paper](https://arxiv.org/pdf/1903.07185) (formula 18).
+    * `full.covmat.chi2cnp`: combined Neyman-Pearson's χ² with covariance matrix. The statistical part of the covariance matrix is defined according to [the corresponding paper](https://arxiv.org/pdf/1903.07185) (formula 18).
 
 **Warning**: some tests contain option `--profile-parameters`. This option activates profiling of parameters to obtain correct values of errors. It might take a long time. If you want to just test, remove `--profile-parameters` key.
 

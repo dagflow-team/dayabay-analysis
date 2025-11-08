@@ -55,13 +55,16 @@ def main(args) -> None:
     # Usually, these parameters are used for fit with observed data
     if args.use_hubber_mueller_spectral_uncertainties:
         constrained_parameters = {
-            par.name: par for par in storage["parameters.constrained"].walkvalues()
+            par.name: par for par in filter(
+                lambda x: "nominal_thermal_power" not in x.name,
+                storage["parameters.constrained"].walkvalues(),
+            )
         }
     else:
         constrained_parameters = {
             par.name: par
             for par in filter(
-                lambda x: "reactor_antineutrino" not in x.name,
+                lambda x: not ("reactor_antineutrino" in x.name or "nominal_thermal_power" in x.name),
                 storage["parameters.constrained"].walkvalues(),
             )
         }
@@ -71,6 +74,7 @@ def main(args) -> None:
     if "covmat" not in args.statistic:
         parameters.update(constrained_parameters)
 
+    model.next_sample()
     # Create wrapper for statistic, put parameters
     # safe=False disables returning of parameters to the initial values
     fcn = make_fcn(
@@ -81,7 +85,7 @@ def main(args) -> None:
 
     # Initialize minimizer
     minimizer = iminuit.Minuit(
-        fcn, name=parameters.keys(), **{name: par.value for name, par in parameters.items()}
+        fcn, name=parameters.keys(), **{name: par.value for name, par in parameters.items()},
     )
     # Do fit
     result = minimizer.migrad()
@@ -142,7 +146,6 @@ if __name__ == "__main__":
             "full.covmat.chi2p",
             "full.covmat.chi2p_unbiased",
             "full.covmat.chi2cnp",
-            "full.covmat.chi2cnp_alt",
             "full.pull.chi2p_iterative",
             "full.pull.chi2p",
             "full.pull.chi2cnp",
