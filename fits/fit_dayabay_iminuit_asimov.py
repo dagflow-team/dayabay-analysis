@@ -48,13 +48,16 @@ def main(args) -> None:
     # Usually, these parameters are used for fit with observed data
     if args.use_hubber_mueller_spectral_uncertainties:
         constrained_parameters = {
-            par.name: par for par in storage["parameters.constrained"].walkvalues()
+            par.name: par for par in filter(
+                lambda x: "nominal_thermal_power" not in x.name,
+                storage["parameters.constrained"].walkvalues(),
+            )
         }
     else:
         constrained_parameters = {
             par.name: par
             for par in filter(
-                lambda x: "reactor_antineutrino" not in x.name,
+                lambda x: "reactor_antineutrino" not in x.name or "nominal_thermal_power" not in x.name,
                 storage["parameters.constrained"].walkvalues(),
             )
         }
@@ -71,7 +74,6 @@ def main(args) -> None:
         parameters=parameters,
         safe=False,
     )
-    import IPython; IPython.embed()
 
     # Initialize minimizer
     minimizer = iminuit.Minuit(
