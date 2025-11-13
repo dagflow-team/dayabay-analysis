@@ -10,12 +10,22 @@ to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-o
 
 ## Content
 
+- [General](#general)
 - [List of files](#list-of-files)
 - [Minimal working examples](#minimal-working-examples)
+  - [Preparation](#preparation)
+  - [Simple fit with IMinuit](#simple-fit-with-iminuit)
+  - [Simple plot of fit](#simple-plot-of-fit)
 - [Validating results](#validating-results)
-  - [results/fits](#results-fits)
-  - [results/plots](#results-plots)
+- [On a χ² choice of function](#on-a-χ-choice-of-function)
+- [More examples](#more-examples)
+  - [Fitting scripts](#fitting-scripts)
+  - [Plotting scripts](#plotting-scripts)
 - [Known issues](#known-issues)
+
+## General
+
+This repository represents several examples of fitting and plotting results of fit based on [dayabay-model](https://github.com/dagflow-team/dayabay-model-official).
 
 ## List of files
 
@@ -33,32 +43,53 @@ to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-o
 
 ## Minimal working examples
 
+Here are described how to run MWE.
+
+### Preparation
+
 1. Clone this repo `git clone https://github.com/dagflow-team/dayabay-analysis` and change your directory to the cloned repo `cd dayabay-analysis`
-2. Install required packages: `pip install -r requirements`
-3. Clone the repository with Daya Bay data `git clone https://github.com/dagflow-team/dayabay-data-official`
-  - Make sure that you have `git-lfs` in your system or install it
-  - After installing `git-lfs`, run command `git lfs pull` to download more files
-  - More details on how to work with data repository you can find in [README.md of the data repository](https://github.com/dagflow-team/dayabay-data-official)
-4. Create soft links `ln -s dayabay-data-official/hdf5 data`
-5. Set `PYTHONPATH` variable to the current directory: `set PYTHONPATH=$PHYTHONPATH:$PWD`. **Alternative**: set variable value when run example: `PYTHONPATH=PWD ./fits/...`
-6. Try to run examples above:
-  - Fit script:
+2. Install required packages: `pip install -r requirements.txt`
+3. Download archive from the provided storages by email (check email from Maxim Gonchar 13 November 2025) and unpack it
+  - Download archive
+    ```bash
+    dayabay_data_v2-npz.zip
+    ```
+  - Unpack archive `dayabay_data_v2-npz.zip`: via GUI or just run command
+    ```bash
+    unzip /path/to/dayabay_data_v2-npz.zip -d ./
+    ```
+    **WARNING**: unpacking might cause overwritting of `README.md`. Ignore it and press `N`+`Enter`
+  - Rename data directory from `npz/` to `data/` via GUI or  just run command
+    ```bash
+    mv npz/ data/
+    ```
+  - Later, you can upload another format of dataset and do the same steps.
+5. Update `PYTHONPATH` variable to the current directory: `export PYTHONPATH=$PHYTHONPATH:$PWD`. **Alternative**: set variable value when run example: `PYTHONPATH=PWD ./fits/...`
+
+
+### Simple fit with IMinuit
+
+Following script demonstrates how to run fit procedure for the Daya Bay model based on `asimov` data and combined Neyman-Pearson chi-squared functions. All systematic uncertainties are treated via covariance matrix:
 ```bash
 ./fits/fit_dayabay_iminuit_asimov.py \
     --statistic full.covmat.chi2cnp
 ```
-  - Plot script:
-```bash
-./plots/plot_dayabay_fit_spectra_asimov.py \
-    --input examples/fit-result-stat-example.yaml \
-    --show
-```
-  or
-```bash
-./plots/plot_fit_2d.py \
-    --input examples/fit-result-stat-example.yaml \
-    --show
-```
+
+### Simple plot of fit
+
+1. Following script demonstrates how to plot spectra of model based on fit data. Fit data is stored in `examples/fit-result-stat-example.yaml`.
+  ```bash
+  ./plots/plot_dayabay_fit_spectra_asimov.py \
+      --input examples/fit-result-stat-example.yaml \
+      --show
+  ```
+1. Following script demonstrates how to plot 2D plot in $`(\sin^22\theta_{13}, \Delta m^2_{32})`$ axes based on fit data. Fit data is stored in `examples/fit-result-stat-example.yaml`.
+    or
+  ```bash
+  ./plots/plot_fit_2d.py \
+      --input examples/fit-result-stat-example.yaml \
+      --show
+  ```
 
 ## Validation of the results
 
@@ -94,13 +125,17 @@ The list of provided choices for the statistic includes `stat.chi2p_iterative`, 
 
 **Warning**: some tests contain option `--profile-parameters`. This option activates profiling of parameters to obtain correct values of errors. It might take a long time. If you want to just test, remove `--profile-parameters` key.
 
-### results/fits
+## More examples
+
+Following sections contains information about examples of [fitting/](scripts) and [plotting/](scripts). Description of these scripts is stored in [scripts/README.md](scripts/README.md).
+
+### Fitting scripts
 
 Each file contain information about best fit under assumption certain model configurations. Configurations are described in [scripts/README.md](scripts/README.md). Also, configurations are described before starting the fit command in shell script.
 
 After running script from [scripts/](scripts), you may compare results. Central values of best fit are stored under key `xdict`. Errors of best fit are stored under key `errordict` (errors obtained from covariance matrix) or `errordict_profiled` (errors obtained with Minos algorithm).
 
-### results/plots
+### Plotting scripts
 
 This directory contains results of running [plots/plot_fit_2d.py](plots/plot_fit_2d.py) and [plots/plot_fit_dayabay_asimov.py] with file [results/fits/fit-result-stat-example.yaml](results/fits/fit-result-stat-example.yaml).
 
