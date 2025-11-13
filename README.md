@@ -16,11 +16,10 @@ to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-o
   - [Preparation](#preparation)
   - [Simple fit with IMinuit](#simple-fit-with-iminuit)
   - [Simple plot of fit](#simple-plot-of-fit)
-- [Validating results](#validating-results)
-- [On a χ² choice of function](#on-a-χ-choice-of-function)
-- [More examples](#more-examples)
+- [Validating of the results](#validation-of-the-results)
   - [Fitting scripts](#fitting-scripts)
   - [Plotting scripts](#plotting-scripts)
+- [On a χ² choice of function](#on-a-χ-choice-of-function)
 - [Known issues](#known-issues)
 
 ## General
@@ -102,6 +101,16 @@ Examples of running scripts are stored in [scripts/](scripts).
 
 Directory [results/](results) contain reference results of fitting and plotting of best fits.
 
+### Fitting scripts
+
+Each file contain information about best fit under assumption certain model configurations. Configurations are described in [scripts/README.md](scripts/README.md). Also, configurations are described before starting the fit command in shell script.
+
+After running script from [scripts/](scripts), you may want to compare results with [results/fits/](results/fits). Central values of best fit are stored under key `xdict`. Errors of best fit are stored under key `errordict` (errors obtained from covariance matrix) or `errordict_profiled` (errors obtained with Minos algorithm).
+
+### Plotting scripts
+
+This directory contains results of running [plots/plot_fit_2d.py](plots/plot_fit_2d.py) and [plots/plot_fit_dayabay_asimov.py] with file [results/fits/fit-result-stat-example.yaml](results/fits/fit-result-stat-example.yaml).
+
 ## On a χ² choice of function
 
 We provide a few various definitions of the χ² function (statistic) for the analysis. Please, note, that [the official result](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.130.161802) is using Combined Neyman-Pearson's χ² with free (unconstrained) antineutrino spectrum and systematics propagated via the nuisance terms. For more details check third script from [scripts/fit_dayabay_dgm.sh](scripts/fit_dayabay_dgm.sh) or second script from [scripts/fit_dayabay_iminuit_data.sh](scripts/fit_dayabay_iminuit_data.sh).
@@ -124,20 +133,6 @@ The list of provided choices for the statistic includes `stat.chi2p_iterative`, 
     * `full.covmat.chi2cnp`: combined Neyman-Pearson's χ² with covariance matrix. The statistical part of the covariance matrix is defined according to [the corresponding paper](https://arxiv.org/pdf/1903.07185) (formula 18).
 
 **Warning**: some tests contain option `--profile-parameters`. This option activates profiling of parameters to obtain correct values of errors. It might take a long time. If you want to just test, remove `--profile-parameters` key.
-
-## More examples
-
-Following sections contains information about examples of [fitting/](scripts) and [plotting/](scripts). Description of these scripts is stored in [scripts/README.md](scripts/README.md).
-
-### Fitting scripts
-
-Each file contain information about best fit under assumption certain model configurations. Configurations are described in [scripts/README.md](scripts/README.md). Also, configurations are described before starting the fit command in shell script.
-
-After running script from [scripts/](scripts), you may compare results. Central values of best fit are stored under key `xdict`. Errors of best fit are stored under key `errordict` (errors obtained from covariance matrix) or `errordict_profiled` (errors obtained with Minos algorithm).
-
-### Plotting scripts
-
-This directory contains results of running [plots/plot_fit_2d.py](plots/plot_fit_2d.py) and [plots/plot_fit_dayabay_asimov.py] with file [results/fits/fit-result-stat-example.yaml](results/fits/fit-result-stat-example.yaml).
 
 ## Known issues
 
