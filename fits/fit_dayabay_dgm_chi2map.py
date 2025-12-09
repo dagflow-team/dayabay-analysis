@@ -80,8 +80,7 @@ def cartesian_product(
 
 def main(args: Namespace) -> None:
     model = model_dayabay(
-
-        path_data=get_path_data(args.source_type),
+        path_data=get_path_data(args.source_type) if args.source_type else None,
         concatenation_mode=args.concatenation_mode)
 
     storage = model.storage

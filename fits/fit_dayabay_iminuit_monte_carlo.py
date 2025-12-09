@@ -32,7 +32,7 @@ ASIMOV_OUTPUT_INDEX = 0
 def main(args) -> None:
     # Load Daya Bay model
     model = model_dayabay(
-        path_data=get_path_data(args.source_type),
+        path_data=get_path_data(args.source_type) if args.source_type else None,
         concatenation_mode=args.concatenation_mode,
         monte_carlo_mode=args.monte_carlo_mode,
         seed=args.seed,

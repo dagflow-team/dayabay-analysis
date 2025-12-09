@@ -2,7 +2,7 @@
 
 printf "%s\n" \
      "Simple statistic+all systematic fit with combined Neyman-Neyman chi-squared function" \
-     "Data type: determines from data/ content" \
+     "Source type: Default (hdf5)" \
      "WARNING: make sure that you have data/ directory" \
      "Real data" \
      "Final observation concatenated by detector and period" \
@@ -20,7 +20,7 @@ printf "%s\n" \
 
 printf "%s\n" \
      "Simple statistic+all systematic fit with combined Neyman-Pearson chi-squared function" \
-     "Data type: hdf5" \
+     "Source type: npz" \
      "WARNING: make sure that you have data-hdf5/ directory" \
      "Real data" \
      "Final observation concatenated by detector" \
@@ -31,7 +31,7 @@ printf "%s\n" \
      "Uncertainties for spectral parameters are not included"
 
 ./fits/fit_dayabay_iminuit_data.py \
-    --path-data data-hdf5 \
+    --source-type npz \
     --statistic full.pull.chi2cnp \
     --concatenation-mode detector \
     --profile-parameters survival_probability.DeltaMSq32 survival_probability.SinSq2Theta13 \

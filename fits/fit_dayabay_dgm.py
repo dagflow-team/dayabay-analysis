@@ -38,7 +38,7 @@ def main(args: Namespace) -> None:
 
     # Initialize model
     model = model_dayabay(
-        path_data=get_path_data(args.source_type),
+        path_data=get_path_data(args.source_type) if args.source_type else None,
         seed=args.seed,
         monte_carlo_mode=args.monte_carlo_mode,
         concatenation_mode=args.concatenation_mode,

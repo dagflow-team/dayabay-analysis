@@ -2,7 +2,7 @@
 
 printf "%s\n" \
      "Calculate chi-squared map based on combined Neyman-Pearson's chi-squared" \
-     "Data type: determines from data/ content" \
+     "Source type: Default (hdf5)" \
      "WARNING: make sure that you have data/ directory" \
      "Real data" \
      "Final observation concatenated by detector and period" \
@@ -22,7 +22,7 @@ printf "%s\n" \
 
 printf "%s\n" \
      "Calculate chi-squared map based on combined Neyman-Pearson's chi-squared" \
-     "Data type: determines from data/ content" \
+     "Source type: Default (hdf5)" \
      "WARNING: make sure that you have data/ directory" \
      "Real data" \
      "Final observation concatenated by detector and period" \
@@ -43,7 +43,7 @@ printf "%s\n" \
 
 printf "%s\n" \
      "Calculate chi-squared map based on combined Neyman-Pearson's chi-squared" \
-     "Data type: determines from data/ content" \
+     "Source type: Default (hdf5)" \
      "WARNING: make sure that you have data/ directory" \
      "Asimov data" \
      "Final observation concatenated by detector and period" \
@@ -63,7 +63,7 @@ printf "%s\n" \
 
 printf "%s\n" \
      "Calculate chi-squared map based on combined Neyman-Pearson's chi-squared" \
-     "Data type: determines from data/ content" \
+     "Source type: Default (hdf5)" \
      "WARNING: make sure that you have data/ directory" \
      "Asimov data" \
      "Final observation concatenated by detector and period" \

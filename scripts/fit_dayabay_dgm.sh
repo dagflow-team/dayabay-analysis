@@ -2,7 +2,7 @@
 
 printf "%s\n" \
     "Simple statistic only fit with combined Neyman-Pearson chi-squared function" \
-    "Data type: determines from data/ content" \
+    "Source type: Default (hdf5)" \
     "WARNING: make sure that you have data/ directory" \
     "Asimov data" \
     "Final observation concatenated by detector and period" \
@@ -17,7 +17,7 @@ printf "%s\n" \
 
 printf "%s\n" \
     "Simple statistic+reactor systematic fit with combined Neyman-Pearson chi-squared function" \
-    "Data type: npz" \
+    "Source type: npz" \
     "WARNING: make sure that you have data-npz/ directory" \
     "Asimov data" \
     "Final observation concatenated by detector" \
@@ -32,7 +32,7 @@ printf "%s\n" \
 
 ./fits/fit_dayabay_dgm.py \
     --data asimov \
-    --path-data data-root \
+    --source-type root \
     --statistic full.pull.chi2cnp \
     --concatenation-mode detector \
     --free-parameters survival_probability \
@@ -43,7 +43,7 @@ printf "%s\n" \
 
 printf "%s\n" \
     "Simple statistic+all systematic fit with combined Neyman-Pearson chi-squared function" \
-    "Data type: determines from data/ content" \
+    "Source type: Default (hdf5)" \
     "WARNING: make sure that you have data/ directory" \
     "Real data" \
     "Final observation concatenated by detector and period" \
@@ -61,7 +61,7 @@ printf "%s\n" \
 
 printf "%s\n" \
     "Simple statistic fit with combined Neyman-Pearson chi-squared function" \
-    "Data type: tsv" \
+    "Source type: root" \
     "WARNING: make sure that you have data-tsv/ directory" \
     "Monte-Carlo data based on Asimov data (seed = 1)" \
     "Final observation concatenated by detector" \
@@ -71,7 +71,7 @@ printf "%s\n" \
     "All constrained parameters are used in covariance matrix"
 
 ./fits/fit_dayabay_dgm.py \
-    --path-data data-root \
+    --source-type root \
     --monte-carlo-mode poisson --seed 1 \
     --concatenation-mode detector \
     --statistic stat.chi2cnp \

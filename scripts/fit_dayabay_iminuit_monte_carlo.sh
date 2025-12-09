@@ -2,7 +2,7 @@
 
 printf "%s\n" \
      "Simple statistic+all systematic fit with combined Neyman-Neyman chi-squared function" \
-     "Data type: determines from data/ content" \
+     "Source type: Default (hdf5)" \
      "WARNING: make sure that you have data/ directory" \
      "Monte-Carlo data (poisson type, seed = 1)" \
      "Final observation concatenated by detector and period" \
@@ -20,7 +20,7 @@ printf "%s\n" \
 
 printf "%s\n" \
      "Simple statistic+all systematic fit with combined Neyman-Pearson chi-squared function" \
-     "Data type: npz" \
+     "Source type: npz" \
      "WARNING: make sure that you have data-npz/ directory" \
      "Monte-Carlo data (normal-stats type, seed = 3)" \
      "Final observation concatenated by detector" \
@@ -31,7 +31,7 @@ printf "%s\n" \
      "Uncertainties for spectral parameters are not included"
 
 ./fits/fit_dayabay_iminuit_monte_carlo.py \
-    --path-data data-npz \
+    --source-type npz \
     --monte-carlo normal-stats \
     --seed 3 \
     --concatenation-mode detector \

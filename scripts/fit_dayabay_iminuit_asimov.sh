@@ -2,7 +2,7 @@
 
 printf "%s\n" \
      "Simple statistic+all systematic fit with combined Neyman-Neyman chi-squared function" \
-     "Data type: determines from data/ content" \
+     "Source type: Default (hdf5)" \
      "WARNING: make sure that you have data/ directory" \
      "Asimov data" \
      "Final observation concatenated by detector and period" \
@@ -20,7 +20,7 @@ printf "%s\n" \
 
 printf "%s\n" \
      "Simple statistic+all systematic fit with combined Neyman-Pearson chi-squared function" \
-     "Data type: root" \
+     "Source type: root" \
      "WARNING: make sure that you have data-root/ directory" \
      "Asimov data" \
      "Final observation concatenated by detector" \
@@ -31,7 +31,7 @@ printf "%s\n" \
      "Uncertainties for spectral parameters are not included"
 
 ./fits/fit_dayabay_iminuit_asimov.py \
-    --path-data data-root \
+    --source-type root \
     --concatenation-mode detector \
     --statistic full.pull.chi2cnp \
     --output fit-asimov-syst-chi2cnp-free_spectrum_shape-constrained_pull_all.yaml

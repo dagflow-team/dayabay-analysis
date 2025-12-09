@@ -20,7 +20,7 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 from dag_modelling.tools.logger import set_verbosity
-from dayabay_model_official import model_dayabay
+from dayabay_model import model_dayabay
 from dag_modelling.parameters import Parameter
 from typing import TYPE_CHECKING
 

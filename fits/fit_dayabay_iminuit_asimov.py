@@ -31,7 +31,7 @@ def main(args) -> None:
     # Load Daya Bay model
     model = model_dayabay(
 
-        path_data=get_path_data(args.source_type),
+        path_data=get_path_data(args.source_type) if args.source_type else None,
 
                           concatenation_mode=args.concatenation_mode)
     storage = model.storage
