@@ -21,7 +21,8 @@ from pprint import pprint
 
 import iminuit
 from dag_modelling.tools.make_fcn import make_fcn
-from dayabay_model_official import model_dayabay
+from dayabay_data_official import get_path_data
+from dayabay_model import model_dayabay
 
 from fits import filter_save_fit
 
@@ -31,7 +32,7 @@ ASIMOV_OUTPUT_INDEX = 0
 def main(args) -> None:
     # Load Daya Bay model
     model = model_dayabay(
-        path_data=args.path_data,
+        path_data=get_path_data(args.source_type),
         concatenation_mode=args.concatenation_mode,
         monte_carlo_mode=args.monte_carlo_mode,
         seed=args.seed,
@@ -102,6 +103,11 @@ def main(args) -> None:
 
 if __name__ == "__main__":
     parser = ArgumentParser()
+    parser.add_argument(
+        "--source-type",
+        default=None,
+        help="Source type of dataset loaded from dayabay-data-official",
+    )
     parser.add_argument(
         "--path-data",
         default=None,

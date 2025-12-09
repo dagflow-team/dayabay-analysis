@@ -7,7 +7,7 @@ from argparse import Namespace
 from typing import TYPE_CHECKING
 
 import numpy as np
-from dayabay_model_official import model_dayabay
+from dayabay_model import model_dayabay
 from matplotlib import pyplot as plt
 from matplotlib import ticker
 from yaml import safe_load as yaml_load

@@ -20,7 +20,8 @@ from typing import TYPE_CHECKING
 
 from dag_modelling.tools.logger import DEBUG as INFO4
 from dag_modelling.tools.logger import INFO1, INFO2, INFO3, set_level
-from dayabay_model_official import model_dayabay
+from dayabay_data_official import get_path_data
+from dayabay_model import model_dayabay
 from dgm_fit.iminuit_minimizer import IMinuitMinimizer
 
 from fits import do_fit, filter_save_fit, update_dict_parameters
@@ -37,7 +38,7 @@ def main(args: Namespace) -> None:
 
     # Initialize model
     model = model_dayabay(
-        path_data=args.path_data,
+        path_data=get_path_data(args.source_type),
         seed=args.seed,
         monte_carlo_mode=args.monte_carlo_mode,
         concatenation_mode=args.concatenation_mode,
@@ -117,9 +118,9 @@ if __name__ == "__main__":
 
     model = parser.add_argument_group("model", "model related options")
     model.add_argument(
-        "--path-data",
+        "--source-type",
         default=None,
-        help="Path to data",
+        help="Source type of dataset loaded from dayabay-data-official",
     )
     model.add_argument(
         "--par",

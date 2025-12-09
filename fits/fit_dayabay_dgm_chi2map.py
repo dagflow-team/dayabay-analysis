@@ -7,7 +7,8 @@ from pprint import pprint
 from typing import TYPE_CHECKING, Any
 
 import numpy as np
-from dayabay_model_official import model_dayabay
+from dayabay_data_official import get_path_data
+from dayabay_model import model_dayabay
 from dgm_fit.iminuit_minimizer import IMinuitMinimizer
 
 from fits import update_dict_parameters
@@ -78,7 +79,10 @@ def cartesian_product(
 
 
 def main(args: Namespace) -> None:
-    model = model_dayabay(path_data=args.path_data, concatenation_mode=args.concatenation_mode)
+    model = model_dayabay(
+
+        path_data=get_path_data(args.source_type),
+        concatenation_mode=args.concatenation_mode)
 
     storage = model.storage
     model.switch_data(args.data)
@@ -187,9 +191,9 @@ if __name__ == "__main__":
 
     parser = ArgumentParser()
     parser.add_argument(
-        "--path-data",
+        "--source-type",
         default=None,
-        help="Path to data",
+        help="Source type of dataset loaded from dayabay-data-official",
     )
     parser.add_argument(
         "--concatenation-mode",

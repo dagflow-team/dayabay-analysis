@@ -6,7 +6,7 @@ Just run:
 ```bash
 pip install -r requirements.txt
 ```
-to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-official).
+to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model).
 
 ## Content
 
@@ -24,7 +24,7 @@ to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model-o
 
 ## General
 
-This repository represents several examples of fitting and plotting results of fit based on [dayabay-model](https://github.com/dagflow-team/dayabay-model-official).
+This repository represents several examples of fitting and plotting results of fit based on [dayabay-model](https://github.com/dagflow-team/dayabay-model).
 
 ## List of files
 
@@ -48,23 +48,7 @@ Here are described how to run MWE.
 
 1. Clone this repo `git clone https://github.com/dagflow-team/dayabay-analysis` and change your directory to the cloned repo `cd dayabay-analysis`
 2. Install required packages: `pip install -r requirements.txt`
-3. Download archive from the provided storages by email (check email from Maxim Gonchar 13 November 2025) and unpack it
-  - Download archive
-    ```bash
-    dayabay_data_v2-npz.zip
-    ```
-  - Unpack archive `dayabay_data_v2-npz.zip`: via GUI or just run command
-    ```bash
-    unzip /path/to/dayabay_data_v2-npz.zip -d ./
-    ```
-    **WARNING**: unpacking might cause overwritting of `README.md`. Ignore it and press `N`+`Enter`
-  - Rename data directory from `npz/` to `data/` via GUI or  just run command
-    ```bash
-    mv npz/ data/
-    ```
-  - Later, you can upload another format of dataset and do the same steps.
-5. Update `PYTHONPATH` variable to the current directory: `export PYTHONPATH=$PHYTHONPATH:$PWD`. **Alternative**: set variable value when run example: `PYTHONPATH=PWD ./fits/...`
-
+3. Update `PYTHONPATH` variable to the current directory: `export PYTHONPATH=$PWD:$PHYTHONPATH`. **Alternative**: set variable value when run example: `PYTHONPATH=PWD ./fits/...`
 
 ### Simple fit with IMinuit
 

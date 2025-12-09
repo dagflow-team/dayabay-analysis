@@ -20,14 +20,18 @@ from pprint import pprint
 import iminuit
 import numpy as np
 from dag_modelling.tools.make_fcn import make_fcn
-from dayabay_model_official import model_dayabay
+from dayabay_data_official import get_path_data
+from dayabay_model import model_dayabay
 
 from fits import convert_minuit_to_dict
 
 
 def main(args) -> None:
     # Load Daya Bay model
-    model = model_dayabay(path_data=args.path_data, concatenation_mode=args.concatenation_mode)
+    model = model_dayabay(
+        path_data=get_path_data(args.source_type),
+        concatenation_mode=args.concatenation_mode
+    )
     storage = model.storage
 
     # Switch output for data from observed data to Asimov data
@@ -116,6 +120,11 @@ def main(args) -> None:
 
 if __name__ == "__main__":
     parser = ArgumentParser()
+    parser.add_argument(
+        "--source-type",
+        default=None,
+        help="Source type of dataset loaded from dayabay-data-official",
+    )
     parser.add_argument(
         "--path-data",
         default=None,

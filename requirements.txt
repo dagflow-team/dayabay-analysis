@@ -1,4 +1,4 @@
-dayabay-model-official
+dayabay-model
 iminuit
 coverage
 pytest
