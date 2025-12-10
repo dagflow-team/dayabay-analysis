@@ -1,0 +1,10 @@
+format: "value"
+state: "variable"
+parameters:
+  SinSq2Theta13: 0.0856
+
+labels:
+  SinSq2Theta13:
+    text: 'Neutrino mixing amplitude sin²2θ₁₃'
+    latex: 'Neutrino mixing amplitude $\sin^{2}2\theta_{13}$'
+    mark: 'sin²2θ₁₃'
