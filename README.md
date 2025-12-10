@@ -10,17 +10,7 @@ to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model).
 
 ## Content
 
-- [General](#general)
-- [List of files](#list-of-files)
-- [Minimal working examples](#minimal-working-examples)
-  - [Preparation](#preparation)
-  - [Simple fit with IMinuit](#simple-fit-with-iminuit)
-  - [Simple plot of fit](#simple-plot-of-fit)
-- [Validating of the results](#validation-of-the-results)
-  - [Fitting scripts](#fitting-scripts)
-  - [Plotting scripts](#plotting-scripts)
-- [On a χ² choice of function](#on-a-χ-choice-of-function)
-- [Known issues](#known-issues)
+[TOC]
 
 ## General
 
@@ -28,9 +18,12 @@ This repository represents several examples of fitting and plotting results of f
 
 ## List of files
 
+- [covariances/README.md](covariances/README.md): short description of covariance scripts;
+- [covariances/covmatrix_mc.py](covariances/covmatrix_mc.py): script for building covariance matrix via MC way;
 - [fits/README.md](fits/README.md): short description of fit scripts;
 - [fits/\_\_init\_\_.py](fits/__init__.py): contains useful functions for fitting;
 - [fits/fit_dayabay_dgm.py](fits/fit_dayabay_dgm.py): much flexible example of fit of Daya Bay model based on dag-modeling framework;
+- [fits/fit_dayabay_dgm_chi2map.py](fits/fit_dayabay_iminuit_data_contour.py): create 2D map of the Daya Bay model observed data with chosen chi-squared based on `iminuit` package;
 - [fits/fit_dayabay_iminuit_asimov.py](fits/fit_dayabay_iminuit_asimov.py): fit of the Daya Bay model Asimov data with chosen chi-squared based on `iminuit` package;
 - [fits/fit_dayabay_iminuit_data.py](fits/fit_dayabay_iminuit_data.py): fit of the Daya Bay model observed data with chosen chi-squared based on `iminuit` package;
 - [fits/fit_dayabay_iminuit_monte_carlo.py](fits/fit_dayabay_iminuit_monte_carlo.py): fit of the Daya Bay model Monte-Carlo data with chosen chi-squared based on `iminuit` package;
@@ -38,11 +31,11 @@ This repository represents several examples of fitting and plotting results of f
 - [plots/plot_dayabay_fit_spectra_asimov.md](plots/plot_dayabay_fit_spectra_asimov.md): script for plotting Daya Bay spectra;
 - [requirements.txt](requirements.txt): contains list of libraries to be installed;
 - [pyproject.toml](pyproject.toml): configuration file for linters `black` and `isort`;
-- [.gitignore](.gitignore): configuration file for ignoring patterns by `git` utility;
+- [.gitignore](.gitignore): configuration file for ignoring patterns by `git` utility.
 
-## Minimal working examples
+## Fit and plot examples
 
-Here are described how to run MWE.
+Here are described how to fit and plot scripts and what preparation steps need to be completed.
 
 ### Preparation
 
@@ -52,7 +45,7 @@ Here are described how to run MWE.
 
 ### Simple fit with IMinuit
 
-Following script demonstrates how to run fit procedure for the Daya Bay model based on `asimov` data and combined Neyman-Pearson chi-squared functions. All systematic uncertainties are treated via covariance matrix:
+Following script demonstrates how to run fit procedure for the Daya Bay model based on `asimov` data and combined Neyman-Pearson chi-squared function. All systematic uncertainties are treated via covariance matrix:
 ```bash
 ./fits/fit_dayabay_iminuit_asimov.py \
     --statistic full.covmat.chi2cnp
@@ -60,14 +53,13 @@ Following script demonstrates how to run fit procedure for the Daya Bay model ba
 
 ### Simple plot of fit
 
-1. Following script demonstrates how to plot spectra of model based on fit data. Fit data is stored in `examples/fit-result-stat-example.yaml`.
+1. Following script demonstrates how to plot spectra of model based on fit data. Fit data is stored in `examples/fit-result-stat-example.yaml`:
   ```bash
   ./plots/plot_dayabay_fit_spectra_asimov.py \
       --input examples/fit-result-stat-example.yaml \
       --show
   ```
-1. Following script demonstrates how to plot 2D plot in $`(\sin^22\theta_{13}, \Delta m^2_{32})`$ axes based on fit data. Fit data is stored in `examples/fit-result-stat-example.yaml`.
-    or
+2. Following script demonstrates how to plot 2D plot in $`(\sin^22\theta_{13}, \Delta m^2_{32})`$ axes based on fit data. Fit data is stored in `examples/fit-result-stat-example.yaml`:
   ```bash
   ./plots/plot_fit_2d.py \
       --input examples/fit-result-stat-example.yaml \
@@ -87,7 +79,7 @@ Directory [results/](results) contain reference results of fitting and plotting 
 
 ### Fitting scripts
 
-Each file contain information about best fit under assumption certain model configurations. Configurations are described in [scripts/README.md](scripts/README.md). Also, configurations are described before starting the fit command in shell script.
+Each file contain information about best fit under assumption certain model configurations. Configurations are described in [scripts/README.md](scripts/README.md). Also, configurations are described before starting the fit command in each shell script.
 
 After running script from [scripts/](scripts), you may want to compare results with [results/fits/](results/fits). Central values of best fit are stored under key `xdict`. Errors of best fit are stored under key `errordict` (errors obtained from covariance matrix) or `errordict_profiled` (errors obtained with Minos algorithm).
 
