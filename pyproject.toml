@@ -1,3 +1,7 @@
+[project]
+name = "dayabay-analysis"
+description = "Analysis examples for the open data of the Daya Bay Reactor Neutrino Experiment"
+
 [tool.black]
 line-length = 100
 
