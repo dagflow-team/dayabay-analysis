@@ -14,6 +14,7 @@ Example of call
       --output "fit-{}.pdf" \
       --output-show
 """
+
 from argparse import Namespace
 
 import numpy as np
@@ -24,9 +25,8 @@ from matplotlib.axes import Axes
 from numpy.typing import NDArray
 from yaml import safe_load as yaml_load
 
-from plots import get_obs, FFormatter, calculate_ratio_error
+from plots import FFormatter, calculate_ratio_error, get_observation
 
-DATA_INDICES = {"model": 0, "loaded": 1}
 AD_TO_EH = {
     "AD11": "EH1",
     "AD12": "EH1",
@@ -37,21 +37,6 @@ AD_TO_EH = {
     "AD33": "EH3",
     "AD34": "EH3",
 }
-
-
-plt.rcParams.update(
-    {
-        "xtick.top": True,
-        "xtick.minor.top": True,
-        "xtick.minor.visible": True,
-        "axes.grid": True,
-        "ytick.left": True,
-        "ytick.minor.left": True,
-        "ytick.right": True,
-        "ytick.minor.right": True,
-        "ytick.minor.visible": True,
-    }
-)
 
 BKG_LABELS = {
     "fast_neutrons": r"Fast n",
@@ -135,7 +120,10 @@ def plot(
     bkg = 0
     for bkg_source in bkg_obs.values():
         bkg += bkg_source[hall]
-    for color, bkg_type in zip(["C4", "C8", "C7", "C6", "C2"], ["accidentals", "lithium_helium", "fast_neutrons", "amc", "alpha_neutron"]):
+    for color, bkg_type in zip(
+        ["C4", "C8", "C7", "C6", "C2"],
+        ["accidentals", "lithium_helium", "fast_neutrons", "amc", "alpha_neutron"],
+    ):
         ax.stairs(bkg, edges, color=color)
         ax.fill_between(
             [edges[0], *edges],
@@ -173,11 +161,13 @@ def main(args: Namespace) -> None:
     widths = edges[1:] - edges[:-1]
     xerrs = widths / 2
 
-    data_obs = get_obs(outputs["data.real.final.detector"].walkjoineditems(), widths)
+    data_obs = get_observation(outputs["data.real.final.detector"].walkjoineditems(), widths)
     model.set_parameters(fit["xdict"])
-    fit_obs = get_obs(eventscount["detector"].walkjoineditems(), widths)
-    model.set_parameters({"survival_probability.SinSq2Theta12": 0, "survival_probability.SinSq2Theta13": 0})
-    no_osc_obs = get_obs(eventscount["detector"].walkjoineditems(), widths)
+    fit_obs = get_observation(eventscount["detector"].walkjoineditems(), widths)
+    model.set_parameters(
+        {"survival_probability.SinSq2Theta12": 0, "survival_probability.SinSq2Theta13": 0}
+    )
+    no_osc_obs = get_observation(eventscount["detector"].walkjoineditems(), widths)
     data_obs = sum_by_eh(data_obs)
     fit_obs = sum_by_eh(fit_obs)
     no_osc_obs = sum_by_eh(no_osc_obs)
@@ -185,7 +175,9 @@ def main(args: Namespace) -> None:
     bkg_obs = dict.fromkeys(eventscount["background_by_source"].keys())
     for bkg_source in bkg_obs.keys():
         bkg_obs[bkg_source] = sum_by_eh(
-            get_obs(eventscount[f"background_by_source.{bkg_source}"].walkjoineditems(), widths)
+            get_observation(
+                eventscount[f"background_by_source.{bkg_source}"].walkjoineditems(), widths
+            )
         )
 
     for hall in ["EH1", "EH2", "EH3"]:
@@ -197,7 +189,7 @@ def main(args: Namespace) -> None:
         subax.set_yscale("log")
         subax.set_xlim(0.7, 12.0)
         # subax.set_ylim(bkg_obs["fast_neutrons"][hall].max() * 0.9, no_osc_obs[hall].max() * 1.2)
-        subax.set_ylim(10, 1e+6)
+        subax.set_ylim(10, 1e6)
         subax.set_xticks([2, 4, 6, 8, 10, 12], [2, 4, 6, 8, 10, 12])
         subax.tick_params(axis="x", which="both", top=False, bottom=True)
         subax.tick_params(axis="y", which="both", right=False, left=True)

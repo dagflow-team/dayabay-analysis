@@ -4,56 +4,13 @@ r""" """
 from __future__ import annotations
 
 from argparse import Namespace
-from typing import TYPE_CHECKING
 
-import numpy as np
 from dayabay_model import model_dayabay
 from matplotlib import pyplot as plt
 from matplotlib import ticker
 from yaml import safe_load as yaml_load
 
-if TYPE_CHECKING:
-    from collections.abc import Generator
-    from typing import Any
-
-    from numpy.typing import NDArray
-
-
-plt.rcParams.update(
-    {
-        "xtick.top": True,
-        "xtick.minor.top": True,
-        "xtick.minor.visible": True,
-        "axes.grid": True,
-        "ytick.left": True,
-        "ytick.minor.left": True,
-        "ytick.right": True,
-        "ytick.minor.right": True,
-        "ytick.minor.visible": True,
-    }
-)
-
-
-def get_obs(
-    storage_generator: Generator[tuple[str, Any], None, None], width: NDArray = np.array([1.0])
-) -> dict[str, NDArray]:
-    """Get observable scaled or not by width of bins.
-
-    Parameters
-    ----------
-    storage_generator : Generator[tuple[str, Any], None, None]
-        Storage that contains observables.
-    width : NDArray
-        Array of widths of bins.
-
-    Returns
-    -------
-    None
-    """
-    result = {}
-    for key, obs in storage_generator:
-        result[key] = obs.data.copy() / width
-    return result
+from plots import get_observation
 
 
 def main(args: Namespace) -> None:
@@ -65,15 +22,20 @@ def main(args: Namespace) -> None:
         exit()
 
     model = model_dayabay()
-    storage = model.storage
+    outputs = model.storage["outputs"]
 
-    model.switch_data("asimov")
+    # Switch between `asimov` and `real` data
+    model.switch_data(args.data)
+    if args.data == "asimov":
+        observation = f"eventscount.final.{args.concatenation}"
+    else:
+        observation = f"data.real.final.{args.concatenation}"
 
-    data_obs = get_obs(storage[f"outputs.eventscount.final.{args.concatenation}"].walkjoineditems())
+    data_obs = get_observation(outputs[observation].walkjoineditems())
     model.set_parameters(fit["xdict"])
-    fit_obs = get_obs(storage[f"outputs.eventscount.final.{args.concatenation}"].walkjoineditems())
+    fit_obs = get_observation(outputs[observation].walkjoineditems())
 
-    edges = storage["outputs.edges.energy_final"].data
+    edges = outputs["edges.energy_final"].data
     xerr = (edges[1:] - edges[:-1]) / 2
     centers = (edges[1:] + edges[:-1]) / 2
     borders_plot = [edges[0], *edges]
@@ -130,6 +92,13 @@ if __name__ == "__main__":
         default="detector_period",
         help="Choose concatenation mode for plotting observation",
     )
+    model.add_argument(
+        "--data",
+        choices=["asimov", "real"],
+        default="asimov",
+        help="Choose type of data which will be plotted: asimov or real",
+    )
+
     input = parser.add_argument_group("input", "input options")
     input.add_argument(
         "--input",
