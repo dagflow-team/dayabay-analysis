@@ -17,8 +17,8 @@ Example of call
 
 from argparse import Namespace
 
+import os
 import numpy as np
-from dag_modelling.tools.logger import set_verbosity
 from dayabay_model import model_dayabay
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
@@ -138,8 +138,6 @@ def plot(
 
 
 def main(args: Namespace) -> None:
-    if args.verbose:
-        set_verbosity(args.verbose)
 
     with open(args.input, "r") as f:
         fit = yaml_load(f)
@@ -241,15 +239,19 @@ def main(args: Namespace) -> None:
         if args.output:
             plt.savefig(args.output.format(hall), metadata={"creationDate": None})
 
-    if args.show:
-        plt.show()
+    try:
+        if args.show:
+            plt.show()
+    except UserWarning:
+        print("it is not possible to show plot, it will be saved in tmp/tmp.pdf")
+        os.makedirs("tmp/", exist_ok=True)
+        plt.savefig(f"tmp/tmp.pdf", metadata={"creationDate": None})
 
 
 if __name__ == "__main__":
     from argparse import ArgumentParser
 
     parser = ArgumentParser()
-    parser.add_argument("-v", "--verbose", default=1, action="count", help="verbosity level")
 
     model = parser.add_argument_group("model", "model related options")
     model.add_argument(

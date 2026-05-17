@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 r""" """
 
-from __future__ import annotations
+import os
 
 from argparse import Namespace
 
@@ -76,8 +76,16 @@ def main(args: Namespace) -> None:
                 metadata={"creationDate": None},
             )
 
-    if args.show:
-        plt.show()
+    try:
+        if args.show:
+            plt.show()
+    except UserWarning:
+        print("it is not possible to show plots, they will be saved in tmp/tmp-{}.pdf")
+        os.makedirs("tmp/", exist_ok=True)
+        for obs_name in data_obs:
+            plt.savefig(
+                f"tmp/tmp-{obs_name.replace('.', '-')}.pdf", metadata={"creationDate": None}
+            )
 
 
 if __name__ == "__main__":
