@@ -24,13 +24,17 @@ from dayabay_data_official import get_path_data
 from dayabay_model import model_dayabay
 from dgm_fit.iminuit_minimizer import IMinuitMinimizer
 
-from fits import do_fit, filter_save_fit, update_dict_parameters
+from fits import do_fit, filter_save_fit, update_dict_parameters, yaml_dump
 
 if TYPE_CHECKING:
     from dag_modelling.parameters import Parameter
 
 
 def main(args: Namespace) -> None:
+    kwargs = {}
+    if args.index:
+        kwargs["override_indices"] = {idxdef[0]: tuple(idxdef[1:]) for idxdef in args.index}
+
     # Set verbosity level
     if args.verbose:
         args.verbose = min(args.verbose, 3)
@@ -43,6 +47,7 @@ def main(args: Namespace) -> None:
         monte_carlo_mode=args.monte_carlo_mode,
         concatenation_mode=args.concatenation_mode,
         parameter_values=args.par,
+        **kwargs,
     )
 
     # Initialize helpful variables and switch output of model
@@ -93,7 +98,6 @@ def main(args: Namespace) -> None:
         if not fit["success"]:
             exit()
 
-    # import IPython; IPython.embed()
     # Initialize minimizer object
     minimizer = IMinuitMinimizer(
         chi2, parameters=minimization_parameters, nbins=model.nbins, verbose=args.verbose > 1
@@ -137,10 +141,19 @@ if __name__ == "__main__":
         help="Choose Monte-Carlo option",
     )
     model.add_argument(
-        "--seed",
-        default=0,
-        type=int,
-        help="Choose seed for random generation, important in case of `monte_carlo_mode` != `asimov`",
+       "--seed",
+       default=0,
+       type=int,
+       help="Choose seed for random generation, important in case of `monte_carlo_mode` != `asimov`",
+    )
+    model.add_argument(
+        "-i",
+        "--index",
+        nargs="+",
+        action="append",
+        default=[],
+        help="override index",
+        metavar=("index", "value1"),
     )
     model.add_argument(
         "--concatenation-mode",

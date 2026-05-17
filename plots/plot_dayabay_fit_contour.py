@@ -202,7 +202,7 @@ def main(args: Namespace) -> None:
     except UserWarning:
         print("it is not possible to show plot, it will be saved in tmp/tmp.pdf")
         os.makedirs("tmp/", exist_ok=True)
-        plt.savefig(f"tmp/tmp.pdf", metadata={"creationDate": None})
+        plt.savefig("tmp/tmp.pdf", metadata={"creationDate": None})
 
 
 if __name__ == "__main__":
