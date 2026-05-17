@@ -59,6 +59,11 @@ Final observation concatenated by detectors.
 
 Output of the fit procedure will be dumped in `yaml`-format.
 
+## fit_dayabay_dgm_chi2map.sh
+
+Contains examples of creating chi-sqaured map based on combined Neyam-Pearson's chi-squared.
+
+**Warning**: it may take a lot of time to create chi-squared map.
 
 ## fit_dayabay_iminuit_asimov.sh
 
@@ -122,14 +127,37 @@ Final observation concatenated by detectors.
 
 Output of the fit procedure will be dumped in `json`-format.
 
+## fit_dayabay_iminuit_monte_carlo.sh
 
-## fit_dayabay_dgm_chi2map.sh
+Contains several examples of running fit procedure on Monte-Carlo data within `iminuit` package.
 
-Contains examples of creating chi-sqaured map based on combined Neyam-Pearson's chi-squared.
+### The first script
 
-**Warning**: it may take a lot of time to create chi-squared map.
+It starts fit to Monte-Carlo data (data is toyed with Poisson distribution) with combined Neyman-Pearson chi-sqaured that includes covariance matrix.
 
-## plot_dayabay_fit_spectra_asimov.sh
+All nuisance parameters are treated within covariance matrix.
+
+Monte-Carlo observation is concatenated by detectors and periods. Firstly, parameters are toyed with normal distribution and statistical toy of each bin content is applied.
+
+Errors for $\Delta m^2_{32}$ and $\sin^22\theta_{13}$ are obtained with minos procedure of profiling.
+
+Output of the fit procedure will be dumped in `json`-format.
+
+### The second script
+
+It starts fit to Monte-Carlo data (data is toyed with normal distribution) with combined Neyman-Pearson chi-sqaured that includes covariance matrix.
+
+All nuisance parameters are treated as pull terms.
+
+Final observation is concatenated by detectors.
+
+Output of the fit procedure will be dumped in `yaml`-format.
+
+## plot_dayabay_fit_contour.sh
+
+## plot_dayabay_fit_spectra.sh
+
+## plot_dayabay_fit_spectra_article.sh
 
 ## plot_fit_2d.sh
 
