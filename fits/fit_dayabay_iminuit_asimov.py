@@ -24,16 +24,13 @@ from dayabay_model import model_dayabay
 
 from fits import filter_save_fit
 
-ASIMOV_OUTPUT_INDEX = 0
-
 
 def main(args) -> None:
     # Load Daya Bay model
     model = model_dayabay(
-
         path_data=get_path_data(args.source_type) if args.source_type else None,
-
-                          concatenation_mode=args.concatenation_mode)
+        concatenation_mode=args.concatenation_mode,
+    )
     storage = model.storage
 
     # Switch output for data from observed data to Asimov data
@@ -82,7 +79,7 @@ def main(args) -> None:
 
     # Initialize minimizer
     minimizer = iminuit.Minuit(
-        fcn, name=parameters.keys(), **{name: par.value for name, par in parameters.items()}
+        fcn, name=parameters.keys(), **{name: float(par.value) for name, par in parameters.items()}
     )
     # Do fit
     result = minimizer.migrad()

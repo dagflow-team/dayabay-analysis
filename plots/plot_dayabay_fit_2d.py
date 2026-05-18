@@ -10,26 +10,13 @@ Example of call
     ./scripts/plot_fit_2d.py
 
 """
+
 import os
 from argparse import Namespace
 
 import numpy as np
 from matplotlib import pyplot as plt
 from yaml import safe_load as yaml_load
-
-plt.rcParams.update(
-    {
-        "xtick.top": True,
-        "xtick.minor.top": True,
-        "xtick.minor.visible": True,
-        "axes.grid": True,
-        "ytick.left": True,
-        "ytick.minor.left": True,
-        "ytick.right": True,
-        "ytick.minor.right": True,
-        "ytick.minor.visible": True,
-    }
-)
 
 
 def get_parameter_fit(

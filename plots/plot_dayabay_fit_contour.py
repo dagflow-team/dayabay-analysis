@@ -150,7 +150,7 @@ def main(args: Namespace) -> None:
     best_fit_y_errors = calculate_errors(dm, chi2_profile, best_fit_y)
     prepare_axes(
         axes[1, 1],
-        limits=[(0, 20), (xy_grid[:, 1].min(), xy_grid[:, 1].max())],
+        limits=[(0, 20), (1.04 * xy_grid[:, 1].min(), 1.015 * xy_grid[:, 1].max())],
         xlabel=label,
         profile=(chi2_profile, dm),
     )
@@ -160,21 +160,36 @@ def main(args: Namespace) -> None:
     axes[1, 0].grid(linestyle="--")
     axes[1, 0].tricontourf(xy_grid[:, 0], xy_grid[:, 1], chi2_map - fun, levels=levels, cmap="GnBu")
     axes[1, 0].errorbar(
+        0.0851,
+        2.466e-3,
+        xerr=0.0024,
+        yerr=0.060e-3,
+        color="black",
+        marker="*",
+        markersize=3,
+        capsize=3,
+        label="official",
+    )
+    eb = axes[1, 0].errorbar(
         best_fit_x,
         best_fit_y,
         xerr=best_fit_x_errors,
         yerr=best_fit_y_errors,
-        color="black",
+        color="red",
         marker="o",
         markersize=3,
         capsize=3,
+        label="dag-modelling",
     )
+    eb[-1][0].set_linestyle("--")
+    axes[1, 0].legend(title="Daya Bay Full nGd Dataset", loc="upper left")
 
     axes[1, 0].set_ylabel(r"$\Delta m^2_{ee}$, [eV$^2$]")
     if args.dm32:
         axes[1, 0].set_ylabel(r"$\Delta m^2_{32}$, [eV$^2$]")
     axes[1, 0].set_xlabel(r"$\sin^22\theta_{13}$")
     axes[1, 0].minorticks_on()
+    axes[1, 0].set_ylim(1.04 * xy_grid[:, 1].min(), 1.015 * xy_grid[:, 1].max())
     fig.delaxes(axes[0, 1])
     plt.tight_layout()
     plt.subplots_adjust(wspace=0, hspace=0)
@@ -187,7 +202,7 @@ def main(args: Namespace) -> None:
     except UserWarning:
         print("it is not possible to show plot, it will be saved in tmp/tmp.pdf")
         os.makedirs("tmp/", exist_ok=True)
-        plt.savefig(f"tmp/tmp.pdf", metadata={"creationDate": None})
+        plt.savefig("tmp/tmp.pdf", metadata={"creationDate": None})
 
 
 if __name__ == "__main__":

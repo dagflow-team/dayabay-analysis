@@ -14,8 +14,6 @@ Example of call
         --seed 1 \
         --use-hubber-mueller-spectral-uncertainties
 """
-from __future__ import annotations
-
 from argparse import ArgumentParser
 from pprint import pprint
 
@@ -33,7 +31,6 @@ def main(args) -> None:
     # Load Daya Bay model
     model = model_dayabay(
         path_data=get_path_data(args.source_type) if args.source_type else None,
-        concatenation_mode=args.concatenation_mode,
         monte_carlo_mode=args.monte_carlo_mode,
         seed=args.seed,
     )
@@ -46,7 +43,7 @@ def main(args) -> None:
     free_parameters = {
         par.name: par
         for par in filter(
-            lambda x: "global_normalization" not in x.name,
+            lambda x: "global_normalization" not in x.name and "survival_prob" not in x.name,
             storage["parameters.free"].walkvalues(),
         )
     }
