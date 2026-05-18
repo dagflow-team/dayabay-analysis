@@ -5,5 +5,5 @@ printf "%s\n" \
      'in terms of $\Delta m^2_{32}$ and $sin^2 2\theta_{13}$'
 
 ./plots/plot_dayabay_fit_2d.py \
-    --input examples/fit-result-stat-example.yaml \
+    --input results/fits/fit-result-stat-example.yaml \
     --show

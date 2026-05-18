@@ -5,6 +5,7 @@ from typing import Any
 
 import numpy as np
 from matplotlib import ticker
+from matplotlib import pyplot as plt
 from numpy.typing import NDArray
 
 plt.rcParams.update(

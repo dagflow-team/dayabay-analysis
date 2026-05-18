@@ -1,16 +1,16 @@
-clock: 0.7000846869996167
+clock: 0.6430663960018137
 covariance:
-- - 1.0025753872882916e-09
-  - -2.0762965887812635e-08
-- - -2.0762965887812635e-08
-  - 1.630981146619536e-06
+- - 1.0025754078637e-09
+  - -2.076299670831335e-08
+- - -2.076299670831335e-08
+  - 1.6309805405666467e-06
 errors:
-- 3.166347086609886e-05
-- 0.0012770987223466852
+- 3.1663471191006526e-05
+- 0.0012770984850694353
 errorsdef: 1.0
 errorsdict:
-  survival_probability.DeltaMSq32: 3.166347086609886e-05
-  survival_probability.SinSq2Theta13: 0.0012770987223466852
+  survival_probability.DeltaMSq32: 3.1663471191006526e-05
+  survival_probability.SinSq2Theta13: 0.0012770984850694353
 fun: 0.0
 hess_inv: null
 minimizer: iminuit
@@ -25,7 +25,7 @@ npars_constrained: 0
 npars_free: 2
 statistic_name: statistic.stat.chi2cnp
 success: true
-wall: 0.7000875473022461
+wall: 0.6430709362030029
 x:
 - 0.002453
 - 0.0856
