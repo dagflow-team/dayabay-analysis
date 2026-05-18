@@ -2,7 +2,7 @@ stages:
   - tests
 
 tests:
-  image: "python:3.11.7-bullseye"
+  image: 'python:3.12.7-bullseye'
   stage: tests
 
   script:
