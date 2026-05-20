@@ -146,9 +146,7 @@ def main(args: Namespace) -> None:
         print("Fit is not succeed")
         exit()
 
-    model = model_dayabay(
-        path_data=args.path_data,
-    )
+    model = model_dayabay()
 
     storage = model.storage
     outputs = storage["outputs"]
@@ -252,13 +250,6 @@ if __name__ == "__main__":
     from argparse import ArgumentParser
 
     parser = ArgumentParser()
-
-    model = parser.add_argument_group("model", "model related options")
-    model.add_argument(
-        "--path-data",
-        default=None,
-        help="Path to data",
-    )
 
     comparison = parser.add_argument_group("comparison", "Comparison options")
     comparison.add_argument(
