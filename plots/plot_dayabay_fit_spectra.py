@@ -26,14 +26,15 @@ def main(args: Namespace) -> None:
 
     # Switch between `asimov` and `real` data
     model.switch_data(args.data)
+    model_observation = f"eventscount.final.{args.concatenation}"
     if args.data == "asimov":
-        observation = f"eventscount.final.{args.concatenation}"
+        data_observation = model_observation
     else:
-        observation = f"data.real.final.{args.concatenation}"
+        data_observation = f"data.real.final.{args.concatenation}"
 
-    data_obs = get_observation(outputs[observation].walkjoineditems())
+    data_obs = get_observation(outputs[data_observation].walkjoineditems())
     model.set_parameters(fit["xdict"])
-    fit_obs = get_observation(outputs[observation].walkjoineditems())
+    fit_obs = get_observation(outputs[model_observation].walkjoineditems())
 
     edges = outputs["edges.energy_final"].data
     xerr = (edges[1:] - edges[:-1]) / 2
@@ -60,7 +61,14 @@ def main(args: Namespace) -> None:
         ratio = data / fit_obs[obs_name]
         yerr_ratio = 1 / fit_obs[obs_name] * (ratio * (data + fit_obs[obs_name])) ** 0.5
         axs[1].errorbar(
-            centers, ratio - 1, xerr=xerr, marker="o", markersize=4, yerr=yerr_ratio, color="C0"
+            centers,
+            ratio - 1,
+            xerr=xerr,
+            marker="o",
+            markersize=4,
+            yerr=yerr_ratio,
+            color="C0",
+            linestyle="none",
         )
         formatter = ticker.ScalarFormatter()
         formatter.set_powerlimits((0, 2))
