@@ -10,7 +10,18 @@ to install [the Daya Bay model](https://git.jinr.ru/dagflow-team/dayabay-model).
 
 ## Content
 
-[TOC]
+- [Content](<#content>)
+- [General](<#general>)
+- [List of files](<#list-of-files>)
+- [Fit and plot examples](<#fit-and-plot-examples>)
+    - [Preparation](<#preparation>)
+    - [Simple fit with IMinuit](<#simple-fit-with-iminuit>)
+    - [Simple plot of fit](<#simple-plot-of-fit>)
+- [Validation of the results](<#validation-of-the-results>)
+    - [Fitting scripts](<#fitting-scripts>)
+    - [Plotting scripts](<#plotting-scripts>)
+- [On a χ² choice of function](<#on-a--choice-of-function>)
+- [Known issues](<#known-issues>)
 
 ## General
 
