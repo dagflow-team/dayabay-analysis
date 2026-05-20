@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import itertools
 from argparse import Namespace
-from pprint import pprint
 from typing import TYPE_CHECKING, Any
 
 import numpy as np
@@ -105,7 +104,7 @@ def main(args: Namespace) -> None:
     model.next_sample(mc_parameters=False, mc_statistics=False)
     minimizer = IMinuitMinimizer(stat_chi2, parameters=minimization_parameters, nbins=model.nbins)
     global_fit = minimizer.fit()
-    pprint(global_fit)
+    print(global_fit)
     bf_x_dict = global_fit["xdict"]
     model.set_parameters(bf_x_dict)
 
