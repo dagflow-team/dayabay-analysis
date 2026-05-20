@@ -27,8 +27,7 @@ This repository represents several examples of fitting and plotting results of f
 - [fits/fit_dayabay_iminuit_asimov.py](fits/fit_dayabay_iminuit_asimov.py): fit of the Daya Bay model Asimov data with chosen chi-squared based on `iminuit` package;
 - [fits/fit_dayabay_iminuit_data.py](fits/fit_dayabay_iminuit_data.py): fit of the Daya Bay model observed data with chosen chi-squared based on `iminuit` package;
 - [fits/fit_dayabay_iminuit_monte_carlo.py](fits/fit_dayabay_iminuit_monte_carlo.py): fit of the Daya Bay model Monte-Carlo data with chosen chi-squared based on `iminuit` package;
-- [plots/README.md](plots/README.md): short description of plot scripts;
-- [plots/plot_dayabay_fit_spectra_asimov.md](plots/plot_dayabay_fit_spectra_asimov.md): script for plotting Daya Bay spectra;
+- [plots/plot_dayabay_fit_spectra.py](plots/plot_dayabay_fit_spectra.py): script for plotting Daya Bay spectra based on Asimov or real data;
 - [requirements.txt](requirements.txt): contains list of libraries to be installed;
 - [pyproject.toml](pyproject.toml): configuration file for linters `black` and `isort`;
 - [.gitignore](.gitignore): configuration file for ignoring patterns by `git` utility.
@@ -53,16 +52,18 @@ Following script demonstrates how to run fit procedure for the Daya Bay model ba
 
 ### Simple plot of fit
 
-1. Following script demonstrates how to plot spectra of model based on fit data. Fit data is stored in `examples/fit-result-stat-example.yaml`:
+1. Following script demonstrates how to plot spectra of model based on fit data. Fit data is stored in [results/fits/fit-result-stat-example.yaml](results/fits/fit-result-stat-example.yaml):
   ```bash
-  ./plots/plot_dayabay_fit_spectra_asimov.py \
-      --input examples/fit-result-stat-example.yaml \
+  ./plots/plot_dayabay_fit_spectra.py \
+      --input results/fits/fit-result-stat-example.yaml \
+      --data asimov \
       --show
   ```
-2. Following script demonstrates how to plot 2D plot in $`(\sin^22\theta_{13}, \Delta m^2_{32})`$ axes based on fit data. Fit data is stored in `examples/fit-result-stat-example.yaml`:
+2. Following script demonstrates how to plot 2D plot in $`(\sin^22\theta_{13}, \Delta m^2_{32})`$ axes based on fit data. Fit data is stored in [results/fits/fit-result-stat-example.yaml](results/fits/fit-result-stat-example.yaml):
   ```bash
-  ./plots/plot_fit_2d.py \
-      --input examples/fit-result-stat-example.yaml \
+  ./plots/plot_dayabay_fit_2d.py \
+      --input results/fits/fit-result-stat-example.yaml \
+      --dm32 \
       --show
   ```
 
@@ -85,7 +86,7 @@ After running script from [scripts/](scripts), you may want to compare results w
 
 ### Plotting scripts
 
-This directory contains results of running [plots/plot_fit_2d.py](plots/plot_fit_2d.py) and [plots/plot_fit_dayabay_asimov.py] with file [results/fits/fit-result-stat-example.yaml](results/fits/fit-result-stat-example.yaml).
+This directory contains results of running [plots/plot_dayabay_fit_2d.py](plots/plot_dayabay_fit_2d.py) and [plots/plot_dayabay_fit_spectra.py](plots/plot_dayabay_fit_spectra.py) with file [results/fits/fit-result-stat-example.yaml](results/fits/fit-result-stat-example.yaml).
 
 ## On a χ² choice of function
 
