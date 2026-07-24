@@ -15,7 +15,6 @@ Example of call
         --use-hubber-mueller-spectral-uncertainties
 """
 from argparse import ArgumentParser
-from pprint import pprint
 
 import iminuit
 from dag_modelling.tools.make_fcn import make_fcn
@@ -88,7 +87,7 @@ def main(args) -> None:
     # Do fit
     result = minimizer.migrad()
 
-    pprint(result)
+    print(result)
 
     minos_result = {}
     if args.profile_parameters:

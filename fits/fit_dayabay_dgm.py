@@ -15,7 +15,6 @@ Example of call
       --output fit-result.yaml
 """
 from argparse import ArgumentParser, Namespace
-from pprint import pprint
 from typing import TYPE_CHECKING
 
 from dag_modelling.tools.logger import DEBUG as INFO4
@@ -113,7 +112,7 @@ def main(args: Namespace) -> None:
     if args.output:
         filter_save_fit(result, args.output)
 
-    pprint(result)
+    print(result)
 
 
 if __name__ == "__main__":
