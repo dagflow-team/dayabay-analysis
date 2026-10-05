@@ -91,7 +91,7 @@ transformation_inv = rebin @ lsnl_matrix_inv
 
 for idx, (eh, detectors) in enumerate(eh_to_ads.items()):
     emin, emax, centers, obs6ad, obs8ad, obs7ad, pred6ad, pred8ad, pred7ad = np.loadtxt(
-        f"check-prl-2022/DayaBay_IBDPromptSpectrum_{eh}_3158days.txt", unpack=True
+        f"prl_130_161802/DayaBay_IBDPromptSpectrum_{eh}_3158days.txt", unpack=True
     )
     xerrs = widths / 2
     obs_after_lsnl_inv_including_bkg = obs6ad + obs8ad + obs7ad
@@ -102,46 +102,57 @@ for idx, (eh, detectors) in enumerate(eh_to_ads.items()):
         f"{eh}: (PRL table)={table_prl[idx]:>10.2f} PRL (file)={obs_after_lsnl_inv_including_bkg.sum():>10.2f}; model (initial)={model_N.sum():>10.2f} model (events)={(transformation_inv @ model_N).sum():>10.2f} model (hist)={(transformation_inv @ model_N).sum():>10.2f}"
     )
 
-    fig, axs = plt.subplots(2, 1, height_ratios=[3, 1], sharex=True)
+    fig, axs = plt.subplots(3, 1, height_ratios=[3, 1, 1], figsize=(6, 6), sharex=True)
     eh_hist = np.vstack(eh_events_energies[eh]).sum(axis=0)
     axs[0].stairs(
-        eh_hist / widths, final_edges, label="open model lsnl_inv (events)", linestyle="-"
+        eh_hist / widths, final_edges, label="open model+lsnl_inv (event by event)", linestyle="-"
     )
     axs[0].stairs(
         transformation_inv @ model_N / widths,
         final_edges,
-        label="open model lsnl_inv (hist)",
+        label="open model+lsnl_inv (hist)",
         linestyle="--",
     )
     axs[0].stairs(
         obs_after_lsnl_inv_including_bkg / widths,
         final_edges,
-        label="PRL 130, 161802",
+        label="PRL 130, 161802 (supplementary)",
         linestyle=":",
     )
     axs[1].stairs(
-        np.abs(obs_after_lsnl_inv_including_bkg - eh_hist) / obs_after_lsnl_inv_including_bkg * 100,
+        (eh_hist / obs_after_lsnl_inv_including_bkg - 1),
         final_edges,
-        label="events / PRL",
+        label="event by event / PRL",
     )
     axs[1].stairs(
-        np.abs(obs_after_lsnl_inv_including_bkg - transformation_inv @ model_N)
-        / obs_after_lsnl_inv_including_bkg
-        * 100,
+        (transformation_inv @ model_N / obs_after_lsnl_inv_including_bkg - 1),
         final_edges,
         label="hist / PRL",
     )
-    axs[1].set_ylabel("|1 - ratio| [%]")
+    axs[2].stairs(
+        np.abs(eh_hist / obs_after_lsnl_inv_including_bkg - 1),
+        final_edges,
+        label="event by event / PRL",
+    )
+    axs[2].stairs(
+        np.abs(transformation_inv @ model_N / obs_after_lsnl_inv_including_bkg - 1),
+        final_edges,
+        label="hist / PRL",
+    )
     formatter = FFormatter()
     formatter.set_powerlimits((0, 3))
     axs[0].yaxis.set_major_formatter(formatter)
     ylim = 8e5 if eh == "EH1" else 9.2e5 if eh == "EH2" else 2.9e5
+    ylim1 = 0.45e-2 if eh == "EH1" else 0.195e-2 if eh == "EH2" else 0.85e-2
     axs[0].set_ylim(0, ylim)
+    axs[1].set_ylim(-ylim1, ylim1)
     axs[0].set_title(eh)
     axs[0].set_ylabel(r"Entries [MeV$^{-1}$]")
-    axs[1].set_xlabel("Visible energy [MeV]")
-    axs[1].set_yscale("log")
-    plt.subplots_adjust(wspace=0, hspace=0, top=0.92, left=0.125, right=0.95)
+    axs[1].set_ylabel("ratio - 1")
+    axs[2].set_ylabel("|ratio - 1|")
+    axs[2].set_xlabel("Reconstructed energy [MeV]")
+    axs[2].set_yscale("log")
+    plt.subplots_adjust(wspace=0, hspace=0, top=0.92, left=0.15, right=0.95)
 
     for ax in axs:
         ax.legend(loc="upper right")
