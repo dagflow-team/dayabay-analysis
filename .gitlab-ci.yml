@@ -1,6 +1,9 @@
 stages:
   - tests
 
+variables:
+  PYPI_INDEX: https://pypi-mirror.gitverse.ru/simple/
+
 tests:
   image: 'python:3.12.14-bookworm'
   stage: tests
@@ -11,9 +14,9 @@ tests:
     - python3 -m venv venv
     - source venv/bin/activate
     - git lfs install --skip-repo
-    - pip install --no-cache-dir --upgrade wheel setuptools pip
-    - pip install --no-cache-dir cython
-    - pip install --no-cache-dir -r requirements.txt
+    - pip install --no-cache-dir --upgrade wheel setuptools pip --index-url $PYPI_INDEX
+    - pip install --no-cache-dir cython --index-url $PYPI_INDEX
+    - pip install --no-cache-dir -r requirements.txt --index-url $PYPI_INDEX
     - PYTHONPATH=$PWD coverage run --source=. -m pytest
     - coverage report
     - coverage xml
