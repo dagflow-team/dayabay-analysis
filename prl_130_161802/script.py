@@ -41,6 +41,8 @@ ad_to_eh = {
 
 
 def main(args: Namespace) -> None:
+    # Creating of inverse LSNL transformation
+    # First, load original nominal LSNL curve and interpolate it
     lsnl_data = np.load(get_path_data(source_type="npz") / "detector_lsnl_curves.npz")
     xcoarse = lsnl_data["nominal"]["E_MeV"]
     lsnl_nominal_relative = lsnl_data["nominal"]["f"]
@@ -53,6 +55,7 @@ def main(args: Namespace) -> None:
         fill_value="extrapolate",
     )
 
+    # Instance of the Daya Bay model
     model = model_dayabay(
         concatenation_mode="detector",
         path_data=get_path_data(),
@@ -63,14 +66,19 @@ def main(args: Namespace) -> None:
     final_edges = model.storage["outputs.edges.energy_final"].data
     widths = final_edges[1:] - final_edges[:-1]
 
+    # Load IBD events and apply inverse LSNL to each propt energy
     for ad in ["AD11", "AD12", "AD21", "AD22", "AD31", "AD32", "AD33", "AD34"]:
-        energies_p = np.load(f"{args.path_tree_events}/dayabay_dataset_events_{ad}.npz")["events"]["energy_prompt_MeV"]
+        energies_p = np.load(args.path_tree_events.format(ad))["events"][
+            "energy_prompt_MeV"
+        ]
         energies_lsnl_inv = lsnl_nominal_absolute_inv_interpolated(energies_p)
         eh_events_energies[ad_to_eh[ad]].append(np.histogram(energies_lsnl_inv, final_edges)[0])
 
+    # Create same transformation for histograms from the model
     lsnl_matrix = model.storage["outputs.detector.lsnl.matrix.AD11"].data
     rebin = model.storage["outputs.detector.rebin.matrix_ibd"].data
 
+    # Load table with number of events by halls from the article
     table_prl = np.loadtxt("prl_130_161802/prl-events-by-eh.dat")
 
     lsnl_matrix_t = lsnl_matrix.toarray().T
@@ -78,6 +86,8 @@ def main(args: Namespace) -> None:
 
     transformation_inv = rebin @ lsnl_matrix_inv
 
+    # Load spectra from PRL article and plot observations from article and model
+    # Plot their ratio in linear and logarithmic scale
     for idx, (eh, detectors) in enumerate(eh_to_ads.items()):
         emin, emax, centers, obs6ad, obs8ad, obs7ad, pred6ad, pred8ad, pred7ad = np.loadtxt(
             f"prl_130_161802/DayaBay_IBDPromptSpectrum_{eh}_3158days.txt", unpack=True
@@ -152,7 +162,8 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument(
         "--path-tree-events",
-        help="Path to directory that contains files with IBD event trees with names `dayabay_dataset_b_events_{ad}.npz`",
+        required=True,
+        help="Path to npz-files with IBD events, it should contain placeholder for the detector",
     )
     parser.add_argument("-s", "--show", action="store_true", help="Show plots")
 
