@@ -74,7 +74,6 @@ Following script demonstrates how to run fit procedure for the Daya Bay model ba
   ```bash
   ./plots/plot_dayabay_fit_2d.py \
       --input results/fits/fit-result-stat-example.yaml \
-      --dm32 \
       --show
   ```
 
